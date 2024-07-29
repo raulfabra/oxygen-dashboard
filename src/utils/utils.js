@@ -6,6 +6,9 @@ export const Title = styled.h1({
 })
 
 export const Button = styled.button({
+  fontFamily: 'poppinsmedium--offline',
+  fontSize: '16px',
+
   width: '215px',
   height: '50px',
   backgroundColor: '#135846'

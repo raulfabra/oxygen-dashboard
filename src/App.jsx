@@ -1,22 +1,29 @@
-import { Routes, Route } from 'react-router-dom'
-import { Dashboard } from './pages/Dashboard.jsx'
-import { Bookings } from './pages/Bookings.jsx'
-import { Users } from './pages/Users.jsx'
-import { Rooms } from './pages/Rooms.jsx'
-import { Contact } from './pages/Contact.jsx'
-import { SimpleBook } from './pages/SimpleBook.jsx'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Login } from './pages/Login'
+import { Rooms } from './pages/Rooms'
+import { Bookings } from './pages/Bookings'
+import { SimpleBook } from './pages/SimpleBook'
+import { Dashboard } from './pages/Dashboard'
+import { Users } from './pages/Users'
+import { Contact } from './pages/Contact'
 import './App.css'
+import { ProtectedRoutes } from './utils/ProtectedRoutes'
 
 function App () {
   return (
-    <Routes>
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/rooms' element={<Rooms />} />
-      <Route path='/booking' element={<Bookings />} />
-      <Route path='/booking/:id' element={<SimpleBook />} />
-      <Route path='/users' element={<Users />} />
-      <Route path='/contact' element={<Contact />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='rooms' element={<Rooms />} />
+          <Route path='bookings' element={<Bookings />} />
+          <Route path='bookings/:id' element={<SimpleBook />} />
+          <Route path='users' element={<Users />} />
+          <Route path='contact' element={<Contact />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

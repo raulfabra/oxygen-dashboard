@@ -12,9 +12,9 @@ export const Login = () => {
 
   const navigate = useNavigate()
 
-  const handleLogin = (event) => {
+  const handleLogin = (event, data) => {
     event.preventDefault()
-
+    console.log(data)
     if (username === validUsername && password === validPassword) {
       window.localStorage.setItem('isAuthenticated', true)
       setAuthenticated(true)
