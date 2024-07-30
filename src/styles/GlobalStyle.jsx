@@ -16,4 +16,13 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: 600;
         font-style: normal;
     }
+
+    @font-face {
+    font-family: 'poppinsextrabold--offline';
+    src: url('/src/styles/fonts/poppins-extrabold-webfont.woff2') format('woff2'),
+         url('/src/styles/fonts/poppins-extrabold-webfont.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+
+    }
 `

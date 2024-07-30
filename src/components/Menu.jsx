@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { RiUserSharedFill, RiContactsBook3Fill } from 'react-icons/ri'
 import { MdDashboard, MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import { TfiKey } from 'react-icons/tfi'
-
 import { LuCalendarCheck } from 'react-icons/lu'
+import iconHotel from '../assets/noun-hotel.svg'
 
 const Button = styled.button`
 background-color: #EBF1EF;
@@ -22,8 +22,22 @@ const MenuWrapper = styled.section`
   background-color: green;
 `
 
+const TitleWrapper = styled.div`
+  width: 100%;
+  height: 70px;
+  display: flex;
+`
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'poppinsextrabold--offline';
+  background-color: violet;
+  width: 100%;
+`
+
 const PagesWrapper = styled.div`
-display: flex;
+  display: flex;
   width: 100%;
   padding: 1em;
   border-bottom: 1px solid lightgrey;
@@ -52,9 +66,10 @@ const Square = styled.div`
 export const Menu = () => {
   return (
     <MenuWrapper>
-      <PagesWrapper>
-        <img src='' alt='' />
-      </PagesWrapper>
+      <TitleWrapper>
+        <img src={iconHotel} alt='iconHotel' width={80} height={80} style={{ backgroundColor: 'violet' }} />
+        <Title>travl</Title>
+      </TitleWrapper>
       <PagesWrapper>
         <MdDashboard />
         <NameWrapper> Dashboard </NameWrapper>
