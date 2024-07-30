@@ -1,5 +1,9 @@
+import { Menu } from '../../components/Menu'
+
 export const NewRoom = () => {
   return (
-    <h1>NUEVA HABITAACIONS</h1>
+    <>
+      <Menu />
+    </>
   )
 }

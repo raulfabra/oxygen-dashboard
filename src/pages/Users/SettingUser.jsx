@@ -1,5 +1,9 @@
+import { Menu } from '../../components/Menu'
+
 export const SettingUser = () => {
   return (
-    <h1>BOOKING ID</h1>
+    <>
+      <Menu />
+    </>
   )
 }

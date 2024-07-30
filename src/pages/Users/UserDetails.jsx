@@ -1,5 +1,9 @@
+import { Menu } from '../../components/Menu'
+
 export const UserDetails = () => {
   return (
-    <h1>User Details</h1>
+    <>
+      <Menu />
+    </>
   )
 }
