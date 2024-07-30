@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ProtectedRoutes } from './utils/ProtectedRoutes'
 import { Login } from './pages/Login'
 import { Rooms } from './pages/Rooms'
 import { Bookings } from './pages/Bookings'
@@ -6,8 +7,6 @@ import { SimpleBook } from './pages/SimpleBook'
 import { Dashboard } from './pages/Dashboard'
 import { Users } from './pages/Users'
 import { Contact } from './pages/Contact'
-import './App.css'
-import { ProtectedRoutes } from './utils/ProtectedRoutes'
 
 function App () {
   return (

@@ -1,17 +1,16 @@
-import { useNavigate } from 'react-router-dom'
-import { Button, Title } from '../utils/utils'
+import { Navbar } from '../components/Navbar'
+import { Menu } from '../components/Menu'
+import styled from 'styled-components'
+
+const DashboardWrapper = styled.div`
+  display: flex;
+`
 
 export const Dashboard = () => {
-  const navigate = useNavigate()
-
-  const handleLogOut = () => {
-    window.localStorage.removeItem('isAuthenticated')
-    navigate('/')
-  }
   return (
-    <>
-      <Button onClick={handleLogOut}>LOG OUT</Button>
-      <Title>DASHBOARD</Title>
-    </>
+    <DashboardWrapper>
+      <Menu />
+      <Navbar />
+    </DashboardWrapper>
   )
 }
