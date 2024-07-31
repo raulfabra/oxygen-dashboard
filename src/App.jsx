@@ -1,5 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom'
-import { ProtectedRoutes } from './utils/ProtectedRoutes'
+import { Route, Routes } from 'react-router-dom'
 import { Login } from './pages/Login'
 import { Dashboard } from './pages/Dashboard'
 import { Rooms } from './pages/Rooms/Rooms'
@@ -11,21 +10,14 @@ import { Users } from './pages/Users/Users'
 import { UserDetails } from './pages/Users/UserDetails'
 import { SettingUser } from './pages/Users/SettingUser'
 import { Employers } from './pages/Employers'
-import { Menu } from './components/Menu'
-import { Navbar } from './components/Navbar'
+import { Layout } from './pages/Layout'
 
 function App () {
-  const location = useLocation()
-
-  const showComponents = location.pathname !== '/'
-
   return (
     <>
-      {showComponents && <Menu />}
-      {showComponents && <Navbar />}
       <Routes>
         <Route path='/' element={<Login />} />
-        <Route element={<ProtectedRoutes />}>
+        <Route element={<Layout />}>
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='rooms' element={<Rooms />} />
           <Route path='createRoom' element={<NewRoom />} />
