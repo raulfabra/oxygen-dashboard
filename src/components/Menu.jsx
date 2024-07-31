@@ -82,7 +82,37 @@ const UserWrapper = styled.article`
   box-shadow: 0px 20px 30px #00000014;
   border-radius: 18px;
 `
+const UserName = styled.p`
+  margin: 1em auto;
+  font-family: 'poppinsmedium--offline';
+  font-size: 0.8rem;
+  color: #393939;
+`
+const UserEmail = styled.p`
+  font-family: 'poppinslight--offline';
+  font-size: 0.5rem;
+  color: #6a6a6a;
+`
 
+const FooterWrapper = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+`
+const FooterTitle = styled.p`
+  font-family: 'poppinssemibold--offline';
+  font-size: 1rem;
+  color: #212121;
+`
+const FooterSubtitle = styled.p`
+  font-family: 'poppinslight--offline';
+  font-size: .7rem;
+  color: #799283;
+  padding-top: ${(props) => props.$variant === 'p.top' ? '5em' : ''};
+  
+`
 const SquarePhoto = styled.div`
   margin: 0 auto;
   width: 70px;
@@ -151,15 +181,15 @@ export const Menu = () => {
         <SquarePhoto>
           <img src='' alt='' />
         </SquarePhoto>
-        <p> Williams Johnsoon</p>
-        <p> williams@gmail.com</p>
+        <UserName> Williams Johnsoon</UserName>
+        <UserEmail> williams@gmail.com</UserEmail>
         <Button> <IoMdSettings /> </Button>
       </UserWrapper>
-      <footer>
-        <p />
-        <p />
-        <p />
-      </footer>
+      <FooterWrapper>
+        <FooterTitle>Travl Hotel Admin Dashboard</FooterTitle>
+        <FooterSubtitle>© 2020 All Rights Reserved</FooterSubtitle>
+        <FooterSubtitle $variant='p.top'>Made with ♥ by Peterdraw</FooterSubtitle>
+      </FooterWrapper>
     </MenuWrapper>
   )
 }
