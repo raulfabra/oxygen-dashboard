@@ -7,8 +7,6 @@ export const ProtectedRoutes = () => {
     if (userStorage) return userStorage
     else return false
   })
-  console.log('Pasas por aqui')
-  console.log(isAuthenticated)
   return (
     <>
       {isAuthenticated === 'true' ? <Outlet /> : <Navigate to='/' replace />}

@@ -16,8 +16,9 @@ const Nav = styled.nav`
   display: inline-block;
   position: fixed;
   width: 85%;
-  height: 70px;
-  background-color: cornflowerblue;
+  height: 100px;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 10px #00000005;
 `
 
 const Div = styled.div`
