@@ -3,60 +3,86 @@ import { RiUserSharedFill, RiContactsBook3Fill } from 'react-icons/ri'
 import { MdDashboard, MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import { TfiKey } from 'react-icons/tfi'
 import { LuCalendarCheck } from 'react-icons/lu'
+import { IoMdSettings } from 'react-icons/io'
 import iconHotel from '../assets/noun-hotel.svg'
 import { useNavigate } from 'react-router-dom'
-
-const Button = styled.button`
-background-color: #EBF1EF;
-color: ${props => props.$primary ? 'white' : '#BF4F74'};
-font-size: 1em;
-margin: 1em;
-padding: 0.25em 1em;
-border: 2px solid #EBF1EF;
-border-radius: 8px;
-`
+import { useState } from 'react'
 
 const MenuWrapper = styled.section`
   position: relative;
   display: inline-block;
   width: 15%;
   height: 100vh;
-  background-color: green;
+  background-color: #ffffff;
+  box-shadow: 13px 3px 40px #00000005;
 `
-
 const TitleWrapper = styled.div`
-  width: 100%;
-  height: 70px;
   display: flex;
-`
-const Title = styled.div`
-  display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  font-family: 'poppinsextrabold--offline';
-  background-color: violet;
-  width: 100%;
+  padding: 2em 0;
+  height: 100px;
 `
-
-const PagesWrapper = styled.div`
+const DivColumn = styled.div`
+  /* ${(props) => props.$variant === 'm.left' ? 'margin-left: 1em' : ''}; */
   display: flex;
-  width: 100%;
-  padding: 1em;
-  border-bottom: 1px solid lightgrey;
-  position: relative;
-  cursor: pointer;
-  background-color: violet;
+  flex-direction: column;
+  align-items: flex-start;
+`
+const Title = styled.h1`
+  font-family: 'poppinsextrabold--offline';
+`
+const Subtitle = styled.p`
+  display: flex;
+  flex-direction: column;
+  color: #5D5449;
+  font-family: 'poppinslight--offline';
+  font-size: 0.6rem;
 `
 
-const NameWrapper = styled.span`
+const ItemWrapper = styled.div`
+    display: flex;
+    position: relative;
+    ${(props) => props.$variant === 'm.top' ? 'margin-top: 2em' : ''};
+    font-family: 'poppinsregular--offline';
+    font-size: 1.2rem;
+    padding: 1.5em 2em;
+    text-align: left;
+    background-color: #ffffff;
+    color: #799283;
+
+    cursor: pointer;
+
+    &:hover{
+        font-family: 'poppinssemibold--offline';
+        color: #E23428;
+    }
+`
+const ItemSelect = styled.div`
+  display: ${props => props.isVisible ? 'block' : 'none'};
+  position: absolute;
+  top: 10%;
+  left: 2%;
+  width: 5px;
+  height: 80%;
+  border-radius: 8px;
+  background-color: red;
+`
+const ItemName = styled.span`
   margin-left: 1em;
   font-family: 'poppinssemibold--offline';
   font-size: 18px;
 `
 
 const UserWrapper = styled.article`
+  margin: 0 auto;
   padding: 2em;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0px 20px 30px #00000014;
+  border-radius: 18px;
 `
+
 const SquarePhoto = styled.div`
   margin: 0 auto;
   width: 70px;
@@ -65,44 +91,69 @@ const SquarePhoto = styled.div`
   background-color: grey;
 `
 
+const Button = styled.button`
+  margin: 1em;
+  width: 50%;
+  padding: 0.7em;
+  border: none;
+  border-radius: 8px;
+  background-color: #EBF1EF;
+  color: #135846;
+`
+
 export const Menu = () => {
   const navigate = useNavigate()
+  const [isHovering, setIsHovering] = useState(false)
+
+  const handleMouseEnter = () => {
+    setIsHovering(true)
+  }
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+  }
 
   return (
     <MenuWrapper>
       <TitleWrapper>
-        <img src={iconHotel} alt='iconHotel' width={80} height={80} style={{ backgroundColor: 'violet' }} />
-        <Title>travl</Title>
+        <img src={iconHotel} alt='iconHotel' width={120} height={80} />
+        <DivColumn>
+          <Title>travl</Title>
+          <Subtitle>Hotel Admin Dashboard</Subtitle>
+        </DivColumn>
       </TitleWrapper>
-      <PagesWrapper onClick={() => navigate('/dashboard')}>
+      <ItemWrapper $variant='m.top' onClick={() => navigate('/dashboard')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemSelect isVisible={isHovering} />
         <MdDashboard />
-        <NameWrapper> Dashboard </NameWrapper>
-      </PagesWrapper>
-      <PagesWrapper onClick={() => navigate('/rooms')}>
+        <ItemName> Dashboard </ItemName>
+      </ItemWrapper>
+      <ItemWrapper onClick={() => navigate('/rooms')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemSelect isVisible={isHovering} />
         <TfiKey />
-        <NameWrapper> Room </NameWrapper>
-        <MdOutlineKeyboardArrowDown />
-
-      </PagesWrapper>
-      <PagesWrapper onClick={() => navigate('/bookings')}>
+        <ItemName> Room </ItemName>
+        <MdOutlineKeyboardArrowDown style={{ position: 'absolute', left: '80%' }} />
+      </ItemWrapper>
+      <ItemWrapper onClick={() => navigate('/bookings')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemSelect isVisible={isHovering} />
         <LuCalendarCheck />
-        <NameWrapper> Bookings </NameWrapper>
-      </PagesWrapper>
-      <PagesWrapper onClick={() => navigate('/users')}>
+        <ItemName> Bookings </ItemName>
+      </ItemWrapper>
+      <ItemWrapper onClick={() => navigate('/users')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemSelect isVisible={isHovering} />
         <RiUserSharedFill />
-        <NameWrapper> Users </NameWrapper>
-      </PagesWrapper>
-      <PagesWrapper onClick={() => navigate('/employers')}>
+        <ItemName> Users </ItemName>
+      </ItemWrapper>
+      <ItemWrapper onClick={() => navigate('/employers')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemSelect isVisible={isHovering} />
         <RiContactsBook3Fill />
-        <NameWrapper> Employers </NameWrapper>
-      </PagesWrapper>
+        <ItemName> Employers </ItemName>
+      </ItemWrapper>
       <UserWrapper>
         <SquarePhoto>
           <img src='' alt='' />
         </SquarePhoto>
         <p> Williams Johnsoon</p>
         <p> williams@gmail.com</p>
-        <Button> Settings </Button>
+        <Button> <IoMdSettings /> </Button>
       </UserWrapper>
       <footer>
         <p />

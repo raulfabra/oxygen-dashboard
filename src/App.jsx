@@ -26,7 +26,6 @@ function App () {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route element={<ProtectedRoutes />}>
-          <Route element={<Menu />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='rooms' element={<Rooms />} />
           <Route path='createRoom' element={<NewRoom />} />
