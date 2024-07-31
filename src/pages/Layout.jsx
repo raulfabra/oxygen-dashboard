@@ -15,14 +15,51 @@ import { IoLogOut } from 'react-icons/io5'
 export const Layout = () => {
   // Lógica del Menú
   const navigate = useNavigate()
-  const [isHovering, setIsHovering] = useState(false)
+  const [isHovering1, setIsHovering1] = useState(false)
+  const [isHovering2, setIsHovering2] = useState(false)
+  const [isHovering3, setIsHovering3] = useState(false)
+  const [isHovering4, setIsHovering4] = useState(false)
+  const [isHovering5, setIsHovering5] = useState(false)
+
   const location = useLocation()
 
-  const handleMouseEnter = () => {
-    setIsHovering(true)
+  const handleMouseEnter = (event) => {
+    const item = event.target.getAttribute('datatype')
+    switch (item) {
+      case 'dashboard':
+        setIsHovering1(true)
+        break
+      case 'rooms':
+        setIsHovering2(true)
+        break
+      case 'bookings':
+        setIsHovering3(true)
+        break
+      case 'users':
+        setIsHovering4(true)
+        break
+      case 'employers':
+        setIsHovering5(true)
+    }
   }
-  const handleMouseLeave = () => {
-    setIsHovering(false)
+  const handleMouseLeave = (event) => {
+    const item = event.target.getAttribute('datatype')
+    switch (item) {
+      case 'dashboard':
+        setIsHovering1(false)
+        break
+      case 'rooms':
+        setIsHovering2(false)
+        break
+      case 'bookings':
+        setIsHovering3(false)
+        break
+      case 'users':
+        setIsHovering4(false)
+        break
+      case 'employers':
+        setIsHovering5(false)
+    }
   }
 
   // Lógica del Navbar
@@ -61,31 +98,31 @@ export const Layout = () => {
               <Subtitle>Hotel Admin Dashboard</Subtitle>
             </DivColumn>
           </TitleWrapper>
-          <ItemWrapper $variant='m.top' onClick={() => navigate('/dashboard')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering} />
+          <ItemWrapper datatype='dashboard' $variant='m.top' onClick={() => navigate('/dashboard')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <ItemSelect $isVisible={isHovering1} />
             <MdDashboard />
-            <ItemName> Dashboard </ItemName>
+            <ItemName datatype='dashboard'> Dashboard </ItemName>
           </ItemWrapper>
-          <ItemWrapper onClick={() => navigate('/rooms')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering} />
+          <ItemWrapper datatype='rooms' onClick={() => navigate('/rooms')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <ItemSelect $isVisible={isHovering2} />
             <TfiKey />
-            <ItemName> Room </ItemName>
+            <ItemName datatype='rooms'> Room </ItemName>
             <MdOutlineKeyboardArrowDown style={{ position: 'absolute', left: '80%' }} />
           </ItemWrapper>
-          <ItemWrapper onClick={() => navigate('/bookings')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering} />
+          <ItemWrapper datatype='bookings' onClick={() => navigate('/bookings')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <ItemSelect $isVisible={isHovering3} />
             <LuCalendarCheck />
-            <ItemName> Bookings </ItemName>
+            <ItemName datatype='bookings'> Bookings </ItemName>
           </ItemWrapper>
-          <ItemWrapper onClick={() => navigate('/users')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering} />
+          <ItemWrapper datatype='users' onClick={() => navigate('/users')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <ItemSelect $isVisible={isHovering4} />
             <RiUserSharedFill />
-            <ItemName> Users </ItemName>
+            <ItemName datatype='users'> Users </ItemName>
           </ItemWrapper>
-          <ItemWrapper onClick={() => navigate('/employers')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering} />
+          <ItemWrapper datatype='employers' onClick={() => navigate('/employers')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <ItemSelect $isVisible={isHovering5} />
             <RiContactsBook3Fill />
-            <ItemName> Employers </ItemName>
+            <ItemName datatype='employers'> Employers </ItemName>
           </ItemWrapper>
           <UserWrapper>
             <SquarePhoto>
