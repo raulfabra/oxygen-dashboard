@@ -9,29 +9,31 @@ import { BookingDetails } from './pages/Bookings/BookingDetails'
 import { Users } from './pages/Users/Users'
 import { UserDetails } from './pages/Users/UserDetails'
 import { SettingUser } from './pages/Users/SettingUser'
-import { Employers } from './pages/Employers'
+import { Contact } from './pages/Contact'
 import { Layout } from './pages/Layout'
+import { NewBooking } from './pages/Bookings/NewBooking'
 
-function App () {
+function App() {
   return (
-      <>
-          <Routes>
-              <Route path='/' element={<Navigate to='/login' />} />
-              <Route path='/login' element={<Login />} />
-              <Route element={<Layout />}>
-                  <Route path='dashboard' element={<Dashboard />} />
-                  <Route path='rooms' element={<Rooms />} />
-                  <Route path='createRoom' element={<NewRoom />} />
-                  <Route path='rooms/:id' element={<SettingRoom />} />
-                  <Route path='bookings' element={<Bookings />} />
-                  <Route path='bookings/:id' element={<BookingDetails />} />
-                  <Route path='users' element={<Users />} />
-                  <Route path='users/:id' element={<UserDetails />} />
-                  <Route path='settings/:id' element={<SettingUser />} />
-                  <Route path='employers' element={<Employers />} />
-              </Route>
-          </Routes>
-      </>
+    <>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<Layout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="rooms" element={<Rooms />} />
+          <Route path="createRoom" element={<NewRoom />} />
+          <Route path="rooms/:id" element={<SettingRoom />} />
+          <Route path="bookings" element={<Bookings />} />
+          <Route path="createBooking" element={<NewBooking />} />
+          <Route path="bookings/:id" element={<BookingDetails />} />
+          <Route path="users" element={<Users />} />
+          <Route path="users/:id" element={<UserDetails />} />
+          <Route path="settings/:id" element={<SettingUser />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+      </Routes>
+    </>
   )
 }
 

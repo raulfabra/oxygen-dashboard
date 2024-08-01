@@ -8,7 +8,7 @@
 |DELETE         |"/bookings/:id"   | remove booking                |
 |-----------    |--------------    |-----------------------------  |
 |GET            |"/rooms   "       | displays rooms list           |
-|POST           |"/rooms"          | create bookings               |
+|POST           |"/rooms"          | create rooms               |
 |GET            |"/rooms/:id"      | display room details          |
 |PUT            |"/rooms/:id"      | update room                   |
 |DELETE         |"/rooms/:id"      | remove room                   |
