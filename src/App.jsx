@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from './pages/Login'
 import { Dashboard } from './pages/Dashboard'
 import { Rooms } from './pages/Rooms/Rooms'
@@ -14,23 +14,24 @@ import { Layout } from './pages/Layout'
 
 function App () {
   return (
-    <>
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route element={<Layout />}>
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route path='rooms' element={<Rooms />} />
-          <Route path='createRoom' element={<NewRoom />} />
-          <Route path='rooms/:id' element={<SettingRoom />} />
-          <Route path='bookings' element={<Bookings />} />
-          <Route path='bookings/:id' element={<BookingDetails />} />
-          <Route path='users' element={<Users />} />
-          <Route path='users/:id' element={<UserDetails />} />
-          <Route path='settings/:id' element={<SettingUser />} />
-          <Route path='employers' element={<Employers />} />
-        </Route>
-      </Routes>
-    </>
+      <>
+          <Routes>
+              <Route path='/' element={<Navigate to='/login' />} />
+              <Route path='/login' element={<Login />} />
+              <Route element={<Layout />}>
+                  <Route path='dashboard' element={<Dashboard />} />
+                  <Route path='rooms' element={<Rooms />} />
+                  <Route path='createRoom' element={<NewRoom />} />
+                  <Route path='rooms/:id' element={<SettingRoom />} />
+                  <Route path='bookings' element={<Bookings />} />
+                  <Route path='bookings/:id' element={<BookingDetails />} />
+                  <Route path='users' element={<Users />} />
+                  <Route path='users/:id' element={<UserDetails />} />
+                  <Route path='settings/:id' element={<SettingUser />} />
+                  <Route path='employers' element={<Employers />} />
+              </Route>
+          </Routes>
+      </>
   )
 }
 

@@ -21,7 +21,7 @@ export const MenuWrapper = styled.section`
   position: relative;
   display: inline-block;
   width: 15%;
-  height: 100vh;
+  height: 100%;
   background-color: #ffffff;
   box-shadow: 13px 3px 40px #00000005;
 
@@ -93,6 +93,13 @@ export const UserWrapper = styled.article`
   box-shadow: 0px 20px 30px #00000014;
   border-radius: 18px;
 `
+export const SquarePhoto = styled.div`
+    margin: 0 auto;
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    background-color: grey;
+`
 export const UserName = styled.p`
   margin: 1em auto;
   font-family: 'poppinsmedium--offline';
@@ -104,25 +111,29 @@ export const UserEmail = styled.p`
   font-size: 0.5rem;
   color: #6a6a6a;
 `
+export const SettingButton = styled.button`
+  margin: 1em;
+  width: 50%;
+  padding: 0.7em;
+  border: none;
+  border-radius: 8px;
+  background-color: #EBF1EF;
+  color: #135846;
+`
 
 export const FooterWrapper = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  flex: 1;
-  `
-export const SquarePhoto = styled.div`
-    margin: 0 auto;
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    background-color: grey;
-  `
+  text-align: center;
+`
+
 export const FooterTitle = styled.p`
   margin-top: 2em;
   font-family: 'poppinssemibold--offline';
   font-size: 1rem;
+  text-align: center;
   color: #212121;
 `
 export const FooterSubtitle = styled.p`
@@ -131,13 +142,4 @@ export const FooterSubtitle = styled.p`
   color: #799283;
   padding-top: ${(props) => props.$variant === 'p.top' ? '3em' : ''};
   
-`
-export const FooterButton = styled.button`
-  margin: 1em;
-  width: 50%;
-  padding: 0.7em;
-  border: none;
-  border-radius: 8px;
-  background-color: #EBF1EF;
-  color: #135846;
 `
