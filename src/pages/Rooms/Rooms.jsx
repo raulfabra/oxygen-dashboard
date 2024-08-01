@@ -2,7 +2,7 @@ import db_json from '../../json/roomsData.json'
 import iconRoom from '../../assets/noun-rooms.svg'
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Main = styled.main`
   position: absolute;
@@ -31,6 +31,12 @@ const TableBooking = styled.table`
 `
 const IconWrapper = styled.div`
   width: 100px;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
 `
 const RoomNameColumn = styled.td`
   display: flex;
@@ -39,10 +45,6 @@ const RoomNameColumn = styled.td`
 export const Rooms = () => {
   const navigator = useNavigate()
   const [roomsData, setRoomsData] = useState(null)
-
-  const handleNewRoom = () => {
-    navigate('/createBooking')
-  }
 
   useEffect(() => {
     setRoomsData(db_json)
@@ -56,7 +58,7 @@ export const Rooms = () => {
           <li>Active Rooms</li>
           <li>Booked Rooms</li>
         </BookingNav>
-        <button type="button" onClick={handleNewRoom}>
+        <button type="button" onClick={() => navigator('/createRoom')}>
           + New Room
         </button>
       </Header>
@@ -76,7 +78,7 @@ export const Rooms = () => {
             roomsData.map((room) => (
               <tr key={room.id}>
                 <RoomNameColumn>
-                  <IconWrapper>
+                  <IconWrapper onClick={() => navigator(`/rooms/${room.id}`)}>
                     <img src={iconRoom} alt="icon-room" />
                   </IconWrapper>
                   <div>

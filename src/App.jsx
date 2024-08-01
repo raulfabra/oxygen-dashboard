@@ -11,6 +11,7 @@ import { UserDetails } from './pages/Users/UserDetails'
 import { SettingUser } from './pages/Users/SettingUser'
 import { Contact } from './pages/Contact'
 import { Layout } from './pages/Layout'
+import { NewBooking } from './pages/Bookings/NewBooking'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="createRoom" element={<NewRoom />} />
           <Route path="rooms/:id" element={<SettingRoom />} />
           <Route path="bookings" element={<Bookings />} />
+          <Route path="createBooking" element={<NewBooking />} />
           <Route path="bookings/:id" element={<BookingDetails />} />
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<UserDetails />} />
