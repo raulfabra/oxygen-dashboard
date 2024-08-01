@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Nav = styled.nav`
-  position: fixed;
+  position: absolute;
   display: inline-block;
   width: ${(props) => props.$large === true ? '85%' : '100%'};
   background-color: #ffffff;
@@ -13,13 +13,11 @@ export const NavWrapper = styled.div`
     align-items: center;
     margin: 2em 2em; 
 `
-
 export const Div = styled.div`
   display: flex;
   align-items: center;
   gap: 3em;
 `
-
 export const Title = styled.h1`
   font-family: 'poppinssemibold--offline';
   font-size: 28px;
