@@ -21,7 +21,13 @@ const BookingNav = styled.ul`
   list-style-type: none;
   gap: 10px;
 `
-const BookingStatus = styled.li``
+const OrderBookings = styled.li`
+  margin-right: 1em;
+  &:hover {
+    font-weight: bold;
+    cursor: pointer;
+  }
+`
 
 const TableBooking = styled.table`
   margin: 3em 0;
@@ -45,18 +51,36 @@ const RoomNameColumn = styled.td`
 export const Rooms = () => {
   const navigator = useNavigate()
   const [roomsData, setRoomsData] = useState(null)
+  const [isOrderByActiveRooms, setIsOrderByActiveRooms] = useState(false)
+  const [isOrderByInactiveRooms, setIsOrderByInactiveRooms] = useState(false)
 
   useEffect(() => {
     setRoomsData(db_json)
   }, [])
 
+  const handleOption = (event) => {
+    const name = event.target.textContent
+
+    if (name === 'All Rooms') {
+      setIsOrderByActiveRooms(false)
+      setIsOrderByInactiveRooms(false)
+    }
+    if (name === 'Active Rooms') {
+      setIsOrderByActiveRooms(!isOrderByActiveRooms)
+      setIsOrderByInactiveRooms(false)
+    }
+    if (name === 'Booked Rooms') {
+      setIsOrderByInactiveRooms(!isOrderByInactiveRooms)
+      setIsOrderByActiveRooms(false)
+    }
+  }
   return (
     <Main>
       <Header>
         <BookingNav>
-          <li>All Rooms</li>
-          <li>Active Rooms</li>
-          <li>Booked Rooms</li>
+          <OrderBookings onClick={handleOption}>All Rooms</OrderBookings>
+          <OrderBookings onClick={handleOption}>Active Rooms</OrderBookings>
+          <OrderBookings onClick={handleOption}>Booked Rooms</OrderBookings>
         </BookingNav>
         <button type="button" onClick={() => navigator('/createRoom')}>
           + New Room
@@ -75,6 +99,8 @@ export const Rooms = () => {
         </thead>
         <tbody>
           {roomsData &&
+            !isOrderByActiveRooms &&
+            !isOrderByInactiveRooms &&
             roomsData.map((room) => (
               <tr key={room.id}>
                 <RoomNameColumn>
@@ -93,6 +119,52 @@ export const Rooms = () => {
                 <td>{room.statusRoom}</td>
               </tr>
             ))}
+          {roomsData &&
+            isOrderByActiveRooms &&
+            !isOrderByInactiveRooms &&
+            roomsData
+              .filter((room) => room.statusRoom === 'Available')
+              .map((room) => (
+                <tr key={room.id}>
+                  <RoomNameColumn>
+                    <IconWrapper onClick={() => navigator(`/rooms/${room.id}`)}>
+                      <img src={iconRoom} alt="icon-room" />
+                    </IconWrapper>
+                    <div>
+                      <p>{room.id.substring(0, 7)}</p>
+                      <p>{`${room.type} - ${String(room.numberRoom)}`}</p>
+                    </div>
+                  </RoomNameColumn>
+                  <td>{room.type}</td>
+                  <td>{room.amenies}</td>
+                  <td>{`$${room.price} / Night `}</td>
+                  <td>{`$${Math.ceil(Number(room.price.substring(1)) * (room.discountprice / 100))} / Night`}</td>
+                  <td>{room.statusRoom}</td>
+                </tr>
+              ))}
+          {roomsData &&
+            !isOrderByActiveRooms &&
+            isOrderByInactiveRooms &&
+            roomsData
+              .filter((room) => room.statusRoom === 'Booked')
+              .map((room) => (
+                <tr key={room.id}>
+                  <RoomNameColumn>
+                    <IconWrapper onClick={() => navigator(`/rooms/${room.id}`)}>
+                      <img src={iconRoom} alt="icon-room" />
+                    </IconWrapper>
+                    <div>
+                      <p>{room.id.substring(0, 7)}</p>
+                      <p>{`${room.type} - ${String(room.numberRoom)}`}</p>
+                    </div>
+                  </RoomNameColumn>
+                  <td>{room.type}</td>
+                  <td>{room.amenies}</td>
+                  <td>{`$${room.price} / Night `}</td>
+                  <td>{`$${Math.ceil(Number(room.price.substring(1)) * (room.discountprice / 100))} / Night`}</td>
+                  <td>{room.statusRoom}</td>
+                </tr>
+              ))}
         </tbody>
         <tfoot></tfoot>
       </TableBooking>
