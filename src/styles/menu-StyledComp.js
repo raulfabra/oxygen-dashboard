@@ -21,7 +21,7 @@ export const MenuWrapper = styled.section`
   position: relative;
   display: inline-block;
   width: 15%;
-  height: 100%;
+  height: 100vh;
   background-color: #ffffff;
   box-shadow: 13px 3px 40px #00000005;
 
