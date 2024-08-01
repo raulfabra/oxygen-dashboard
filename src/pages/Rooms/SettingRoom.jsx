@@ -1,3 +1,1 @@
-export const SettingRoom = ({ itemProp: room }) => {
-  console.log(room)
-}
+export const SettingRoom = () => {}
