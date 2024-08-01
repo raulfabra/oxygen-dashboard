@@ -23,6 +23,7 @@ const BookingStatus = styled.li``
 
 const TableBooking = styled.table`
   margin: 3em 0;
+  width: 100%;
   border: 1px solid black;
   border-collapse: collapse;
 `
@@ -68,7 +69,7 @@ export const Bookings = () => {
                 <td>{booking.check_In}</td>
                 <td>{booking.check_out}</td>
                 <td>{booking.requests}</td>
-                <td>{booking.roomType}</td>
+                <td>{`${booking.roomType.name} - ${String(booking.roomType.number)}`}</td>
                 <td>{booking.status}</td>
               </tr>
             ))}
