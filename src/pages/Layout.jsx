@@ -144,8 +144,8 @@ export const Layout = () => {
           <UserWrapper>
             <SquarePhoto>
               <img
-                src="public/Vegeta.jpg"
-                alt="User-photo"
+                src=""
+                alt=""
                 style={{ objectFit: 'contain', width: '100%', height: '100%' }}
               />
             </SquarePhoto>
