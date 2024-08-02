@@ -143,7 +143,11 @@ export const Layout = () => {
           </ItemWrapper>
           <UserWrapper>
             <SquarePhoto>
-              <img src="" alt="" />
+              <img
+                src=""
+                alt=""
+                style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+              />
             </SquarePhoto>
             <UserName> Williams Johnsoon</UserName>
             <UserEmail> williams@gmail.com</UserEmail>

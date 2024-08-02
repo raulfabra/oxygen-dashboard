@@ -21,7 +21,7 @@ export const MenuWrapper = styled.section`
   position: relative;
   display: inline-block;
   width: 15%;
-  height: 100vh;
+  height: 100%;
   background-color: #ffffff;
   box-shadow: 13px 3px 40px #00000005;
 
@@ -46,31 +46,31 @@ export const Title = styled.h1`
 export const Subtitle = styled.p`
   display: flex;
   flex-direction: column;
-  color: #5D5449;
+  color: #5d5449;
   font-family: 'poppinslight--offline';
   font-size: 0.6rem;
 `
 
 export const ItemWrapper = styled.div`
-    display: flex;
-    position: relative;
-    ${(props) => props.$variant === 'm.top' ? 'margin-top: 2em' : ''};
-    font-family: 'poppinsregular--offline';
-    font-size: 1.2rem;
-    padding: 1.5em 2em;
-    text-align: left;
-    background-color: #ffffff;
-    color: #799283;
+  display: flex;
+  position: relative;
+  ${(props) => (props.$variant === 'm.top' ? 'margin-top: 2em' : '')};
+  font-family: 'poppinsregular--offline';
+  font-size: 1.2rem;
+  padding: 1.5em 2em;
+  text-align: left;
+  background-color: #ffffff;
+  color: #799283;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    &:hover{
-        font-family: 'poppinssemibold--offline';
-        color: #E23428;
-    }
+  &:hover {
+    font-family: 'poppinssemibold--offline';
+    color: #e23428;
+  }
 `
 export const ItemSelect = styled.div`
-  display: ${props => props.$isVisible ? 'block' : 'none'};
+  display: ${(props) => (props.$isVisible ? 'block' : 'none')};
   position: absolute;
   top: 10%;
   left: 2%;
@@ -94,11 +94,11 @@ export const UserWrapper = styled.article`
   border-radius: 18px;
 `
 export const SquarePhoto = styled.div`
-    margin: 0 auto;
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    background-color: grey;
+  margin: 0 auto;
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  background-color: grey;
 `
 export const UserName = styled.p`
   margin: 1em auto;
@@ -117,7 +117,7 @@ export const SettingButton = styled.button`
   padding: 0.7em;
   border: none;
   border-radius: 8px;
-  background-color: #EBF1EF;
+  background-color: #ebf1ef;
   color: #135846;
 `
 
@@ -127,6 +127,8 @@ export const FooterWrapper = styled.footer`
   align-items: center;
   gap: 10px;
   text-align: center;
+  height: 100vh;
+  align-self: stretch;
 `
 
 export const FooterTitle = styled.p`
@@ -138,8 +140,7 @@ export const FooterTitle = styled.p`
 `
 export const FooterSubtitle = styled.p`
   font-family: 'poppinslight--offline';
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: #799283;
-  padding-top: ${(props) => props.$variant === 'p.top' ? '3em' : ''};
-  
+  padding-top: ${(props) => (props.$variant === 'p.top' ? '3em' : '')};
 `
