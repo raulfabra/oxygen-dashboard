@@ -7,17 +7,18 @@ export const Main = styled.main`
   width: 75%;
 `;
 
-export const Header = styled.header`
+export const NavTable = styled.header`
+  margin: 2em 0;
   display: flex;
   justify-content: space-between;
 `;
 
-export const BookingNav = styled.ul`
+export const FilterTable = styled.ul`
   display: flex;
   list-style-type: none;
-  gap: 10px;
+  gap: 1em;
 `;
-export const OrderBookings = styled.li`
+export const OptionsFiltered = styled.li`
   margin-right: 1em;
   &:hover {
     font-weight: bold;
@@ -25,14 +26,17 @@ export const OrderBookings = styled.li`
   }
 `;
 
+export const CreateElement = styled.button``;
+
 export const TableBooking = styled.table`
   margin: 3em 0;
   width: 100%;
   border: 1px solid black;
   border-collapse: collapse;
 `;
+
 export const IconWrapper = styled.div`
-  width: 50px;
+  width: ${(props) => props.$width};
   transition: transform 0.3s;
 
   &:hover {

@@ -3,7 +3,6 @@ import db_json from "../json/bookingsData.json";
 /* import iconPerson from "../../assets/noun-person.svg"; */
 import { useNavigate } from "react-router-dom";
 import debounce from "just-debounce-it";
-import { BookingNav, Header, Main, OrderBookings } from "../styles/getBookingsStyle";
 
 export const Bookings = () => {
   const navigator = useNavigate();
@@ -99,7 +98,7 @@ export const Bookings = () => {
             bookingsData.map((booking) => (
               <tr key={booking.id}>
                 <RoomNameColumn>
-                  <IconWrapper onClick={() => navigator(`/bookings/${booking.id}`)}>
+                  <IconWrapper onClick={() => navigator(`/bookings/${booking.id}`)} $width='50px'>
                     <img src={iconPerson} alt="icon-person" />
                   </IconWrapper>
                   {booking.fullName}
