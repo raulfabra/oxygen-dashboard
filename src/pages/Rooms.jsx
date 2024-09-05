@@ -1,52 +1,9 @@
-import db_json from "../json/roomsData.json";
+import db_json from "../json/dataRooms.json";
 /* import iconRoom from "../../assets/noun-rooms.svg"; */
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const Main = styled.main`
-  position: absolute;
-  top: 15%;
-  left: 20%;
-  width: 75%;
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const BookingNav = styled.ul`
-  display: flex;
-  list-style-type: none;
-  gap: 10px;
-`;
-const OrderBookings = styled.li`
-  margin-right: 1em;
-  &:hover {
-    font-weight: bold;
-    cursor: pointer;
-  }
-`;
-
-const TableBooking = styled.table`
-  margin: 3em 0;
-  width: 100%;
-  border: 1px solid black;
-  border-collapse: collapse;
-`;
-const IconWrapper = styled.div`
-  width: 100px;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-`;
-const RoomNameColumn = styled.td`
-  display: flex;
-`;
+import { FilterTable, Main, NavTable, OptionsFiltered, CreateElement } from "../styles/tableStyles";
+import { Table } from "../components/Table";
 
 export const Rooms = () => {
   const navigator = useNavigate();
@@ -54,9 +11,44 @@ export const Rooms = () => {
   const [isOrderByActiveRooms, setIsOrderByActiveRooms] = useState(false);
   const [isOrderByInactiveRooms, setIsOrderByInactiveRooms] = useState(false);
 
-  useEffect(() => {
-    setRoomsData(db_json);
-  }, []);
+  const columns = [
+    {
+      label: "Room Name",
+      display: (room) => (
+        <section>
+          <div>
+            <img src={room.typeRoom.pictures} alt="picture-Room" width={"100px"} />
+          </div>
+          <div>
+            <h4>{room.Id_room}</h4>
+            <h3>
+              {room.typeRoom.bed} - {room.numberRoom}
+            </h3>
+          </div>
+        </section>
+      ),
+    },
+    {
+      label: "Room Type",
+      display: (row) => `${row.typeRoom.bed}`,
+    },
+    {
+      label: "Room Floor",
+      display: (room) => `Floor ${room.numberRoom}`,
+    },
+    {
+      label: "Amenities",
+      display: (room) => `${room.typeRoom.amenities}`,
+    },
+    {
+      label: "Price per Night",
+      display: (room) => `${room.priceNight}`,
+    },
+    {
+      label: "Status",
+      display: (room) => `${room.statusRoom}`,
+    },
+  ];
 
   const handleOption = (event) => {
     const name = event.target.textContent;
@@ -74,100 +66,24 @@ export const Rooms = () => {
       setIsOrderByActiveRooms(false);
     }
   };
+
+  useEffect(() => {
+    setRoomsData(db_json);
+  }, []);
+
   return (
     <Main>
-      <Header>
-        <BookingNav>
-          <OrderBookings onClick={handleOption}>All Rooms</OrderBookings>
-          <OrderBookings onClick={handleOption}>Active Rooms</OrderBookings>
-          <OrderBookings onClick={handleOption}>Booked Rooms</OrderBookings>
-        </BookingNav>
-        <button type="button" onClick={() => navigator("/createRoom")}>
+      <NavTable>
+        <FilterTable>
+          <OptionsFiltered onClick={handleOption}>All Rooms</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>Active Rooms</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>Booked Rooms</OptionsFiltered>
+        </FilterTable>
+        <CreateElement type="button" onClick={() => navigator("/createRoom")}>
           + New Room
-        </button>
-      </Header>
-      {/* <TableBooking>
-        <thead>
-          <tr>
-            <th>Room Name</th>
-            <th>Room Type</th>
-            <th>Amenities</th>
-            <th>Price</th>
-            <th>Offer Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {roomsData &&
-            !isOrderByActiveRooms &&
-            !isOrderByInactiveRooms &&
-            roomsData.map((room) => (
-              <tr key={room.id}>
-                <RoomNameColumn>
-                  <IconWrapper onClick={() => navigator(`/rooms/${room.id}`)}>
-                    <img src={iconRoom} alt="icon-room" />
-                  </IconWrapper>
-                  <div>
-                    <p>{room.id.substring(0, 7)}</p>
-                    <p>{`${room.type} - ${String(room.numberRoom)}`}</p>
-                  </div>
-                </RoomNameColumn>
-                <td>{room.type}</td>
-                <td>{room.amenies}</td>
-                <td>{`$${room.price} / Night `}</td>
-                <td>{`$${Math.ceil(Number(room.price.substring(1)) * (room.discountprice / 100))} / Night`}</td>
-                <td>{room.statusRoom}</td>
-              </tr>
-            ))}
-          {roomsData &&
-            isOrderByActiveRooms &&
-            !isOrderByInactiveRooms &&
-            roomsData
-              .filter((room) => room.statusRoom === "Available")
-              .map((room) => (
-                <tr key={room.id}>
-                  <RoomNameColumn>
-                    <IconWrapper onClick={() => navigator(`/rooms/${room.id}`)}>
-                      <img src={iconRoom} alt="icon-room" />
-                    </IconWrapper>
-                    <div>
-                      <p>{room.id.substring(0, 7)}</p>
-                      <p>{`${room.type} - ${String(room.numberRoom)}`}</p>
-                    </div>
-                  </RoomNameColumn>
-                  <td>{room.type}</td>
-                  <td>{room.amenies}</td>
-                  <td>{`$${room.price} / Night `}</td>
-                  <td>{`$${Math.ceil(Number(room.price.substring(1)) * (room.discountprice / 100))} / Night`}</td>
-                  <td>{room.statusRoom}</td>
-                </tr>
-              ))}
-          {roomsData &&
-            !isOrderByActiveRooms &&
-            isOrderByInactiveRooms &&
-            roomsData
-              .filter((room) => room.statusRoom === "Booked")
-              .map((room) => (
-                <tr key={room.id}>
-                  <RoomNameColumn>
-                    <IconWrapper onClick={() => navigator(`/rooms/${room.id}`)}>
-                      <img src={iconRoom} alt="icon-room" />
-                    </IconWrapper>
-                    <div>
-                      <p>{room.id.substring(0, 7)}</p>
-                      <p>{`${room.type} - ${String(room.numberRoom)}`}</p>
-                    </div>
-                  </RoomNameColumn>
-                  <td>{room.type}</td>
-                  <td>{room.amenies}</td>
-                  <td>{`$${room.price} / Night `}</td>
-                  <td>{`$${Math.ceil(Number(room.price.substring(1)) * (room.discountprice / 100))} / Night`}</td>
-                  <td>{room.statusRoom}</td>
-                </tr>
-              ))}
-        </tbody>
-        <tfoot></tfoot>
-      </TableBooking> */}
+        </CreateElement>
+      </NavTable>
+      {roomsData && <Table data={roomsData} columns={columns} />}
     </Main>
   );
 };
