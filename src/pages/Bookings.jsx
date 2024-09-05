@@ -1,112 +1,66 @@
-import { useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import db_json from '../../json/bookingsData.json'
-import iconPerson from '../../assets/noun-person.svg'
-import { useNavigate } from 'react-router-dom'
-import debounce from 'just-debounce-it'
-
-const Main = styled.main`
-  position: absolute;
-  top: 15%;
-  left: 20%;
-  width: 75%;
-`
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-`
-
-const BookingNav = styled.ul`
-  display: flex;
-  list-style-type: none;
-  gap: 10px;
-`
-const OrderBookings = styled.li`
-  margin-right: 1em;
-  &:hover {
-    font-weight: bold;
-    cursor: pointer;
-  }
-`
-
-const TableBooking = styled.table`
-  margin: 3em 0;
-  width: 100%;
-  border: 1px solid black;
-  border-collapse: collapse;
-`
-const IconWrapper = styled.div`
-  width: 50px;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-`
-const RoomNameColumn = styled.td`
-  display: flex;
-`
+import { useCallback, useEffect, useState } from "react";
+import db_json from "../json/bookingsData.json";
+/* import iconPerson from "../../assets/noun-person.svg"; */
+import { useNavigate } from "react-router-dom";
+import debounce from "just-debounce-it";
+import { BookingNav, Header, Main, OrderBookings } from "../styles/getBookingsStyle";
 
 export const Bookings = () => {
-  const navigator = useNavigate()
-  const [bookingsData, setBookingsData] = useState(null)
-  const [orderByCheckIn, setOrderByCheckIn] = useState(false)
-  const [orderByCheckOut, setOrderByCheckOut] = useState(false)
-  const [orderByInProgress, setOrderByInProgress] = useState(false)
+  const navigator = useNavigate();
+  const [bookingsData, setBookingsData] = useState(null);
+  const [orderByCheckIn, setOrderByCheckIn] = useState(false);
+  const [orderByCheckOut, setOrderByCheckOut] = useState(false);
+  const [orderByInProgress, setOrderByInProgress] = useState(false);
 
   const handleOption = (event) => {
-    const name = event.target.textContent
+    const name = event.target.textContent;
 
-    if (name === 'All Bookings') {
-      console.log('Hola')
-      setOrderByCheckIn(false)
-      setOrderByCheckOut(false)
-      setOrderByInProgress(false)
-      setBookingsData(db_json)
+    if (name === "All Bookings") {
+      console.log("Hola");
+      setOrderByCheckIn(false);
+      setOrderByCheckOut(false);
+      setOrderByInProgress(false);
+      setBookingsData(db_json);
     }
-    if (name === 'Checking in') {
-      setOrderByCheckIn(!orderByCheckIn)
-      setOrderByCheckOut(false)
-      setOrderByInProgress(false)
-      const newList = [...bookingsData]
-      setBookingsData(newList)
+    if (name === "Checking in") {
+      setOrderByCheckIn(!orderByCheckIn);
+      setOrderByCheckOut(false);
+      setOrderByInProgress(false);
+      const newList = [...bookingsData];
+      setBookingsData(newList);
     }
-    if (name === 'Checking out') {
-      setOrderByCheckIn(false)
-      setOrderByCheckOut(!orderByCheckOut)
-      setOrderByInProgress(false)
-      const newList = [...bookingsData]
-      setBookingsData(newList)
+    if (name === "Checking out") {
+      setOrderByCheckIn(false);
+      setOrderByCheckOut(!orderByCheckOut);
+      setOrderByInProgress(false);
+      const newList = [...bookingsData];
+      setBookingsData(newList);
     }
-    if (name === 'In Progress') {
-      setOrderByCheckIn(false)
-      setOrderByCheckOut(false)
-      setOrderByInProgress(!orderByInProgress)
-      const newList = [...bookingsData]
-      setBookingsData(newList)
+    if (name === "In Progress") {
+      setOrderByCheckIn(false);
+      setOrderByCheckOut(false);
+      setOrderByInProgress(!orderByInProgress);
+      const newList = [...bookingsData];
+      setBookingsData(newList);
     }
-  }
+  };
 
   const debouncedGetBookingsByGuests = useCallback(
     debounce((newList) => {
-      setBookingsData(newList)
+      setBookingsData(newList);
     }, 500)
-  )
+  );
 
   const handleSearchByName = (event) => {
-    const value = event.target.value.toLowerCase()
-    const newList = bookingsData.filter((booking) =>
-      booking.fullName.toLowerCase().includes(value)
-    )
-    if (value === '') return debouncedGetBookingsByGuests(db_json)
-    else debouncedGetBookingsByGuests(newList)
-  }
+    const value = event.target.value.toLowerCase();
+    const newList = bookingsData.filter((booking) => booking.fullName.toLowerCase().includes(value));
+    if (value === "") return debouncedGetBookingsByGuests(db_json);
+    else debouncedGetBookingsByGuests(newList);
+  };
 
   useEffect(() => {
-    setBookingsData(db_json)
-  }, [])
+    setBookingsData(db_json);
+  }, []);
 
   return (
     <Main>
@@ -119,18 +73,13 @@ export const Bookings = () => {
         </BookingNav>
         <form>
           <label htmlFor="nameCustomer">Name of client</label>
-          <input
-            type="text"
-            name="nameCustomer"
-            id="nameCustomer"
-            onChange={handleSearchByName}
-          />
+          <input type="text" name="nameCustomer" id="nameCustomer" onChange={handleSearchByName} />
         </form>
-        <button type="button" onClick={() => navigator('/createBooking')}>
+        <button type="button" onClick={() => navigator("/createBooking")}>
           + New Booking
         </button>
       </Header>
-      <TableBooking>
+      {/* <TableBooking>
         <thead>
           <tr>
             <th>Guest</th>
@@ -150,9 +99,7 @@ export const Bookings = () => {
             bookingsData.map((booking) => (
               <tr key={booking.id}>
                 <RoomNameColumn>
-                  <IconWrapper
-                    onClick={() => navigator(`/bookings/${booking.id}`)}
-                  >
+                  <IconWrapper onClick={() => navigator(`/bookings/${booking.id}`)}>
                     <img src={iconPerson} alt="icon-person" />
                   </IconWrapper>
                   {booking.fullName}
@@ -160,7 +107,7 @@ export const Bookings = () => {
                 <td>{booking.orderDate}</td>
                 <td>{booking.check_out}</td>
                 <td>{booking.check_In}</td>
-                <td style={{ width: '40%' }}>{booking.requests}</td>
+                <td style={{ width: "40%" }}>{booking.requests}</td>
                 <td>{`${booking.roomType.name} - ${String(booking.roomType.number)}`}</td>
                 <td>{booking.status}</td>
               </tr>
@@ -171,17 +118,15 @@ export const Bookings = () => {
             !orderByInProgress &&
             bookingsData
               .sort((a, b) => {
-                const dateA = new Date(a.check_out.replace(' ', 'T'))
-                const dateB = new Date(b.check_out.replace(' ', 'T'))
+                const dateA = new Date(a.check_out.replace(" ", "T"));
+                const dateB = new Date(b.check_out.replace(" ", "T"));
 
-                return dateA - dateB
+                return dateA - dateB;
               })
               .map((booking) => (
                 <tr key={booking.id}>
                   <RoomNameColumn>
-                    <IconWrapper
-                      onClick={() => navigator(`/bookings/${booking.id}`)}
-                    >
+                    <IconWrapper onClick={() => navigator(`/bookings/${booking.id}`)}>
                       <img src={iconPerson} alt="icon-person" />
                     </IconWrapper>
                     {booking.fullName}
@@ -189,7 +134,7 @@ export const Bookings = () => {
                   <td>{booking.orderDate}</td>
                   <td>{booking.check_out}</td>
                   <td>{booking.check_In}</td>
-                  <td style={{ width: '40%' }}>{booking.requests}</td>
+                  <td style={{ width: "40%" }}>{booking.requests}</td>
                   <td>{`${booking.roomType.name} - ${String(booking.roomType.number)}`}</td>
                   <td>{booking.status}</td>
                 </tr>
@@ -200,17 +145,15 @@ export const Bookings = () => {
             !orderByInProgress &&
             bookingsData
               .sort((a, b) => {
-                const dateA = new Date(a.check_In.replace(' ', 'T'))
-                const dateB = new Date(b.check_In.replace(' ', 'T'))
+                const dateA = new Date(a.check_In.replace(" ", "T"));
+                const dateB = new Date(b.check_In.replace(" ", "T"));
 
-                return dateA - dateB
+                return dateA - dateB;
               })
               .map((booking) => (
                 <tr key={booking.id}>
                   <RoomNameColumn>
-                    <IconWrapper
-                      onClick={() => navigator(`/bookings/${booking.id}`)}
-                    >
+                    <IconWrapper onClick={() => navigator(`/bookings/${booking.id}`)}>
                       <img src={iconPerson} alt="icon-person" />
                     </IconWrapper>
                     {booking.fullName}
@@ -218,7 +161,7 @@ export const Bookings = () => {
                   <td>{booking.orderDate}</td>
                   <td>{booking.check_out}</td>
                   <td>{booking.check_In}</td>
-                  <td style={{ width: '40%' }}>{booking.requests}</td>
+                  <td style={{ width: "40%" }}>{booking.requests}</td>
                   <td>{`${booking.roomType.name} - ${String(booking.roomType.number)}`}</td>
                   <td>{booking.status}</td>
                 </tr>
@@ -229,18 +172,16 @@ export const Bookings = () => {
             orderByInProgress &&
             bookingsData
               .sort((a, b) => {
-                const dateA = new Date(a.orderDate.replace(' ', 'T'))
-                const dateB = new Date(b.orderDate.replace(' ', 'T'))
+                const dateA = new Date(a.orderDate.replace(" ", "T"));
+                const dateB = new Date(b.orderDate.replace(" ", "T"));
 
-                return dateA - dateB
+                return dateA - dateB;
               })
-              .filter((booking) => booking.status === 'Pending')
+              .filter((booking) => booking.status === "Pending")
               .map((booking) => (
                 <tr key={booking.id}>
                   <RoomNameColumn>
-                    <IconWrapper
-                      onClick={() => navigator(`/bookings/${booking.id}`)}
-                    >
+                    <IconWrapper onClick={() => navigator(`/bookings/${booking.id}`)}>
                       <img src={iconPerson} alt="icon-person" />
                     </IconWrapper>
                     {booking.fullName}
@@ -248,14 +189,14 @@ export const Bookings = () => {
                   <td>{booking.orderDate}</td>
                   <td>{booking.check_out}</td>
                   <td>{booking.check_In}</td>
-                  <td style={{ width: '40%' }}>{booking.requests}</td>
+                  <td style={{ width: "40%" }}>{booking.requests}</td>
                   <td>{`${booking.roomType.name} - ${String(booking.roomType.number)}`}</td>
                   <td>{booking.status}</td>
                 </tr>
               ))}
         </tbody>
         <tfoot></tfoot>
-      </TableBooking>
+      </TableBooking> */}
     </Main>
-  )
-}
+  );
+};

@@ -1,17 +1,17 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { Login } from './pages/Login'
-import { Dashboard } from './pages/Dashboard'
-import { Rooms } from './pages/Rooms/Rooms'
-import { NewRoom } from './pages/Rooms/NewRoom'
-import { Bookings } from './pages/Bookings/Bookings'
-import { BookingDetails } from './pages/Bookings/BookingDetails'
-import { Users } from './pages/Users/Users'
-import { UserDetails } from './pages/Users/UserDetails'
-import { NewUser } from './pages/Users/NewUser'
-import { Contact } from './pages/Contact'
-import { Layout } from './pages/Layout'
-import { NewBooking } from './pages/Bookings/NewBooking'
-import { RoomDetails } from './pages/Rooms/RoomDetails'
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Login } from "./pages/Login";
+import { Dashboard } from "./pages/Dashboard";
+import { Rooms } from "./pages/Rooms";
+import { NewRoom } from "./pages/NewRoom";
+import { Bookings } from "./pages/Bookings";
+import { BookingDetails } from "./pages/BookingDetails";
+import { Users } from "./pages/Users";
+import { UserDetails } from "./pages/UserDetails";
+import { NewUser } from "./pages/NewUser";
+import { Contact } from "./pages/Contact";
+import { Layout } from "./pages/Layout";
+import { NewBooking } from "./pages/NewBooking";
+import { RoomDetails } from "./pages/RoomDetails";
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
         </Route>
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
