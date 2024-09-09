@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import db_json from "../json/bookingsData.json";
-/* import iconPerson from "../../assets/noun-person.svg"; */
 import { useNavigate } from "react-router-dom";
 import debounce from "just-debounce-it";
+import db_json from "../json/bookingsData.json";
+import { CreateElement, FilterTable, Main, NavTable, OptionsFiltered } from "../styles/tableStyles";
+/* import iconPerson from "../../assets/noun-person.svg"; */
 
 export const Bookings = () => {
   const navigator = useNavigate();
@@ -63,21 +64,21 @@ export const Bookings = () => {
 
   return (
     <Main>
-      <Header>
-        <BookingNav>
-          <OrderBookings onClick={handleOption}>All Bookings</OrderBookings>
-          <OrderBookings onClick={handleOption}>Checking in</OrderBookings>
-          <OrderBookings onClick={handleOption}>Checking out</OrderBookings>
-          <OrderBookings onClick={handleOption}>In Progress</OrderBookings>
-        </BookingNav>
+      <NavTable>
+        <FilterTable>
+          <OptionsFiltered onClick={handleOption}>All Bookings</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>Checking in</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>Checking out</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>In Progress</OptionsFiltered>
+        </FilterTable>
         <form>
           <label htmlFor="nameCustomer">Name of client</label>
           <input type="text" name="nameCustomer" id="nameCustomer" onChange={handleSearchByName} />
         </form>
-        <button type="button" onClick={() => navigator("/createBooking")}>
+        <CreateElement type="button" onClick={() => navigator("/createBooking")}>
           + New Booking
-        </button>
-      </Header>
+        </CreateElement>
+      </NavTable>
       {/* <TableBooking>
         <thead>
           <tr>

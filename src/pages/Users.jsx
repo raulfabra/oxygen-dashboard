@@ -1,58 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-import db_json from "../json/usersData.json";
 import { useNavigate } from "react-router-dom";
+import { Table } from "../components/Table";
+import { CreateElement, FilterTable, Main, NavTable, OptionsFiltered } from "../styles/tableStyles";
+import db_json from "../json/dataUsers.json";
 import debounce from "just-debounce-it";
-import { FaPhone } from "react-icons/fa6";
-import { MdVerticalAlignCenter } from "react-icons/md";
-
-const Main = styled.main`
-  position: absolute;
-  top: 15%;
-  left: 20%;
-  width: 75%;
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const MenuOptions = styled.ul`
-  display: flex;
-  list-style-type: none;
-  gap: 10px;
-`;
-const UsersStates = styled.li`
-  margin-right: 1em;
-  &:hover {
-    font-weight: bold;
-    cursor: pointer;
-  }
-`;
-
-const Table = styled.table`
-  margin: 3em 0;
-  width: 100%;
-  border: 1px solid black;
-  border-collapse: collapse;
-`;
-const IconWrapper = styled.div`
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-`;
-const RoomNameColumn = styled.td`
-  display: flex;
-`;
-
-const PictureUser = styled.img`
-  width: 150px;
-  height: 120px;
-`;
 
 export const Users = () => {
   const navigator = useNavigate();
@@ -60,6 +11,40 @@ export const Users = () => {
   const [showActiveEmployee, setShowActive] = useState(false);
   const [showInactiveEmployee, setShowInactive] = useState(false);
 
+  //Create table: columns and data
+  const columns = [
+    {
+      label: "Name",
+      display: (user) => (
+        <section>
+          <div>
+            <img src={user.picture} alt="picture person" width={"100px"} />
+          </div>
+          <div>
+            <h3>{user.fullName}</h3>
+            <h4>#{user.id_user}</h4>
+            <h4>Joined on {user.start_date}</h4>
+          </div>
+        </section>
+      ),
+    },
+    {
+      label: "Job Desk",
+      display: (user) => `${user.jobDesk}`,
+    },
+    {
+      label: "Email",
+      display: (user) => `📧 ${user.email}`,
+    },
+    {
+      label: "Contact",
+      display: (user) => `📲 ${user.phone}`,
+    },
+    {
+      label: "Status",
+      display: (user) => `${user.statusEmployeer}`,
+    },
+  ];
   const handleOption = (event) => {
     const name = event.target.textContent;
 
@@ -102,110 +87,21 @@ export const Users = () => {
   }, []);
   return (
     <Main>
-      <Header>
-        <MenuOptions>
-          <UsersStates onClick={handleOption}>All Employee</UsersStates>
-          <UsersStates onClick={handleOption}>Active Employee</UsersStates>
-          <UsersStates onClick={handleOption}>Inactive Employee</UsersStates>
-        </MenuOptions>
+      <NavTable>
+        <FilterTable>
+          <OptionsFiltered onClick={handleOption}>All Employee</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>Active Employee</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>Inactive Employee</OptionsFiltered>
+        </FilterTable>
         <form>
           <label htmlFor="nameCustomer">Search Employee: </label>
           <input type="text" name="nameCustomer" id="nameCustomer" onChange={handleSearchByName} />
         </form>
-        <button type="button" onClick={() => navigator("/createUser")}>
+        <CreateElement type="button" onClick={() => navigator("/createUser")}>
           + New Employee
-        </button>
-      </Header>
-      {/* <Table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Job Desk</th>
-            <th>Shedule</th>
-            <th>Contact</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {usersData &&
-            !showActiveEmployee &&
-            !showInactiveEmployee &&
-            usersData.map((user) => (
-              <tr key={user.id_user}>
-                <RoomNameColumn>
-                  <IconWrapper onClick={() => navigator(`/users/${user.id_user}`)}>
-                    <PictureUser src="/public/ratatouille.jfif" alt="picturePerson" />
-                  </IconWrapper>
-                  <div style={{ textAlign: "center", padding: "1em 0" }}>
-                    <p> {user.fullName} </p>
-                    <p> {user.id_user} </p>
-                    <p> Joined on {user.startDate}</p>
-                  </div>
-                </RoomNameColumn>
-                <td style={{ width: "25%" }}>{user.jobDescription}</td>
-                <td>Monday, Friday and Wednesday</td>
-                <td>
-                  <FaPhone />
-                  {user.phone}
-                </td>
-                <td>{user.status}</td>
-              </tr>
-            ))}
-          {usersData &&
-            showActiveEmployee &&
-            !showInactiveEmployee &&
-            usersData
-              .filter((user) => user.status === "Active")
-              .map((user) => (
-                <tr key={user.id_user}>
-                  <RoomNameColumn>
-                    <IconWrapper onClick={() => navigator(`/users/${user.id_user}`)}>
-                      <PictureUser src="/public/ratatouille.jfif" alt="picturePerson" />
-                    </IconWrapper>
-                    <div>
-                      <p> {user.fullName} </p>
-                      <p> {user.id_user} </p>
-                      <p> Joined on {user.startDate}</p>
-                    </div>
-                  </RoomNameColumn>
-                  <td style={{ width: "25%" }}>{user.jobDescription}</td>
-                  <td>Monday, Friday and Wednesday</td>
-                  <td>
-                    <FaPhone />
-                    {user.phone}
-                  </td>
-                  <td>{user.status}</td>
-                </tr>
-              ))}
-          {usersData &&
-            !showActiveEmployee &&
-            showInactiveEmployee &&
-            usersData
-              .filter((user) => user.status === "Inactive")
-              .map((user) => (
-                <tr key={user.id_user}>
-                  <RoomNameColumn>
-                    <IconWrapper onClick={() => navigator(`/users/${user.id_user}`)}>
-                      <PictureUser src="/public/ratatouille.jfif" alt="picturePerson" />
-                    </IconWrapper>
-                    <div>
-                      <p> {user.fullName} </p>
-                      <p> {user.id_user} </p>
-                      <p> Joined on {user.startDate}</p>
-                    </div>
-                  </RoomNameColumn>
-                  <td style={{ width: "25%" }}>{user.jobDescription}</td>
-                  <td>Monday, Friday and Wednesday</td>
-                  <td>
-                    <FaPhone />
-                    {user.phone}
-                  </td>
-                  <td>{user.status}</td>
-                </tr>
-              ))}
-        </tbody>
-        <tfoot></tfoot>
-      </Table> */}
+        </CreateElement>
+      </NavTable>
+      {usersData && <Table data={usersData} columns={columns} />}
     </Main>
   );
 };
