@@ -1,1 +1,1 @@
-export const RoomDetails = () => {}
+export const RoomDetails = () => {};
