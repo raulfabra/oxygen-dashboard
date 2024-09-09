@@ -1,9 +1,9 @@
-import db_json from "../json/dataRooms.json";
-/* import iconRoom from "../../assets/noun-rooms.svg"; */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FilterTable, Main, NavTable, OptionsFiltered, CreateElement } from "../styles/tableStyles";
 import { Table } from "../components/Table";
+import { FilterTable, Main, NavTable, OptionsFiltered, CreateElement } from "../styles/tableStyles";
+import db_json from "../json/dataRooms.json";
+/* import iconRoom from "../../assets/noun-rooms.svg"; */
 
 export const Rooms = () => {
   const navigator = useNavigate();
@@ -11,6 +11,7 @@ export const Rooms = () => {
   const [isOrderByActiveRooms, setIsOrderByActiveRooms] = useState(false);
   const [isOrderByInactiveRooms, setIsOrderByInactiveRooms] = useState(false);
 
+  //Create table: columns and data
   const columns = [
     {
       label: "Room Name",
@@ -30,7 +31,7 @@ export const Rooms = () => {
     },
     {
       label: "Room Type",
-      display: (row) => `${row.typeRoom.bed}`,
+      display: (room) => `${room.typeRoom.bed}`,
     },
     {
       label: "Room Floor",
