@@ -47,3 +47,44 @@ export const IconWrapper = styled.div`
 export const RoomNameColumn = styled.td`
   display: flex;
 `;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 25%;
+  left: 35%;
+  width: 25%;
+  height: 50%;
+`;
+
+export const ModalContent = styled.div`
+  position: relative;
+  background-color: #f5f5dc;
+  border: 2px solid black;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+export const ModalText = styled.p`
+  padding: 1em;
+  font-family: "poppinsmedium--offline";
+  font-size: 1rem;
+  text-align: justify;
+`;
+
+export const ModalExit = styled.button`
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  width: 25px;
+  height: 25px;
+  background-color: #ffffff;
+  cursor: pointer;
+  &:hover {
+    background-color: red;
+  }
+`;

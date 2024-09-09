@@ -8,10 +8,8 @@ import debounce from "just-debounce-it";
 export const Users = () => {
   const navigator = useNavigate();
   const [usersData, setUsersData] = useState(null);
-  const [showActiveEmployee, setShowActive] = useState(false);
-  const [showInactiveEmployee, setShowInactive] = useState(false);
 
-  //Create table: columns and data
+  //Create table: column and data
   const columns = [
     {
       label: "Name",
@@ -21,7 +19,7 @@ export const Users = () => {
             <img src={user.picture} alt="picture person" width={"100px"} />
           </div>
           <div>
-            <h3>{user.fullName}</h3>
+            <h3 onClick={handleUser}>{user.fullName}</h3>
             <h4>#{user.id_user}</h4>
             <h4>Joined on {user.start_date}</h4>
           </div>
@@ -49,23 +47,17 @@ export const Users = () => {
     const name = event.target.textContent;
 
     if (name === "All Employee") {
-      setShowActive(false);
-      setShowInactive(false);
       setUsersData(db_json);
     }
     if (name === "Active Employee") {
-      setShowActive(!showActiveEmployee);
-      setShowInactive(false);
+      const newData = db_json.filter((user) => user.statusEmployeer === "Active");
 
-      const newList = [...usersData];
-      setUsersData(newList);
+      setUsersData(newData);
     }
     if (name === "Inactive Employee") {
-      setShowActive(false);
-      setShowInactive(!showInactiveEmployee);
+      const newData = db_json.filter((user) => user.statusEmployeer === "Inactive");
 
-      const newList = [...usersData];
-      setUsersData(newList);
+      setUsersData(newData);
     }
   };
 
@@ -80,6 +72,11 @@ export const Users = () => {
     const newList = usersData.filter((user) => user.fullName.toLowerCase().includes(value));
     if (value === "") return debouncedGetEmployee(db_json);
     else debouncedGetEmployee(newList);
+  };
+
+  const handleUser = (event) => {
+    console.log(event.target.value);
+    navigator(`/${"hola"}`);
   };
 
   useEffect(() => {
