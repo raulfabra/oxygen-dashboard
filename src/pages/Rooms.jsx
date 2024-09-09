@@ -1,16 +1,15 @@
-import db_json from "../json/dataRooms.json";
-/* import iconRoom from "../../assets/noun-rooms.svg"; */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FilterTable, Main, NavTable, OptionsFiltered, CreateElement } from "../styles/tableStyles";
 import { Table } from "../components/Table";
+import { FilterTable, Main, NavTable, OptionsFiltered, CreateElement } from "../styles/tableStyles";
+import db_json from "../json/dataRooms.json";
+/* import iconRoom from "../../assets/noun-rooms.svg"; */
 
 export const Rooms = () => {
   const navigator = useNavigate();
   const [roomsData, setRoomsData] = useState(null);
-  const [isOrderByActiveRooms, setIsOrderByActiveRooms] = useState(false);
-  const [isOrderByInactiveRooms, setIsOrderByInactiveRooms] = useState(false);
 
+  //Create table: column and data
   const columns = [
     {
       label: "Room Name",
@@ -30,7 +29,7 @@ export const Rooms = () => {
     },
     {
       label: "Room Type",
-      display: (row) => `${row.typeRoom.bed}`,
+      display: (room) => `${room.typeRoom.bed}`,
     },
     {
       label: "Room Floor",
@@ -54,16 +53,15 @@ export const Rooms = () => {
     const name = event.target.textContent;
 
     if (name === "All Rooms") {
-      setIsOrderByActiveRooms(false);
-      setIsOrderByInactiveRooms(false);
+      setRoomsData(db_json);
     }
     if (name === "Active Rooms") {
-      setIsOrderByActiveRooms(!isOrderByActiveRooms);
-      setIsOrderByInactiveRooms(false);
+      const newData = db_json.filter((room) => room.statusRoom === "Available");
+      setRoomsData(newData);
     }
     if (name === "Booked Rooms") {
-      setIsOrderByInactiveRooms(!isOrderByInactiveRooms);
-      setIsOrderByActiveRooms(false);
+      const newData = db_json.filter((room) => room.statusRoom === "Booked");
+      setRoomsData(newData);
     }
   };
 
