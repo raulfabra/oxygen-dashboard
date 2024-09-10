@@ -111,9 +111,6 @@ export const Bookings = () => {
     }
   };
 
-  //Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada. useCallback para memorizar la función y no volver a lanzar indevidamente.
-  const bookingsByGuestsDebounce = useCallback(debounce((byName) => setBookingsListData(byName), 700));
-
   //Order Filters by searchKeyboard auto
   const handleSearchByName = (event) => {
     const value = event.target.value.toLowerCase();
@@ -122,13 +119,17 @@ export const Bookings = () => {
     else bookingsByGuestsDebounce(newList);
   };
 
+  //Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada. useCallback para memorizar la función y no volver a lanzar indevidamente.
+  const bookingsByGuestsDebounce = useCallback(debounce((byName) => setBookingsListData(byName), 700));
+
+  //Display/Close Modal of Description Requests of each row in table: (variable handleModal and handleCloseModal)
   const handleModal = (id_booked_modal) => {
     const viewNote = bookingsListData.filter((booked) => booked.id.includes(id_booked_modal))[0];
     setViewNotes(viewNote);
   };
-
   const handleCloseModal = () => setViewNotes(null);
 
+  //Se lanza cada vez que el estado de bookings cambia.
   useEffect(() => {
     if (bookingsStatus === "idle") dispatch(getBookingsThunk());
     else if (bookingsStatus === "rejected") console.log(bookingsError);
