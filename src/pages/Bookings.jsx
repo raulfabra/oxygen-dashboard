@@ -2,9 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table } from "../components/Table";
 import { CreateElement, FilterTable, Main, ModalContent, ModalExit, ModalText, ModalWrapper, NavTable, OptionsFiltered } from "../styles/tableStyles";
-import db_json from "../json/dataBooking.json";
+import db_json from "../json/dataBookings.json";
 import debounce from "just-debounce-it";
-// import DataTable from "react-data-table-component";
 import iconPerson from "../assets/noun-person.svg";
 
 export const Bookings = () => {
@@ -83,16 +82,20 @@ export const Bookings = () => {
     if (name === "All Bookings") {
       setBookingsData(db_json);
     }
-    if (name === "Checking in") {
-      const newList = [...bookingsData];
+    if (name === "Pending") {
+      const newList = db_json.filter((booking) => booking.statusBooking === "Pending");
       setBookingsData(newList);
     }
-    if (name === "Checking out") {
-      const newList = [...bookingsData];
+    if (name === "Booked") {
+      const newList = db_json.filter((booking) => booking.statusBooking === "Booked");
       setBookingsData(newList);
     }
-    if (name === "In Progress") {
-      const newList = [...bookingsData];
+    if (name === "Canceled") {
+      const newList = db_json.filter((booking) => booking.statusBooking === "Canceled");
+      setBookingsData(newList);
+    }
+    if (name === "Refund") {
+      const newList = db_json.filter((booking) => booking.statusBooking === "Refund");
       setBookingsData(newList);
     }
   };
