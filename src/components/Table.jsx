@@ -1,6 +1,16 @@
+import { useReducer } from "react";
 import { Pagination } from "./Pagination";
+import { initialState, pagination } from "../utils/paginationLogic";
+import { PaginationContext } from "../App";
 
 export const Table = ({ data, columns }) => {
+  const [currentPage, dispatch] = useReducer(pagination, initialState);
+
+  const rowsPerPage = 10;
+  const lastIndex = currentPage * rowsPerPage; // The last index is a the last element of our DataBase.
+  const firstIndex = lastIndex - rowsPerPage;
+  const rows = data.slice(firstIndex, lastIndex); // Content of each row per page */
+
   return (
     <section>
       <table>
@@ -12,7 +22,7 @@ export const Table = ({ data, columns }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((dat, index) => (
+          {rows.map((dat, index) => (
             <tr key={index + 100}>
               {columns.map((column, index) => (
                 <td key={index + 1000}>{column.display(dat)}</td>
@@ -21,7 +31,9 @@ export const Table = ({ data, columns }) => {
           ))}
         </tbody>
       </table>
-      <Pagination />
+      <PaginationContext.Provider value={{ currentPageState: currentPage, currentPageDispatch: dispatch }}>
+        <Pagination dataBase={data} rowsPerPage={rowsPerPage} />
+      </PaginationContext.Provider>
     </section>
   );
 };
