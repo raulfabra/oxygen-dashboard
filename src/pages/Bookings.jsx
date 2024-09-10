@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table } from "../components/Table";
-import { CreateElement, FilterTable, Main, ModalContent, ModalExit, ModalText, ModalWrapper, NavTable, OptionsFiltered } from "../styles/tableStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookingsListData, getBookingsListStatus } from "../redux/booking/BookingSlice";
 import { getBookingsThunk } from "../redux/booking/BookingThunk";
 import debounce from "just-debounce-it";
 import db_json from "../json/dataBookings.json";
 import iconPerson from "../assets/noun-person.svg";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../styles/stylesComponents";
 
 // CAMBIAR DB_JSON POR bookingsData
 
@@ -27,15 +27,15 @@ export const Bookings = () => {
     {
       label: "Guest",
       display: (booked) => (
-        <section>
-          <div>
+        <DataWrapper>
+          <DataContent>
             <img src={iconPerson} alt="picture person" width={"50px"} />
-          </div>
-          <div>
+          </DataContent>
+          <DataContent>
             <h3>{booked.fullName}</h3>
             <h4>#{booked.id_booking}</h4>
-          </div>
-        </section>
+          </DataContent>
+        </DataWrapper>
       ),
     },
     {
@@ -139,7 +139,7 @@ export const Bookings = () => {
   }, [bookingsStatus]);
 
   return (
-    <Main>
+    <Main $layout>
       <NavTable>
         <FilterTable>
           <OptionsFiltered onClick={handleOptions}>All Bookings</OptionsFiltered>

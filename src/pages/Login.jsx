@@ -57,7 +57,7 @@ export const Login = () => {
   };
 
   return (
-    <Main>
+    <Main $login>
       <TitleContainer>
         <Title>HOTEL MIRANDA DASHBOARD</Title>
         <div>

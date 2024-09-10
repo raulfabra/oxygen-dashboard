@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { PaginationContext } from "../App";
 import styled from "styled-components";
-import { colors } from "../styles/themes.js/theme";
+import { colors } from "../styles/themes/theme";
 
 const PaginationWrapper = styled.nav`
   margin: 3em;
@@ -19,23 +19,9 @@ const PaginationTable = styled.ul`
 const Numbers = styled.li`
   background-color: ${colors.quaternary};
   border: 2px solid ${colors.primary};
-  transition: all 0.3s ease;
+
   &:hover {
     cursor: pointer;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #007bff;
-    border-radius: 5px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-    z-index: -1;
   }
 `;
 
@@ -47,18 +33,13 @@ export const Pagination = ({ dataBase, rowsPerPage }) => {
   return (
     <PaginationWrapper>
       <PaginationTable>
-        <Numbers onClick={() => paginationContext.currentPageDispatch("decrement")}>Prev</Numbers>
+        <Numbers onClick={() => paginationContext.currentPageDispatch({ type: "decrement", id: 1 })}>Prev</Numbers>
         {numbers.map((num, index) => (
-          <Numbers
-            key={index}
-            onClick={() => {
-              paginationContext.currentPageDispatch({ type: "direct", id: num });
-            }}
-          >
+          <Numbers key={index} onClick={() => paginationContext.currentPageDispatch({ type: "direct", id: num })}>
             {num}
           </Numbers>
         ))}
-        <Numbers onClick={() => paginationContext.currentPageDispatch("increment")}>Next</Numbers>
+        <Numbers onClick={() => paginationContext.currentPageDispatch({ type: "increment", id: npage })}>Next</Numbers>
       </PaginationTable>
     </PaginationWrapper>
   );

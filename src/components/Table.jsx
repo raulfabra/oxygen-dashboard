@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { Pagination } from "./Pagination";
 import { initialState, pagination } from "../utils/paginationLogic";
 import { PaginationContext } from "../App";
+import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../styles/stylesComponents";
 
 export const Table = ({ data, columns }) => {
   const [currentPage, dispatch] = useReducer(pagination, initialState);
@@ -12,28 +13,28 @@ export const Table = ({ data, columns }) => {
   const rows = data.slice(firstIndex, lastIndex); // Content of each row per page */
 
   return (
-    <section>
-      <table>
-        <thead>
-          <tr>
+    <TableWrapper>
+      <Tables>
+        <TableHead>
+          <Row $header>
             {columns.map((column, index) => (
-              <th key={index}>{column.label}</th>
+              <ColumnHeader key={index}>{column.label}</ColumnHeader>
             ))}
-          </tr>
-        </thead>
-        <tbody>
+          </Row>
+        </TableHead>
+        <TableBody>
           {rows.map((dat, index) => (
-            <tr key={index + 100}>
+            <Row key={index + 100}>
               {columns.map((column, index) => (
-                <td key={index + 1000}>{column.display(dat)}</td>
+                <RowData key={index + 1000}>{column.display(dat)}</RowData>
               ))}
-            </tr>
+            </Row>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Tables>
       <PaginationContext.Provider value={{ currentPageState: currentPage, currentPageDispatch: dispatch }}>
         <Pagination dataBase={data} rowsPerPage={rowsPerPage} />
       </PaginationContext.Provider>
-    </section>
+    </TableWrapper>
   );
 };
