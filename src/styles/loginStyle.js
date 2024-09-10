@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "./themes.js/theme";
+import { colors } from "./themes/theme";
 
 export const Main = styled.main`
   display: flex;

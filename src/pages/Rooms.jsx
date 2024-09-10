@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table } from "../components/Table";
-import { FilterTable, Main, NavTable, OptionsFiltered, CreateElement } from "../styles/tableStyles";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../styles/stylesComponents";
 import db_json from "../json/dataRooms.json";
 /* import iconRoom from "../../assets/noun-rooms.svg"; */
 
@@ -14,17 +14,17 @@ export const Rooms = () => {
     {
       label: "Room Name",
       display: (room) => (
-        <section>
-          <div>
-            <img src={room.typeRoom.pictures} alt="picture-Room" width={"100px"} />
-          </div>
-          <div>
-            <h4>{room.Id_room}</h4>
+        <DataWrapper>
+          <DataContent>
+            <img src={room.typeRoom.pictures} alt="picture-Room" width={"150px"} />
+          </DataContent>
+          <DataContent>
+            <h4>#{room.Id_room}</h4>
             <h3>
               {room.typeRoom.bed} - {room.numberRoom}
             </h3>
-          </div>
-        </section>
+          </DataContent>
+        </DataWrapper>
       ),
     },
     {
@@ -70,7 +70,7 @@ export const Rooms = () => {
   }, []);
 
   return (
-    <Main>
+    <Main $layout>
       <NavTable>
         <FilterTable>
           <OptionsFiltered onClick={handleOption}>All Rooms</OptionsFiltered>

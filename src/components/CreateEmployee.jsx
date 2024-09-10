@@ -1,6 +1,6 @@
 import { useState } from "react";
 import bcrypt from "bcryptjs";
-import { Main } from "../styles/formStyles";
+import { Main } from "../styles/stylesComponents";
 
 export const CreateEmployee = () => {
   const [formData, setFormData] = useState({
@@ -42,7 +42,7 @@ export const CreateEmployee = () => {
   };
 
   return (
-    <Main>
+    <Main $layout>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Foto:</label>

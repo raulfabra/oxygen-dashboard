@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { PaginationContext } from "../App";
 import styled from "styled-components";
-import { colors } from "../styles/themes.js/theme";
+import { colors } from "../styles/themes/theme";
 
 const PaginationWrapper = styled.nav`
   margin: 3em;

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table } from "../components/Table";
-import { CreateElement, FilterTable, Main, NavTable, OptionsFiltered } from "../styles/tableStyles";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataContent, DataWrapper } from "../styles/stylesComponents";
 import db_json from "../json/dataUsers.json";
 import debounce from "just-debounce-it";
 
@@ -14,16 +14,16 @@ export const Users = () => {
     {
       label: "Name",
       display: (user) => (
-        <section>
-          <div>
-            <img src={user.picture} alt="picture person" width={"100px"} />
-          </div>
-          <div>
+        <DataWrapper>
+          <DataContent>
+            <img src={user.picture} alt="picture person" width={"130px"} />
+          </DataContent>
+          <DataContent>
             <h3 onClick={handleUser}>{user.fullName}</h3>
             <h4>#{user.id_user}</h4>
             <h4>Joined on {user.start_date}</h4>
-          </div>
-        </section>
+          </DataContent>
+        </DataWrapper>
       ),
     },
     {
@@ -83,7 +83,7 @@ export const Users = () => {
     setUsersData(db_json);
   }, []);
   return (
-    <Main>
+    <Main $layout>
       <NavTable>
         <FilterTable>
           <OptionsFiltered onClick={handleOption}>All Employee</OptionsFiltered>
