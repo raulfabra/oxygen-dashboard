@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table } from "../components/Table";
 import { CreateElement, FilterTable, Main, ModalContent, ModalExit, ModalText, ModalWrapper, NavTable, OptionsFiltered } from "../styles/tableStyles";
-import db_json from "../json/dataBookings.json";
-import debounce from "just-debounce-it";
-import iconPerson from "../assets/noun-person.svg";
+import { useDispatch, useSelector } from "react-redux";
 import { getBookingsListData, getBookingsListStatus } from "../redux/booking/BookingSlice";
 import { getBookingsThunk } from "../redux/booking/BookingThunk";
-import { useDispatch, useSelector } from "react-redux";
+import debounce from "just-debounce-it";
+import db_json from "../json/dataBookings.json";
+import iconPerson from "../assets/noun-person.svg";
 
 export const Bookings = () => {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ export const Bookings = () => {
   const bookingsStatus = useSelector(getBookingsListStatus);
   const bookingsError = useSelector(getBookingsListStatus);
 
+  //Create dynamic table:
   const columns = [
     {
       label: "Guest",
