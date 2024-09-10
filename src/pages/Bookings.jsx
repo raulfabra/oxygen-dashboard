@@ -5,11 +5,20 @@ import { CreateElement, FilterTable, Main, ModalContent, ModalExit, ModalText, M
 import db_json from "../json/dataBookings.json";
 import debounce from "just-debounce-it";
 import iconPerson from "../assets/noun-person.svg";
+import { getBookingsListData, getBookingsListStatus } from "../redux/booking/BookingSlice";
+import { getBookingsThunk } from "../redux/booking/BookingThunk";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Bookings = () => {
+  const dispatch = useDispatch();
   const navigator = useNavigate();
-  const [bookingsData, setBookingsData] = useState(null);
+
   const [viewNotes, setViewNotes] = useState(null);
+  const [bookingsListData, setBookingsListData] = useState([]);
+
+  const bookingsData = useSelector(getBookingsListData);
+  const bookingsStatus = useSelector(getBookingsListStatus);
+  const bookingsError = useSelector(getBookingsListStatus);
 
   const columns = [
     {
@@ -80,47 +89,51 @@ export const Bookings = () => {
     const name = event.target.textContent;
 
     if (name === "All Bookings") {
-      setBookingsData(db_json);
+      setBookingsListData(db_json);
     }
     if (name === "Pending") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Pending");
-      setBookingsData(newList);
+      setBookingsListData(newList);
     }
     if (name === "Booked") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Booked");
-      setBookingsData(newList);
+      setBookingsListData(newList);
     }
     if (name === "Canceled") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Canceled");
-      setBookingsData(newList);
+      setBookingsListData(newList);
     }
     if (name === "Refund") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Refund");
-      setBookingsData(newList);
+      setBookingsListData(newList);
     }
   };
 
-  const debouncedGetBookingsByGuests = useCallback(
-    debounce((newList) => {
-      setBookingsData(newList);
-    }, 500)
-  );
+  const debouncedGetBookingsByGuests = useCallback(debounce((newList) => setBookingsListData(newList), 1000));
+
+  const debouncedGetBookings = useCallback(debounce(() => dispatch(getBookingsThunk()), 1000));
 
   const handleSearchByName = (event) => {
     const value = event.target.value.toLowerCase();
-    const newList = bookingsData.filter((booking) => booking.fullName.toLowerCase().includes(value));
+    const newList = bookingsListData.filter((booking) => booking.fullName.toLowerCase().includes(value));
     if (value === "") return debouncedGetBookingsByGuests(db_json);
     else debouncedGetBookingsByGuests(newList);
   };
 
   const handleModal = (id_booked_modal) => {
-    const viewNote = bookingsData.filter((booked) => booked.id.includes(id_booked_modal))[0];
+    const viewNote = bookingsListData.filter((booked) => booked.id.includes(id_booked_modal))[0];
     setViewNotes(viewNote);
   };
 
   const handleCloseModal = () => setViewNotes(null);
 
-  useEffect(() => setBookingsData(db_json), []);
+  useEffect(() => {
+    if (bookingsStatus === "idle") debouncedGetBookings();
+    else if (bookingsStatus === "rejected") console.log(bookingsError);
+    else if (bookingsStatus === "fulfilled") {
+      setBookingsListData(bookingsData);
+    }
+  }, [bookingsStatus]);
 
   return (
     <Main>
@@ -140,7 +153,7 @@ export const Bookings = () => {
           + New Booking
         </CreateElement>
       </NavTable>
-      {bookingsData && <Table data={bookingsData} columns={columns} />}
+      {bookingsListData && <Table data={bookingsListData} columns={columns} />}
     </Main>
   );
 };
