@@ -20,7 +20,7 @@ export const Bookings = () => {
   const bookingsStatus = useSelector(getBookingsListStatus);
   const bookingsError = useSelector(getBookingsListStatus);
 
-  //Create dynamic table:
+  //Create dynamic table: (variable columns)
   const columns = [
     {
       label: "Guest",
@@ -86,7 +86,8 @@ export const Bookings = () => {
     },
   ];
 
-  const handleOption = (event) => {
+  //Order Filters for table: (variable handleOptions)
+  const handleOptions = (event) => {
     const name = event.target.textContent;
 
     if (name === "All Bookings") {
@@ -110,15 +111,15 @@ export const Bookings = () => {
     }
   };
 
-  const debouncedGetBookingsByGuests = useCallback(debounce((newList) => setBookingsListData(newList), 1000));
+  //Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada. useCallback para memorizar la función y no volver a lanzar indevidamente.
+  const bookingsByGuestsDebounce = useCallback(debounce((byName) => setBookingsListData(byName), 700));
 
-  const debouncedGetBookings = useCallback(debounce(() => dispatch(getBookingsThunk()), 1000));
-
+  //Order Filters by searchKeyboard auto
   const handleSearchByName = (event) => {
     const value = event.target.value.toLowerCase();
-    const newList = bookingsListData.filter((booking) => booking.fullName.toLowerCase().includes(value));
-    if (value === "") return debouncedGetBookingsByGuests(db_json);
-    else debouncedGetBookingsByGuests(newList);
+    const newList = db_json.filter((booking) => booking.fullName.toLowerCase().includes(value));
+    if (value === "") return bookingsByGuestsDebounce(db_json);
+    else bookingsByGuestsDebounce(newList);
   };
 
   const handleModal = (id_booked_modal) => {
@@ -129,22 +130,20 @@ export const Bookings = () => {
   const handleCloseModal = () => setViewNotes(null);
 
   useEffect(() => {
-    if (bookingsStatus === "idle") debouncedGetBookings();
+    if (bookingsStatus === "idle") dispatch(getBookingsThunk());
     else if (bookingsStatus === "rejected") console.log(bookingsError);
-    else if (bookingsStatus === "fulfilled") {
-      setBookingsListData(bookingsData);
-    }
+    else if (bookingsStatus === "fulfilled") setBookingsListData(bookingsData);
   }, [bookingsStatus]);
 
   return (
     <Main>
       <NavTable>
         <FilterTable>
-          <OptionsFiltered onClick={handleOption}>All Bookings</OptionsFiltered>
-          <OptionsFiltered onClick={handleOption}>Pending</OptionsFiltered>
-          <OptionsFiltered onClick={handleOption}>Booked</OptionsFiltered>
-          <OptionsFiltered onClick={handleOption}>Canceled</OptionsFiltered>
-          <OptionsFiltered onClick={handleOption}>Refund</OptionsFiltered>
+          <OptionsFiltered onClick={handleOptions}>All Bookings</OptionsFiltered>
+          <OptionsFiltered onClick={handleOptions}>Pending</OptionsFiltered>
+          <OptionsFiltered onClick={handleOptions}>Booked</OptionsFiltered>
+          <OptionsFiltered onClick={handleOptions}>Canceled</OptionsFiltered>
+          <OptionsFiltered onClick={handleOptions}>Refund</OptionsFiltered>
         </FilterTable>
         <form>
           <label htmlFor="nameCustomer">Name of client</label>
