@@ -9,6 +9,8 @@ import debounce from "just-debounce-it";
 import db_json from "../json/dataBookings.json";
 import iconPerson from "../assets/noun-person.svg";
 
+// CAMBIAR DB_JSON POR bookingsData
+
 export const Bookings = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();

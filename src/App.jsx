@@ -1,3 +1,4 @@
+import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
@@ -12,6 +13,8 @@ import { Contact } from "./pages/Contact";
 import { Layout } from "./pages/Layout";
 import { NewBooking } from "./pages/NewBooking";
 import { RoomDetails } from "./pages/RoomDetails";
+
+export const PaginationContext = React.createContext();
 
 function App() {
   return (
