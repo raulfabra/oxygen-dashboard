@@ -24,14 +24,14 @@ function App() {
         <Route element={<Layout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="bookings" element={<Bookings />} />
-          <Route path="rooms" element={<Rooms />} />
-          <Route path="users" element={<Users />} />
-          <Route path="createBooking" element={<NewBooking />} />
-          <Route path="createRoom" element={<NewRoom />} />
-          <Route path="createUser" element={<NewUser />} />
-          <Route path="rooms/:roomId" element={<RoomDetails />} />
           <Route path="bookings/:bookingId" element={<BookingDetails />} />
+          <Route path="createBooking" element={<NewBooking />} />
+          <Route path="rooms" element={<Rooms />} />
+          <Route path="rooms/:roomId" element={<RoomDetails />} />
+          <Route path="createRoom" element={<NewRoom />} />
+          <Route path="users" element={<Users />} />
           <Route path="users/:userId" element={<UserDetails />} />
+          <Route path="createUser" element={<NewUser />} />
           <Route path="contact" />
         </Route>
       </Routes>

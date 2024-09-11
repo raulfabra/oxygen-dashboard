@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookingsListData, getBookingsListStatus } from "../../redux/booking/BookingSlice";
 import { getBookingsThunk } from "../../redux/booking/BookingThunk";
-import { Table } from "../../components/Table";
+import { Table } from "../../components/Table/Table";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
 import debounce from "just-debounce-it";
 import db_json from "../../json/dataBookings.json";
