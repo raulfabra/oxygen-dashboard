@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table } from "../components/Table";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataContent, DataWrapper } from "../styles/stylesComponents";
-import db_json from "../json/dataUsers.json";
+import { Table } from "../../components/Table/Table";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataContent, DataWrapper } from "../../styles/stylesComponents";
+import db_json from "../../json/dataUsers.json";
 import debounce from "just-debounce-it";
 
 export const Users = () => {

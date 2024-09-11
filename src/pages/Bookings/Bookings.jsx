@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table } from "../components/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookingsListData, getBookingsListStatus } from "../redux/booking/BookingSlice";
-import { getBookingsThunk } from "../redux/booking/BookingThunk";
+import { getBookingsListData, getBookingsListStatus } from "../../redux/booking/BookingSlice";
+import { getBookingsThunk } from "../../redux/booking/BookingThunk";
+import { Table } from "../../components/Table/Table";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
 import debounce from "just-debounce-it";
-import db_json from "../json/dataBookings.json";
-import iconPerson from "../assets/noun-person.svg";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../styles/stylesComponents";
+import db_json from "../../json/dataBookings.json";
+import iconPerson from "../../assets/noun-person.svg";
 
 // CAMBIAR DB_JSON POR bookingsData
 

@@ -1,11 +1,10 @@
 import { useReducer } from "react";
-import { Pagination } from "./Pagination";
-import { initialState, pagination } from "../utils/paginationLogic";
-import { PaginationContext } from "../App";
-import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../styles/stylesComponents";
+import { Pagination, initialState, reducer } from "./Pagination";
+import { PaginationContext } from "../../App";
+import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../../styles/stylesComponents";
 
 export const Table = ({ data, columns }) => {
-  const [currentPage, dispatch] = useReducer(pagination, initialState);
+  const [currentPage, dispatch] = useReducer(reducer, initialState);
 
   const rowsPerPage = 10;
   const lastIndex = currentPage * rowsPerPage; // The last index is a the last element of our DataBase.

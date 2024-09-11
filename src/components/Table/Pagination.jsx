@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { PaginationContext } from "../App";
+import { PaginationContext } from "../../App";
+import { colors } from "../../styles/themes/theme";
 import styled from "styled-components";
-import { colors } from "../styles/themes/theme";
 
 const PaginationWrapper = styled.nav`
   margin: 3em;
@@ -24,6 +24,21 @@ const Numbers = styled.li`
     cursor: pointer;
   }
 `;
+
+export const initialState = 1;
+
+export const reducer = (state, action) => {
+  switch (action.type) {
+    case "increment":
+      if (state < action.id) return state + 1;
+      else return state;
+    case "decrement":
+      if (state > action.id) return state - 1;
+      else return state;
+    default:
+      return (state = action.id);
+  }
+};
 
 export const Pagination = ({ dataBase, rowsPerPage }) => {
   const paginationContext = useContext(PaginationContext);
