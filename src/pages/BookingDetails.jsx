@@ -1,3 +1,12 @@
+import { useParams } from "react-router-dom";
+import { Main } from "../styles/stylesComponents";
+
 export const BookingDetails = () => {
-  return <h1>RESERVA ÚNICA</h1>;
+  const { bookingId } = useParams();
+
+  return (
+    <Main $layout>
+      <h1>RESERVA CON ID {bookingId}</h1>
+    </Main>
+  );
 };

@@ -30,9 +30,9 @@ function App() {
           <Route path="createBooking" element={<NewBooking />} />
           <Route path="createRoom" element={<NewRoom />} />
           <Route path="createUser" element={<NewUser />} />
-          <Route path="rooms/:id" element={<RoomDetails />} />
-          <Route path="bookings/:id" element={<BookingDetails />} />
-          <Route path="users/:id" element={<UserDetails />} />
+          <Route path="rooms/:roomId" element={<RoomDetails />} />
+          <Route path="bookings/:bookingId" element={<BookingDetails />} />
+          <Route path="users/:userId" element={<UserDetails />} />
           <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>

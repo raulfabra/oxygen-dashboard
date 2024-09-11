@@ -33,7 +33,6 @@ export const Layout = () => {
   // Lógica del Menú
   const navigate = useNavigate();
   const [isHovering, setIsHovering] = useState({});
-
   const location = useLocation();
 
   const handleMouseEnter = (event) => {
@@ -60,7 +59,20 @@ export const Layout = () => {
 
   useEffect(() => {
     const newTitle = location.pathname.substring(1).charAt(0).toUpperCase() + location.pathname.substring(1).slice(1);
-    setTitle(newTitle);
+    switch (true) {
+      case newTitle.includes("Bookings/"):
+        setTitle("Booking Details");
+        break;
+      case newTitle.includes("Rooms/"):
+        setTitle("Room Name");
+        break;
+      case newTitle.includes("Users/"):
+        setTitle("User");
+        break;
+      default:
+        setTitle(newTitle);
+        break;
+    }
   }, [location.pathname]);
 
   // Lógica de Proteger las rutas de nuestro dashboard
