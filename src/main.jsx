@@ -5,11 +5,11 @@ import "./index.css";
 import { GlobalStyle } from "./styles/GlobalStyle.jsx";
 
 import { Provider } from "react-redux";
-import { reduxStore } from "./app/store.js";
+import { store } from "./app/store.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={reduxStore}>
+    <Provider store={store}>
       <GlobalStyle />
       <App />
     </Provider>

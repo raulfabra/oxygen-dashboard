@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBookingsThunk } from "./BookingThunk";
+import { getBookingIdThunk, getBookingsThunk } from "./BookingThunk";
 
 export const BookingSlice = createSlice({
   name: "bookings",
@@ -18,6 +18,17 @@ export const BookingSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(getBookingsThunk.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error;
+      })
+      .addCase(getBookingIdThunk.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getBookingIdThunk.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.data = action.payload;
+      })
+      .addCase(getBookingIdThunk.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.error;
       });
