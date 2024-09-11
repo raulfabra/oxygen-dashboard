@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Main } from "../styles/stylesComponents";
+import { Main } from "../../styles/stylesComponents";
 
 export const BookingDetails = () => {
   const { bookingId } = useParams();

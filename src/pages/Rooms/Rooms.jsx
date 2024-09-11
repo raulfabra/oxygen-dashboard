@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table } from "../components/Table";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../styles/stylesComponents";
-import db_json from "../json/dataRooms.json";
+import { Table } from "../../components/Table";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
+import db_json from "../../json/dataRooms.json";
 /* import iconRoom from "../../assets/noun-rooms.svg"; */
 
 export const Rooms = () => {
