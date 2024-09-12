@@ -19,7 +19,7 @@ export const getBookingIdThunk = createAsyncThunk("booking/getBookingId", (id) =
   }
 });
 
-export const deleteBookingId = createAsyncThunk("booking/getBookingId", (id) => {
+export const deleteBookingIdThunk = createAsyncThunk("booking/deleteBookingId", (id) => {
   try {
     if (db_json.length > 0) {
       const deleteBooked = db_json.find((booking) => booking.id === id);

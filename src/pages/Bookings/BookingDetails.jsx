@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
-import { Main } from "../../styles/stylesComponents";
-import { useDispatch, useSelector } from "react-redux";
-import { getBookingsListData, getBookingsListError, getBookingsListStatus } from "../../redux/booking/BookingSlice";
-import db_json from "../../json/dataBookings.json";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getBookingId_Data, getBookingId_Error, getBookingId_Status } from "../../redux/booking/BookingSlice";
 import { getBookingIdThunk } from "../../redux/booking/BookingThunk";
+import { Main } from "../../styles/stylesComponents";
+import db_json from "../../json/dataBookings.json";
 import styled from "styled-components";
 
 const DIV = styled.div`
@@ -19,9 +19,9 @@ export const BookingDetails = () => {
 
   const [edit, setEdit] = useState(false);
 
-  const bookingID_Data = useSelector(getBookingsListData);
-  const bookingID_Status = useSelector(getBookingsListStatus);
-  const bookingID_Error = useSelector(getBookingsListError);
+  const bookingID_Data = useSelector(getBookingId_Data);
+  const bookingID_Status = useSelector(getBookingId_Status);
+  const bookingID_Error = useSelector(getBookingId_Error);
 
   const handleDelete = () => {
     const newDataBase = db_json.filter((booking) => booking.id_booking !== Number(bookingId));
