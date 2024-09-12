@@ -118,6 +118,7 @@ export const SettingButton = styled.button`
   border-radius: 8px;
   background-color: #ebf1ef;
   color: #135846;
+  cursor: pointer;
 `;
 
 export const FooterWrapper = styled.footer`

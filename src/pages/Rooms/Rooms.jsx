@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table } from "../../components/Table/Table";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
-import db_json from "../../json/dataRooms.json";
 import { useDispatch, useSelector } from "react-redux";
 import { getRoomsListData, getRoomsListError, getRoomsListStatus } from "../../redux/rooms/RoomsSlice";
 import { getRoomsThunk } from "../../redux/rooms/RoomsThunk";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
+import { Table } from "../../components/Table/Table";
+import db_json from "../../json/dataRooms.json";
 
 export const Rooms = () => {
   const dispatch = useDispatch();

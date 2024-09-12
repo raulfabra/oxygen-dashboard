@@ -4,7 +4,7 @@ import db_json from "../../json/dataRooms.json";
 
 export const getRoomsThunk = createAsyncThunk("rooms/getRoomsList", async () => {
   try {
-    await delay(1000);
+    await delay(500);
     if (db_json.length > 0) return db_json;
   } catch (error) {
     return error;

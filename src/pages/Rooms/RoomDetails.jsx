@@ -8,9 +8,12 @@ import db_json from "../../json/dataRooms.json";
 import styled from "styled-components";
 
 const DIV = styled.div`
+  padding: 2em;
   display: flex;
+  ${(props) => (props.$col ? "flex-direction: column;" : "flex-direction: row;")}
   justify-content: center;
   align-items: center;
+  gap: 1em;
 `;
 
 export const RoomDetails = () => {
@@ -38,13 +41,12 @@ export const RoomDetails = () => {
 
   return (
     <Main $layout>
-      <h1>RESERVA CON ID {roomId}</h1>
       {roomID_Status === "fulfilled" && (
         <>
           <DIV>
             <button onClick={handleUpdate}>Do you want Update room?</button>
           </DIV>
-          <DIV>
+          <DIV $col>
             <h2>
               {roomID_Data.typeRoom.bed} - #{roomID_Data.numberRoom}
             </h2>
