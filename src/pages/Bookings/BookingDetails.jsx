@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookingId_Data, getBookingId_Error, getBookingId_Status } from "../../redux/booking/BookingSlice";
@@ -17,8 +17,6 @@ export const BookingDetails = () => {
   const { bookingId } = useParams();
   const dispatch = useDispatch();
 
-  const [edit, setEdit] = useState(false);
-
   const bookingID_Data = useSelector(getBookingId_Data);
   const bookingID_Status = useSelector(getBookingId_Status);
   const bookingID_Error = useSelector(getBookingId_Error);
@@ -30,14 +28,13 @@ export const BookingDetails = () => {
   };
 
   const handleUpdate = () => {
-    setEdit(!edit);
+    alert("UPDATE THE BOOKING");
   };
 
   useEffect(() => {
-    if (bookingID_Status === "idle") dispatch(getBookingIdThunk(Number(bookingId)));
-    else if (bookingID_Status === "rejected") console.log(bookingID_Error);
-    else if (bookingID_Status === "fulfilled") console.log("status fulfilled");
-  });
+    if (bookingID_Status === "idle" || bookingID_Status === "fulfilled") dispatch(getBookingIdThunk(Number(bookingId)));
+    else console.log(bookingID_Error);
+  }, []);
 
   return (
     <Main $layout>
@@ -46,15 +43,6 @@ export const BookingDetails = () => {
         <>
           <DIV>
             <button onClick={handleUpdate}>Do you want Update Booking?</button>
-            {edit ? (
-              <DIV>
-                <form action={onsubmit}>
-                  <input type="text" name="" id="" />
-                </form>
-              </DIV>
-            ) : (
-              ""
-            )}
           </DIV>
           <DIV>
             <h2>{bookingID_Data.fullName}</h2>
