@@ -131,7 +131,7 @@ export const Bookings = () => {
   };
   const handleCloseModal = () => setViewNotes(null);
 
-  //Se lanza cada vez que el estado de bookings cambia.
+  //Its call when status of BookingsData change.
   useEffect(() => {
     if (bookingsStatus === "idle") dispatch(getBookingsThunk());
     else if (bookingsStatus === "rejected") console.log(bookingsError);
