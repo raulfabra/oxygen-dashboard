@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookingsListData, getBookingsListStatus } from "../../redux/booking/BookingSlice";
+import { getBookingsListData, getBookingsListError, getBookingsListStatus } from "../../redux/booking/BookingSlice";
 import { getBookingsThunk } from "../../redux/booking/BookingThunk";
 import { Table } from "../../components/Table/Table";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
@@ -20,7 +20,7 @@ export const Bookings = () => {
 
   const bookingsData = useSelector(getBookingsListData);
   const bookingsStatus = useSelector(getBookingsListStatus);
-  const bookingsError = useSelector(getBookingsListStatus);
+  const bookingsError = useSelector(getBookingsListError);
 
   //Create dynamic table: (variable columns)
   const columns = [
@@ -28,10 +28,10 @@ export const Bookings = () => {
       label: "Guest",
       display: (booked) => (
         <DataWrapper>
-          <DataContent>
+          <DataContent onClick={() => navigator(`/bookings/${booked.id_booking}`)}>
             <img src={iconPerson} alt="picture person" width={"50px"} />
           </DataContent>
-          <DataContent>
+          <DataContent onClick={() => navigator(`/bookings/${booked.id_booking}`)}>
             <h3>{booked.fullName}</h3>
             <h4>#{booked.id_booking}</h4>
           </DataContent>

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import db_json from "../../json/dataBookings.json";
 import { delay } from "../../utils/utils";
+import db_json from "../../json/dataBookings.json";
 
 export const getBookingsThunk = createAsyncThunk("booking/getBookingList", async () => {
   try {
@@ -19,7 +19,7 @@ export const getBookingIdThunk = createAsyncThunk("booking/getBookingId", (id) =
   }
 });
 
-export const deleteBookingId = createAsyncThunk("booking/getBookingId", (id) => {
+export const deleteBookingIdThunk = createAsyncThunk("booking/deleteBookingId", (id) => {
   try {
     if (db_json.length > 0) {
       const deleteBooked = db_json.find((booking) => booking.id === id);

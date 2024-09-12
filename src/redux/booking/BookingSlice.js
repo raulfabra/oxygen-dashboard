@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getBookingIdThunk, getBookingsThunk } from "./BookingThunk";
 
-export const BookingSlice = createSlice({
+export const BookingsListSlice = createSlice({
   name: "bookings",
   initialState: {
     status: "idle",
@@ -20,7 +20,23 @@ export const BookingSlice = createSlice({
       .addCase(getBookingsThunk.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.error;
-      })
+      });
+  },
+});
+
+export const getBookingsListData = (state) => state.bookings.data;
+export const getBookingsListStatus = (state) => state.bookings.status;
+export const getBookingsListError = (state) => state.bookings.error;
+
+export const BookingIdSlice = createSlice({
+  name: "bookingId",
+  initialState: {
+    status: "idle",
+    data: [],
+    error: null,
+  },
+  extraReducers: (builder) => {
+    builder
       .addCase(getBookingIdThunk.pending, (state, action) => {
         state.status = "pending";
       })
@@ -35,6 +51,6 @@ export const BookingSlice = createSlice({
   },
 });
 
-export const getBookingsListStatus = (state) => state.bookings.status;
-export const getBookingsListData = (state) => state.bookings.data;
-export const getBookingsListError = (state) => state.bookings.error;
+export const getBookingId_Data = (state) => state.bookingId.data;
+export const getBookingId_Status = (state) => state.bookingId.status;
+export const getBookingId_Error = (state) => state.bookingId.error;
