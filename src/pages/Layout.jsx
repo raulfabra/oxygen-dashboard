@@ -133,7 +133,7 @@ export const Layout = () => {
             <UserEmail> williams@gmail.com</UserEmail>
             <SettingButton>
               {" "}
-              <IoMdSettings />{" "}
+              <IoMdSettings onClick={() => navigate("/")} />{" "}
             </SettingButton>
           </UserWrapper>
 

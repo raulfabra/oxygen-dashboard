@@ -1,13 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table } from "../../components/Table/Table";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersListData, getUsersListError, getUsersListStatus } from "../../redux/users/UsersSlice";
+import { getUsersThunk } from "../../redux/users/UsersThunk";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataContent, DataWrapper } from "../../styles/stylesComponents";
+import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataUsers.json";
 import debounce from "just-debounce-it";
 
 export const Users = () => {
+  const dispatch = useDispatch();
   const navigator = useNavigate();
-  const [usersData, setUsersData] = useState(null);
+
+  const [usersListData, setUsersListData] = useState(null);
+
+  const usersData = useSelector(getUsersListData);
+  const usersStatus = useSelector(getUsersListStatus);
+  const usersError = useSelector(getUsersListError);
 
   //Create table: column and data
   const columns = [
@@ -19,7 +28,7 @@ export const Users = () => {
             <img src={user.picture} alt="picture person" width={"130px"} />
           </DataContent>
           <DataContent>
-            <h3 onClick={handleUser}>{user.fullName}</h3>
+            <h3>{user.fullName}</h3>
             <h4>#{user.id_user}</h4>
             <h4>Joined on {user.start_date}</h4>
           </DataContent>
@@ -47,23 +56,23 @@ export const Users = () => {
     const name = event.target.textContent;
 
     if (name === "All Employee") {
-      setUsersData(db_json);
+      setUsersListData(db_json);
     }
     if (name === "Active Employee") {
       const newData = db_json.filter((user) => user.statusEmployeer === "Active");
 
-      setUsersData(newData);
+      setUsersListData(newData);
     }
     if (name === "Inactive Employee") {
       const newData = db_json.filter((user) => user.statusEmployeer === "Inactive");
 
-      setUsersData(newData);
+      setUsersListData(newData);
     }
   };
 
   const debouncedGetEmployee = useCallback(
     debounce((newList) => {
-      setUsersData(newList);
+      setUsersListData(newList);
     }, 500)
   );
 
@@ -74,14 +83,12 @@ export const Users = () => {
     else debouncedGetEmployee(newList);
   };
 
-  const handleUser = (event) => {
-    console.log(event.target.value);
-    navigator(`/${"hola"}`);
-  };
-
   useEffect(() => {
-    setUsersData(db_json);
-  }, []);
+    if (usersStatus === "idle") dispatch(getUsersThunk());
+    else if (usersStatus === "rejected") console.log(usersError);
+    else if (usersStatus === "fulfilled") setUsersListData(usersData);
+  }, [usersStatus]);
+
   return (
     <Main $layout>
       <NavTable>
@@ -98,7 +105,7 @@ export const Users = () => {
           + New Employee
         </CreateElement>
       </NavTable>
-      {usersData && <Table data={usersData} columns={columns} />}
+      {usersListData && <Table data={usersListData} columns={columns} />}
     </Main>
   );
 };

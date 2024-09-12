@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { BookingIdSlice, BookingsListSlice } from "../redux/booking/BookingSlice";
 import { RoomIdSlice, RoomsListSlice } from "../redux/rooms/RoomsSlice";
+import { UserIdSlice, UsersListSlice } from "../redux/users/UsersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -8,5 +9,7 @@ export const store = configureStore({
     bookingId: BookingIdSlice.reducer,
     rooms: RoomsListSlice.reducer,
     roomId: RoomIdSlice.reducer,
+    users: UsersListSlice.reducer,
+    userId: UserIdSlice,
   },
 });
