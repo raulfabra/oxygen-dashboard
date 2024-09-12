@@ -5,7 +5,11 @@ import styled from "styled-components";
 
 const PaginationWrapper = styled.nav`
   margin: 3em;
+  display: flex;
+  justify-content: space-around;
 `;
+const PaginationText = styled.div``;
+
 const PaginationTable = styled.ul`
   padding: 1em;
   display: flex;
@@ -24,6 +28,7 @@ const Numbers = styled.li`
     cursor: pointer;
   }
 `;
+const ShowingPage = styled.p``;
 
 export const initialState = 1;
 
@@ -47,6 +52,11 @@ export const Pagination = ({ dataBase, rowsPerPage }) => {
 
   return (
     <PaginationWrapper>
+      <PaginationText>
+        <ShowingPage>
+          Showing {numbers.length} of {dataBase} Data
+        </ShowingPage>
+      </PaginationText>
       <PaginationTable>
         <Numbers onClick={() => paginationContext.currentPageDispatch({ type: "decrement", id: 1 })}>Prev</Numbers>
         {numbers.map((num, index) => (

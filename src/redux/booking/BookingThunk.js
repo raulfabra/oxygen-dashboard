@@ -1,8 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import db_json from "../../json/dataBookings.json";
+import { delay } from "../../utils/utils";
 
-export const getBookingsThunk = createAsyncThunk("booking/getBookingList", () => {
+export const getBookingsThunk = createAsyncThunk("booking/getBookingList", async () => {
   try {
+    await delay(1000);
     if (db_json.length > 0) return db_json;
   } catch (error) {
     return error;
