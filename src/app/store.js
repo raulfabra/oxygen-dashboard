@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { BookingSlice } from "../redux/booking/BookingSlice";
 
-export const reduxStore = configureStore({
+export const store = configureStore({
   reducer: {
     bookings: BookingSlice.reducer,
   },
