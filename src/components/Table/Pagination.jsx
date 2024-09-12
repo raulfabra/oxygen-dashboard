@@ -54,7 +54,7 @@ export const Pagination = ({ dataBase, rowsPerPage }) => {
     <PaginationWrapper>
       <PaginationText>
         <ShowingPage>
-          Showing {numbers.length} of {dataBase} Data
+          Showing {numbers.length} of {dataBase.length} Data
         </ShowingPage>
       </PaginationText>
       <PaginationTable>
