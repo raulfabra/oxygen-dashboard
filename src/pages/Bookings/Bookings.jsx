@@ -31,7 +31,7 @@ export const Bookings = () => {
           <DataContent onClick={() => navigator(`/bookings/${booked.id_booking}`)}>
             <img src={iconPerson} alt="picture person" width={"50px"} />
           </DataContent>
-          <DataContent onClick={() => handleOneGuest(booked.id)}>
+          <DataContent onClick={() => navigator(`/bookings/${booked.id_booking}`)}>
             <h3>{booked.fullName}</h3>
             <h4>#{booked.id_booking}</h4>
           </DataContent>
@@ -124,7 +124,6 @@ export const Bookings = () => {
   //Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada. useCallback para memorizar la función y no volver a lanzar indevidamente.
   const bookingsByGuestsDebounce = useCallback(debounce((byName) => setBookingsListData(byName), 700));
 
-  const handleOneGuest = (id) => {};
   //Display/Close Modal of Description Requests of each row in table: (variable handleModal and handleCloseModal)
   const handleModal = (id_booked_modal) => {
     const viewNote = bookingsListData.filter((booked) => booked.id.includes(id_booked_modal))[0];

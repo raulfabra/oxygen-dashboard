@@ -3,11 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { Table } from "../../components/Table/Table";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
 import db_json from "../../json/dataRooms.json";
-/* import iconRoom from "../../assets/noun-rooms.svg"; */
+import { useDispatch, useSelector } from "react-redux";
+import { getRoomsListData, getRoomsListError, getRoomsListStatus } from "../../redux/rooms/RoomsSlice";
+import { getRoomsThunk } from "../../redux/rooms/RoomsThunk";
 
 export const Rooms = () => {
+  const dispatch = useDispatch();
   const navigator = useNavigate();
-  const [roomsData, setRoomsData] = useState(null);
+
+  const [roomsListData, setRoomsListData] = useState(null);
+
+  const roomsData = useSelector(getRoomsListData);
+  const roomsStatus = useSelector(getRoomsListStatus);
+  const roomsError = useSelector(getRoomsListError);
 
   //Create table: column and data
   const columns = [
@@ -15,11 +23,11 @@ export const Rooms = () => {
       label: "Room Name",
       display: (room) => (
         <DataWrapper>
-          <DataContent>
+          <DataContent onClick={() => navigator(`/rooms/${room.id_room}`)}>
             <img src={room.typeRoom.pictures} alt="picture-Room" width={"150px"} />
           </DataContent>
-          <DataContent>
-            <h4>#{room.Id_room}</h4>
+          <DataContent onClick={() => navigator(`/rooms/${room.id_room}`)}>
+            <h4>#{room.id_room}</h4>
             <h3>
               {room.typeRoom.bed} - {room.numberRoom}
             </h3>
@@ -53,21 +61,23 @@ export const Rooms = () => {
     const name = event.target.textContent;
 
     if (name === "All Rooms") {
-      setRoomsData(db_json);
+      setRoomsListData(db_json);
     }
     if (name === "Active Rooms") {
       const newData = db_json.filter((room) => room.statusRoom === "Available");
-      setRoomsData(newData);
+      setRoomsListData(newData);
     }
     if (name === "Booked Rooms") {
       const newData = db_json.filter((room) => room.statusRoom === "Booked");
-      setRoomsData(newData);
+      setRoomsListData(newData);
     }
   };
 
   useEffect(() => {
-    setRoomsData(db_json);
-  }, []);
+    if (roomsStatus === "idle") dispatch(getRoomsThunk());
+    else if (roomsStatus === "rejected") console.log(roomsError);
+    else if (roomsStatus === "fulfilled") setRoomsListData(roomsData);
+  }, [roomsStatus]);
 
   return (
     <Main $layout>
@@ -81,7 +91,7 @@ export const Rooms = () => {
           + New Room
         </CreateElement>
       </NavTable>
-      {roomsData && <Table data={roomsData} columns={columns} />}
+      {roomsListData && <Table data={roomsListData} columns={columns} />}
     </Main>
   );
 };
