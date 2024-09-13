@@ -1,7 +1,7 @@
 import { Pagination } from "./Pagination";
 import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../../styles/stylesComponents";
 import { useContext } from "react";
-import { PaginationContext } from "../pagination/PaginationContext";
+import { PaginationContext } from "../../app/Contexts/PaginationContext";
 
 export const Table = ({ data, columns }) => {
   const context = useContext(PaginationContext);

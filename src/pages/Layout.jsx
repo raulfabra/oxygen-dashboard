@@ -1,12 +1,14 @@
-/* eslint-disable react/jsx-indent */
-import iconHotel from "../assets/noun-hotel.svg";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../app/Contexts/AuthContext";
 import { RiUserSharedFill, RiContactsBook3Fill } from "react-icons/ri";
-import { MdDashboard, MdOutlineEmail, MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { TfiKey } from "react-icons/tfi";
-import { LuCalendarCheck } from "react-icons/lu";
 import { IoMdNotificationsOutline, IoMdSettings } from "react-icons/io";
+import { IoLogOut } from "react-icons/io5";
+import { MdDashboard, MdOutlineEmail, MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { VscArrowSwap } from "react-icons/vsc";
+import { LuCalendarCheck } from "react-icons/lu";
+import { TfiKey } from "react-icons/tfi";
+import iconHotel from "../assets/noun-hotel.svg";
 import {
   DivColumn,
   FooterSubtitle,
@@ -26,61 +28,46 @@ import {
   UserWrapper,
 } from "../styles/menuColumnStyle";
 import { Div, Nav, NavWrapper } from "../styles/navStyle";
-import { VscArrowSwap } from "react-icons/vsc";
-import { IoLogOut } from "react-icons/io5";
 
 export const Layout = () => {
   // Lógica del Menú
+  const [titleNavbar, setTitleNavbar] = useState("Dashboard");
+  const [isVisible, setIsVisible] = useState(true);
+  const [isHoverMenuItems, setHoverMenuItems] = useState({});
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
-  const [isHovering, setIsHovering] = useState({});
   const location = useLocation();
 
   const handleMouseEnter = (event) => {
     const item = event.target.getAttribute("datatype");
-    setIsHovering((prev) => ({ ...prev, [item]: true }));
+    setHoverMenuItems((prev) => ({ ...prev, [item]: true }));
   };
   const handleMouseLeave = (event) => {
     const item = event.target.getAttribute("datatype");
-    setIsHovering((prev) => ({ ...prev, [item]: false }));
+    setHoverMenuItems((prev) => ({ ...prev, [item]: false }));
   };
-
-  // Lógica del Navbar
-  const [title, setTitle] = useState("Dashboard");
-  const [isVisible, setIsVisible] = useState(true);
 
   const handleLogOut = () => {
-    window.localStorage.removeItem("isAuthenticated");
-    navigate("/login");
-  };
-
-  const handleMenu = (event) => {
-    setIsVisible(!isVisible);
+    context.authDispatch({ type: "logout" });
   };
 
   useEffect(() => {
     const newTitle = location.pathname.substring(1).charAt(0).toUpperCase() + location.pathname.substring(1).slice(1);
     switch (true) {
       case newTitle.includes("Bookings/"):
-        setTitle("Booking Details");
+        setTitleNavbar("Booking Details");
         break;
       case newTitle.includes("Rooms/"):
-        setTitle("Room Name");
+        setTitleNavbar("Room Name");
         break;
       case newTitle.includes("Users/"):
-        setTitle("User");
+        setTitleNavbar("User");
         break;
       default:
-        setTitle(newTitle);
+        setTitleNavbar(newTitle);
         break;
     }
   }, [location.pathname]);
-
-  // Lógica de Proteger las rutas de nuestro dashboard
-  const [isAuthenticated] = useState(() => {
-    const userStorage = window.localStorage.getItem("isAuthenticated");
-    if (userStorage) return userStorage;
-    else return false;
-  });
 
   return (
     <>
@@ -95,32 +82,32 @@ export const Layout = () => {
           </TitleWrapper>
 
           <ItemWrapper datatype="dashboard" onClick={() => navigate("/dashboard")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering.dashboard} />
+            <ItemSelect $isVisible={isHoverMenuItems.dashboard} />
             <MdDashboard />
             <ItemName datatype="dashboard"> Dashboard </ItemName>
           </ItemWrapper>
 
           <ItemWrapper datatype="rooms" onClick={() => navigate("/rooms")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering.rooms} />
+            <ItemSelect $isVisible={isHoverMenuItems.rooms} />
             <TfiKey />
             <ItemName datatype="rooms"> Room </ItemName>
             <MdOutlineKeyboardArrowDown style={{ position: "absolute", left: "80%" }} />
           </ItemWrapper>
 
           <ItemWrapper datatype="bookings" onClick={() => navigate("/bookings")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering.bookings} />
+            <ItemSelect $isVisible={isHoverMenuItems.bookings} />
             <LuCalendarCheck />
             <ItemName datatype="bookings"> Bookings </ItemName>
           </ItemWrapper>
 
           <ItemWrapper datatype="users" onClick={() => navigate("/users")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering.users} />
+            <ItemSelect $isVisible={isHoverMenuItems.users} />
             <RiUserSharedFill />
             <ItemName datatype="users"> Users </ItemName>
           </ItemWrapper>
 
           <ItemWrapper datatype="contact" onClick={() => navigate("/contact")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHovering.contact} />
+            <ItemSelect $isVisible={isHoverMenuItems.contact} />
             <RiContactsBook3Fill />
             <ItemName datatype="contact"> Contact </ItemName>
           </ItemWrapper>
@@ -149,8 +136,8 @@ export const Layout = () => {
       <Nav $large={isVisible} $isOpen={isVisible}>
         <NavWrapper $spcbtw>
           <Div>
-            <VscArrowSwap size={25} style={{ cursor: "pointer" }} onClick={handleMenu} />
-            <Title>{title}</Title>
+            <VscArrowSwap size={25} style={{ cursor: "pointer" }} onClick={() => setIsVisible(!isVisible)} />
+            <Title>{titleNavbar}</Title>
           </Div>
           <Div>
             <MdOutlineEmail size={25} color="#135846" />
@@ -159,7 +146,7 @@ export const Layout = () => {
           </Div>
         </NavWrapper>
       </Nav>
-      {isAuthenticated === "true" ? <Outlet /> : <Navigate to="/" replace />}
+      <Outlet />
     </>
   );
 };

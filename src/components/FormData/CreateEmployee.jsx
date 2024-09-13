@@ -1,6 +1,6 @@
 import { useState } from "react";
 import bcrypt from "bcryptjs";
-import { Main } from "../styles/stylesComponents";
+import { Main } from "../../styles/stylesComponents";
 
 export const CreateEmployee = () => {
   const [formData, setFormData] = useState({

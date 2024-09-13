@@ -1,4 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProtect } from "./app/Middlewares/AuthProtect";
 import { Login } from "./pages/Login";
 import { Layout } from "./pages/Layout";
 import { Dashboard } from "./pages/Dashboard";
@@ -16,20 +17,21 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
-        <Route element={<Layout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="bookings" element={<Bookings />} />
-          <Route path="bookings/:bookingId" element={<BookingDetails />} />
-          <Route path="createBooking" element={<NewBooking />} />
-          <Route path="rooms" element={<Rooms />} />
-          <Route path="rooms/:roomId" element={<RoomDetails />} />
-          <Route path="createRoom" element={<NewRoom />} />
-          <Route path="users" element={<Users />} />
-          <Route path="users/:userId" element={<UserDetails />} />
-          <Route path="createUser" element={<NewUser />} />
-          <Route path="contact" />
+        <Route element={<AuthProtect />}>
+          <Route path="/" element={<Layout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="bookings" element={<Bookings />} />
+            <Route path="bookings/:bookingId" element={<BookingDetails />} />
+            <Route path="createBooking" element={<NewBooking />} />
+            <Route path="rooms" element={<Rooms />} />
+            <Route path="rooms/:roomId" element={<RoomDetails />} />
+            <Route path="createRoom" element={<NewRoom />} />
+            <Route path="users" element={<Users />} />
+            <Route path="users/:userId" element={<UserDetails />} />
+            <Route path="createUser" element={<NewUser />} />
+            <Route path="contact" />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

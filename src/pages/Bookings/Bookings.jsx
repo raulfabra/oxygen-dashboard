@@ -8,7 +8,7 @@ import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrappe
 import debounce from "just-debounce-it";
 import db_json from "../../json/dataBookings.json";
 import iconPerson from "../../assets/noun-person.svg";
-import { PaginationProvider } from "../../components/pagination/PaginationProvider";
+import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 
 // CAMBIAR DB_JSON POR bookingsData
 
@@ -17,7 +17,7 @@ export const Bookings = () => {
   const navigator = useNavigate();
 
   const [viewNotes, setViewNotes] = useState(null);
-  const [bookingsListData, setBookingsListData] = useState([]);
+  const [bookingsListData, setBookingsListData] = useState(null);
 
   const bookingsData = useSelector(getBookingsListData);
   const bookingsStatus = useSelector(getBookingsListStatus);
