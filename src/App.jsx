@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { Layout } from "./pages/Layout";
@@ -12,8 +11,6 @@ import { NewRoom } from "./pages/Rooms/NewRoom";
 import { Users } from "./pages/Users/Users";
 import { UserDetails } from "./pages/Users/UserDetails";
 import { NewUser } from "./pages/Users/NewUser";
-
-export const PaginationContext = React.createContext();
 
 function App() {
   return (
