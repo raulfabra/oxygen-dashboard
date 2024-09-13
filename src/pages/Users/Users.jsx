@@ -7,6 +7,7 @@ import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataConten
 import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataUsers.json";
 import debounce from "just-debounce-it";
+import { PaginationProvider } from "../../components/pagination/PaginationProvider";
 
 export const Users = () => {
   const dispatch = useDispatch();
@@ -105,7 +106,11 @@ export const Users = () => {
           + New Employee
         </CreateElement>
       </NavTable>
-      {usersListData && <Table data={usersListData} columns={columns} />}
+      {usersListData && (
+        <PaginationProvider>
+          <Table data={usersListData} columns={columns} />
+        </PaginationProvider>
+      )}
     </Main>
   );
 };

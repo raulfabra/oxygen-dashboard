@@ -6,6 +6,7 @@ import { getRoomsThunk } from "../../redux/rooms/RoomsThunk";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
 import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataRooms.json";
+import { PaginationProvider } from "../../components/pagination/PaginationProvider";
 
 export const Rooms = () => {
   const dispatch = useDispatch();
@@ -91,7 +92,11 @@ export const Rooms = () => {
           + New Room
         </CreateElement>
       </NavTable>
-      {roomsListData && <Table data={roomsListData} columns={columns} />}
+      {roomsListData && (
+        <PaginationProvider>
+          <Table data={roomsListData} columns={columns} />
+        </PaginationProvider>
+      )}
     </Main>
   );
 };

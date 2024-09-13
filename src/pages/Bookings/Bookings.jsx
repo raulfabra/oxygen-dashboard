@@ -8,6 +8,7 @@ import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrappe
 import debounce from "just-debounce-it";
 import db_json from "../../json/dataBookings.json";
 import iconPerson from "../../assets/noun-person.svg";
+import { PaginationProvider } from "../../components/pagination/PaginationProvider";
 
 // CAMBIAR DB_JSON POR bookingsData
 
@@ -156,7 +157,11 @@ export const Bookings = () => {
           + New Booking
         </CreateElement>
       </NavTable>
-      {bookingsListData && <Table data={bookingsListData} columns={columns} />}
+      {bookingsListData && (
+        <PaginationProvider>
+          <Table data={bookingsListData} columns={columns} />
+        </PaginationProvider>
+      )}
     </Main>
   );
 };
