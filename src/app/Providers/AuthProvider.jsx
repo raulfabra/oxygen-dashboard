@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState, savedStorage);
 
   useEffect(() => {
+    console.log("Hola me estoy actualizando");
+    console.log(state);
     localStorage.setItem("authState", JSON.stringify(state));
   }, [state]);
 

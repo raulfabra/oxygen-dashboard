@@ -1,4 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProtect } from "./app/Middlewares/AuthProtect";
 import { Login } from "./pages/Login";
 import { Layout } from "./pages/Layout";
 import { Dashboard } from "./pages/Dashboard";
@@ -11,13 +12,11 @@ import { NewRoom } from "./pages/Rooms/NewRoom";
 import { Users } from "./pages/Users/Users";
 import { UserDetails } from "./pages/Users/UserDetails";
 import { NewUser } from "./pages/Users/NewUser";
-import { AuthProtect } from "./app/Middlewares/AuthProtect";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<Navigate to="/login" />} /> */}
         <Route path="/login" element={<Login />} />
         <Route element={<AuthProtect />}>
           <Route path="/" element={<Layout />}>

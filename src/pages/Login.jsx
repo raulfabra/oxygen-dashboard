@@ -20,8 +20,8 @@ import {
 } from "../styles/loginStyle";
 
 export const Login = () => {
-  const [bulbOn, setBulbOn] = useState(false);
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [showCountAdmin, setCoutAdmin] = useState(false);
+  const [showMessageCredentialsError, setMessageCredentialsError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const context = useContext(AuthContext);
@@ -29,19 +29,16 @@ export const Login = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
+    console.log(email, password);
 
     if (email === hardCodeUser.email && password === hardCodeUser.password) {
-      context.authDispatch({ type: "login", payload: { email, password } });
-      setAuthenticated(true);
+      context.authDispatch({ type: "login", payload: { email, password, name: "admin" } });
+      setMessageCredentialsError(true);
       navigate("/dashboard");
     } else {
       context.authDispatch({ type: "error" });
-      setAuthenticated(false);
+      setMessageCredentialsError(false);
     }
-  };
-
-  const handleBulb = () => {
-    setBulbOn(!bulbOn);
   };
 
   return (
@@ -49,14 +46,14 @@ export const Login = () => {
       <TitleContainer>
         <Title>HOTEL MIRANDA DASHBOARD</Title>
         <div>
-          <MdLightbulb color="#eb9d0c" size={35} onClick={handleBulb} />
+          <MdLightbulb color="#eb9d0c" size={35} onClick={() => setCoutAdmin(!showCountAdmin)} />
         </div>
       </TitleContainer>
 
-      {bulbOn ? (
+      {showCountAdmin ? (
         <ModalWrapper>
           <ModalContent>
-            <ModalExit onClick={handleBulb}> ✖ </ModalExit>
+            <ModalExit onClick={() => setCoutAdmin(!showCountAdmin)}> ✖ </ModalExit>
             <ModalText>Email ----&gt; employer33@gmail.com</ModalText>
             <ModalText>Password -&gt; 1234</ModalText>
           </ModalContent>
@@ -75,7 +72,7 @@ export const Login = () => {
           <InputLogin type="password" name="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} />
         </InputContainer>
 
-        {isAuthenticated || isAuthenticated === null ? (
+        {showMessageCredentialsError || showMessageCredentialsError === null ? (
           ""
         ) : (
           <TitleContainer>
