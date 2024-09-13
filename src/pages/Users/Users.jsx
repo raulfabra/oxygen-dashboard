@@ -7,7 +7,7 @@ import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataConten
 import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataUsers.json";
 import debounce from "just-debounce-it";
-import { PaginationProvider } from "../../components/pagination/PaginationProvider";
+import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 
 export const Users = () => {
   const dispatch = useDispatch();

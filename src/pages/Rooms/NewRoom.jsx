@@ -1,4 +1,4 @@
-import { CreateRoom } from "../../components/CreateRoom";
+import { CreateRoom } from "../../components/FormData/CreateRoom";
 
 export const NewRoom = () => {
   return <CreateRoom />;

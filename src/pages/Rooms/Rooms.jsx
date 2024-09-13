@@ -6,7 +6,7 @@ import { getRoomsThunk } from "../../redux/rooms/RoomsThunk";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
 import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataRooms.json";
-import { PaginationProvider } from "../../components/pagination/PaginationProvider";
+import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 
 export const Rooms = () => {
   const dispatch = useDispatch();

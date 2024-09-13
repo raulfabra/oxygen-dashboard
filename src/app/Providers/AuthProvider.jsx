@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "../Contexts/AuthContext";
 
 const initialState = {
   authentication: false,
@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState, savedStorage);
 
   useEffect(() => {
+    console.log("Hola me estoy actualizando");
+    console.log(state);
     localStorage.setItem("authState", JSON.stringify(state));
   }, [state]);
 
