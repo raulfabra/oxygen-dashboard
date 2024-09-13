@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PaginationContext } from "../pagination/PaginationContext";
+import { PaginationContext } from "../../app/Contexts/PaginationContext";
 import { colors } from "../../styles/themes/theme";
 import styled from "styled-components";
 

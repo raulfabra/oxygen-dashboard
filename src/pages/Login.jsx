@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../app/Contexts/AuthContext";
+import { hardCodeUser } from "../utils/utils";
 import { MdLightbulb } from "react-icons/md";
 import {
   Main,
@@ -17,43 +19,26 @@ import {
   ButtonLogin,
 } from "../styles/loginStyle";
 
-// User Validate Hardcoded
-const validEmail = "employer33@gmail.com";
-const validPassword = "1234";
-
 export const Login = () => {
-  const [isAuthenticated, setAuthenticated] = useState(null);
+  const [showCountAdmin, setCoutAdmin] = useState(false);
+  const [showMessageCredentialsError, setMessageCredentialsError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [bulbOn, setBulbOn] = useState(false);
-
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = (event, data) => {
+  const handleLogin = (event) => {
     event.preventDefault();
+    console.log(email, password);
 
-    if (email === validEmail && password === validPassword) {
-      window.localStorage.setItem("isAuthenticated", true);
-      setAuthenticated(true);
+    if (email === hardCodeUser.email && password === hardCodeUser.password) {
+      context.authDispatch({ type: "login", payload: { email, password, name: "admin" } });
+      setMessageCredentialsError(true);
       navigate("/dashboard");
     } else {
-      window.localStorage.setItem("isAuthenticated", false);
-      setAuthenticated(false);
+      context.authDispatch({ type: "error" });
+      setMessageCredentialsError(false);
     }
-  };
-
-  const handleEmail = (event) => {
-    event.preventDefault();
-    setEmail(event.target.value);
-  };
-
-  const handlePassword = (event) => {
-    event.preventDefault();
-    setPassword(event.target.value);
-  };
-
-  const handleBulb = () => {
-    setBulbOn(!bulbOn);
   };
 
   return (
@@ -61,14 +46,14 @@ export const Login = () => {
       <TitleContainer>
         <Title>HOTEL MIRANDA DASHBOARD</Title>
         <div>
-          <MdLightbulb color="#eb9d0c" size={35} onClick={handleBulb} />
+          <MdLightbulb color="#eb9d0c" size={35} onClick={() => setCoutAdmin(!showCountAdmin)} />
         </div>
       </TitleContainer>
 
-      {bulbOn ? (
+      {showCountAdmin ? (
         <ModalWrapper>
           <ModalContent>
-            <ModalExit onClick={handleBulb}> ✖ </ModalExit>
+            <ModalExit onClick={() => setCoutAdmin(!showCountAdmin)}> ✖ </ModalExit>
             <ModalText>Email ----&gt; employer33@gmail.com</ModalText>
             <ModalText>Password -&gt; 1234</ModalText>
           </ModalContent>
@@ -80,14 +65,14 @@ export const Login = () => {
       <FormLogin onSubmit={handleLogin}>
         <InputContainer>
           <LabelLogin htmlFor="email">Email</LabelLogin>
-          <InputLogin type="text" name="email" id="email" value={email} onChange={handleEmail} />
+          <InputLogin type="text" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
         </InputContainer>
         <InputContainer>
           <LabelLogin htmlFor="password">Password</LabelLogin>
-          <InputLogin type="password" name="password" id="password" value={password} onChange={handlePassword} />
+          <InputLogin type="password" name="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} />
         </InputContainer>
 
-        {isAuthenticated || isAuthenticated === null ? (
+        {showMessageCredentialsError || showMessageCredentialsError === null ? (
           ""
         ) : (
           <TitleContainer>

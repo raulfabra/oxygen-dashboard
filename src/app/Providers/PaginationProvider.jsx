@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { PaginationContext } from "./PaginationContext";
+import { PaginationContext } from "../Contexts/PaginationContext";
 
 const initialState = {
   currentPage: 1,
