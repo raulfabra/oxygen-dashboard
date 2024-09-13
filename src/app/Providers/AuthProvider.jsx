@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "../Contexts/AuthContext";
 
 const initialState = {
   authentication: false,
