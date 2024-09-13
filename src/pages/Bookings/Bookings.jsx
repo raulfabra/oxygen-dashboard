@@ -17,7 +17,7 @@ export const Bookings = () => {
   const navigator = useNavigate();
 
   const [viewNotes, setViewNotes] = useState(null);
-  const [bookingsListData, setBookingsListData] = useState([]);
+  const [bookingsListData, setBookingsListData] = useState(null);
 
   const bookingsData = useSelector(getBookingsListData);
   const bookingsStatus = useSelector(getBookingsListStatus);
