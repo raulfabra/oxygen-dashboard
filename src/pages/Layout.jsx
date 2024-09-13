@@ -159,7 +159,7 @@ export const Layout = () => {
           </Div>
         </NavWrapper>
       </Nav>
-      {isAuthenticated === "true" ? <Outlet /> : <Navigate to="/" replace />}
+      {isAuthenticated === "true" ? <Outlet /> : <Navigate to="/login" replace />}
     </>
   );
 };

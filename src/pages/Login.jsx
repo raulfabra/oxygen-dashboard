@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../app/Contexts/AuthContext";
+import { hardCodeUser } from "../utils/utils";
 import { MdLightbulb } from "react-icons/md";
 import {
   Main,
@@ -17,39 +19,25 @@ import {
   ButtonLogin,
 } from "../styles/loginStyle";
 
-// User Validate Hardcoded
-const validEmail = "employer33@gmail.com";
-const validPassword = "1234";
-
 export const Login = () => {
-  const [isAuthenticated, setAuthenticated] = useState(null);
+  const [bulbOn, setBulbOn] = useState(false);
+  const [isAuthenticated, setAuthenticated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [bulbOn, setBulbOn] = useState(false);
-
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = (event, data) => {
+  const handleLogin = (event) => {
     event.preventDefault();
 
-    if (email === validEmail && password === validPassword) {
-      window.localStorage.setItem("isAuthenticated", true);
+    if (email === hardCodeUser.email && password === hardCodeUser.password) {
+      context.authDispatch({ type: "login", payload: { email, password } });
       setAuthenticated(true);
       navigate("/dashboard");
     } else {
-      window.localStorage.setItem("isAuthenticated", false);
+      context.authDispatch({ type: "error" });
       setAuthenticated(false);
     }
-  };
-
-  const handleEmail = (event) => {
-    event.preventDefault();
-    setEmail(event.target.value);
-  };
-
-  const handlePassword = (event) => {
-    event.preventDefault();
-    setPassword(event.target.value);
   };
 
   const handleBulb = () => {
@@ -80,11 +68,11 @@ export const Login = () => {
       <FormLogin onSubmit={handleLogin}>
         <InputContainer>
           <LabelLogin htmlFor="email">Email</LabelLogin>
-          <InputLogin type="text" name="email" id="email" value={email} onChange={handleEmail} />
+          <InputLogin type="text" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
         </InputContainer>
         <InputContainer>
           <LabelLogin htmlFor="password">Password</LabelLogin>
-          <InputLogin type="password" name="password" id="password" value={password} onChange={handlePassword} />
+          <InputLogin type="password" name="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} />
         </InputContainer>
 
         {isAuthenticated || isAuthenticated === null ? (
