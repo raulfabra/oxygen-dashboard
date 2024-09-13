@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { PaginationContext } from "../../App";
+import { PaginationContext } from "../pagination/PaginationContext";
 import { colors } from "../../styles/themes/theme";
 import styled from "styled-components";
 
+/******************************************/
 const PaginationWrapper = styled.nav`
   margin: 3em;
   display: flex;
@@ -29,24 +30,10 @@ const Numbers = styled.li`
   }
 `;
 const ShowingPage = styled.p``;
-
-export const initialState = 1;
-
-export const reducer = (state, action) => {
-  switch (action.type) {
-    case "increment":
-      if (state < action.id) return state + 1;
-      else return state;
-    case "decrement":
-      if (state > action.id) return state - 1;
-      else return state;
-    default:
-      return (state = action.id);
-  }
-};
+/*******************************************/
 
 export const Pagination = ({ dataBase, rowsPerPage }) => {
-  const paginationContext = useContext(PaginationContext);
+  const context = useContext(PaginationContext);
   const npage = Math.ceil(dataBase.length / rowsPerPage); // Number of pages have our table
   const numbers = [...Array(npage + 1).keys()].slice(1); // All numbers of our table saved in Array
 
@@ -54,17 +41,17 @@ export const Pagination = ({ dataBase, rowsPerPage }) => {
     <PaginationWrapper>
       <PaginationText>
         <ShowingPage>
-          Showing {numbers.length} of {dataBase.length} Data
+          Showing {rowsPerPage} of {dataBase.length} Data
         </ShowingPage>
       </PaginationText>
       <PaginationTable>
-        <Numbers onClick={() => paginationContext.currentPageDispatch({ type: "decrement", id: 1 })}>Prev</Numbers>
+        <Numbers onClick={() => context.currentPageDispatch({ type: "decrement", payload: 1 })}>Pre</Numbers>
         {numbers.map((num, index) => (
-          <Numbers key={index} onClick={() => paginationContext.currentPageDispatch({ type: "direct", id: num })}>
+          <Numbers key={index} onClick={() => context.currentPageDispatch({ type: "direct", payload: num })}>
             {num}
           </Numbers>
         ))}
-        <Numbers onClick={() => paginationContext.currentPageDispatch({ type: "increment", id: npage })}>Next</Numbers>
+        <Numbers onClick={() => context.currentPageDispatch({ type: "increment", payload: npage })}>Next</Numbers>
       </PaginationTable>
     </PaginationWrapper>
   );

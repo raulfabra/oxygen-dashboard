@@ -1,13 +1,12 @@
-import { useReducer } from "react";
-import { Pagination, initialState, reducer } from "./Pagination";
-import { PaginationContext } from "../../App";
+import { Pagination } from "./Pagination";
 import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../../styles/stylesComponents";
+import { useContext } from "react";
+import { PaginationContext } from "../pagination/PaginationContext";
 
 export const Table = ({ data, columns }) => {
-  const [currentPage, dispatch] = useReducer(reducer, initialState);
-
+  const context = useContext(PaginationContext);
   const rowsPerPage = 10;
-  const lastIndex = currentPage * rowsPerPage; // The last index is a the last element of our DataBase.
+  const lastIndex = context.currentPageState * rowsPerPage; // The last index is a the last element of our DataBase.
   const firstIndex = lastIndex - rowsPerPage;
   const rows = data.slice(firstIndex, lastIndex); // Content of each row per page */
 
@@ -31,9 +30,7 @@ export const Table = ({ data, columns }) => {
           ))}
         </TableBody>
       </Tables>
-      <PaginationContext.Provider value={{ currentPageState: currentPage, currentPageDispatch: dispatch }}>
-        <Pagination dataBase={data} rowsPerPage={rowsPerPage} />
-      </PaginationContext.Provider>
+      <Pagination dataBase={data} rowsPerPage={rowsPerPage} />
     </TableWrapper>
   );
 };
