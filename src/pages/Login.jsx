@@ -65,7 +65,7 @@ export const Login = () => {
       <FormLogin onSubmit={handleLogin}>
         <InputContainer>
           <LabelLogin htmlFor="email">Email</LabelLogin>
-          <InputLogin type="text" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <InputLogin type="email" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
         </InputContainer>
         <InputContainer>
           <LabelLogin htmlFor="password">Password</LabelLogin>
