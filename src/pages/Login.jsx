@@ -4,20 +4,20 @@ import { AuthContext } from "../app/Contexts/AuthContext";
 import { hardCodeUser } from "../utils/utils";
 import { MdLightbulb } from "react-icons/md";
 import {
-  Main,
-  TitleContainer,
-  Title,
-  ModalWrapper,
-  ModalContent,
-  ModalText,
-  ModalExit,
+  ButtonLogin,
   FormLogin,
   InputContainer,
-  LabelLogin,
   InputLogin,
+  LabelLogin,
+  Main,
+  ModalContent,
+  ModalExit,
+  ModalText,
+  ModalWrapper,
   SpanError,
-  ButtonLogin,
-} from "../styles/loginStyle";
+  TitleContainer,
+  TitleHotelDashboard,
+} from "../styles/stylesComponents";
 
 export const Login = () => {
   const [showCountAdmin, setCoutAdmin] = useState(false);
@@ -44,7 +44,7 @@ export const Login = () => {
   return (
     <Main $login>
       <TitleContainer>
-        <Title>HOTEL MIRANDA DASHBOARD</Title>
+        <TitleHotelDashboard>HOTEL MIRANDA DASHBOARD</TitleHotelDashboard>
         <div>
           <MdLightbulb color="#eb9d0c" size={35} onClick={() => setCoutAdmin(!showCountAdmin)} />
         </div>
@@ -65,7 +65,7 @@ export const Login = () => {
       <FormLogin onSubmit={handleLogin}>
         <InputContainer>
           <LabelLogin htmlFor="email">Email</LabelLogin>
-          <InputLogin type="text" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <InputLogin type="email" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
         </InputContainer>
         <InputContainer>
           <LabelLogin htmlFor="password">Password</LabelLogin>

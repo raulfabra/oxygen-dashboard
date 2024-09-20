@@ -10,6 +10,7 @@ import { LuCalendarCheck } from "react-icons/lu";
 import { TfiKey } from "react-icons/tfi";
 import iconHotel from "../assets/noun-hotel.svg";
 import {
+  Div,
   DivColumn,
   FooterSubtitle,
   FooterTitle,
@@ -18,16 +19,18 @@ import {
   ItemSelect,
   ItemWrapper,
   MenuWrapper,
+  Nav,
+  NavWrapper,
   SettingButton,
   SquarePhoto,
   Subtitle,
   Title,
+  TitleNavBar,
   TitleWrapper,
   UserEmail,
   UserName,
   UserWrapper,
-} from "../styles/menuColumnStyle";
-import { Div, Nav, NavWrapper } from "../styles/navStyle";
+} from "../styles/stylesComponents";
 
 export const Layout = () => {
   // Lógica del Menú
@@ -137,7 +140,7 @@ export const Layout = () => {
         <NavWrapper $spcbtw>
           <Div>
             <VscArrowSwap size={25} style={{ cursor: "pointer" }} onClick={() => setIsVisible(!isVisible)} />
-            <Title>{titleNavbar}</Title>
+            <TitleNavBar>{titleNavbar}</TitleNavBar>
           </Div>
           <Div>
             <MdOutlineEmail size={25} color="#135846" />
