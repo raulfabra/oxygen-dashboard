@@ -1,9 +1,9 @@
 import { Main } from "../../styles/stylesComponents";
 
-export const Contacts = () => {
+export const Reviews = () => {
   return (
     <Main $layout>
-      <h1>HOLA SOY LA TABLA DE CONTACT</h1>
+      <h1>HOLA SOY LA TABLA DE CUSTOMERS REVIEWS</h1>
     </Main>
   );
 };
