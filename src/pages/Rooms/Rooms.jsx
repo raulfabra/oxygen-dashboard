@@ -64,7 +64,7 @@ export const Rooms = () => {
     if (name === "All Rooms") {
       setRoomsListData(db_json);
     }
-    if (name === "Active Rooms") {
+    if (name === "Available Rooms") {
       const newData = db_json.filter((room) => room.statusRoom === "Available");
       setRoomsListData(newData);
     }
@@ -85,7 +85,7 @@ export const Rooms = () => {
       <NavTable>
         <FilterTable>
           <OptionsFiltered onClick={handleOption}>All Rooms</OptionsFiltered>
-          <OptionsFiltered onClick={handleOption}>Active Rooms</OptionsFiltered>
+          <OptionsFiltered onClick={handleOption}>Available Rooms</OptionsFiltered>
           <OptionsFiltered onClick={handleOption}>Booked Rooms</OptionsFiltered>
         </FilterTable>
         <CreateElement type="button" onClick={() => navigator("/createRoom")}>
