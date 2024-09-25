@@ -1,11 +1,10 @@
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getBookingId_Data, getBookingId_Error, getBookingId_Status } from "../../redux/booking/BookingSlice";
+import { getBookingId_Data } from "../../redux/booking/BookingSlice";
 import { getBookingIdThunk } from "../../redux/booking/BookingThunk";
 import { Main } from "../../styles/stylesComponents";
 import db_json from "../../json/dataBookings.json";
 import styled from "styled-components";
+import { useDataDetails } from "../../hook/useDataDetails";
 
 const DIV = styled.div`
   display: flex;
@@ -15,11 +14,8 @@ const DIV = styled.div`
 
 export const BookingDetails = () => {
   const { bookingId } = useParams();
-  const dispatch = useDispatch();
 
-  const bookingID_Data = useSelector(getBookingId_Data);
-  const bookingID_Status = useSelector(getBookingId_Status);
-  const bookingID_Error = useSelector(getBookingId_Error);
+  const { dataSlice } = useDataDetails(bookingId, getBookingId_Data, getBookingIdThunk);
 
   const handleDelete = () => {
     const newDataBase = db_json.filter((booking) => booking.id_booking !== Number(bookingId));
@@ -31,25 +27,16 @@ export const BookingDetails = () => {
     alert("UPDATE THE BOOKING");
   };
 
-  useEffect(() => {
-    if (bookingID_Status === "idle" || bookingID_Status === "fulfilled") dispatch(getBookingIdThunk(Number(bookingId)));
-    else console.log(bookingID_Error);
-  }, []);
-
   return (
     <Main $layout>
       <h1>RESERVA CON ID {bookingId}</h1>
-      {bookingID_Status === "fulfilled" && (
-        <>
-          <DIV>
-            <button onClick={handleUpdate}>Do you want Update Booking?</button>
-          </DIV>
-          <DIV>
-            <h2>{bookingID_Data.fullName}</h2>
-            <button onClick={handleDelete}> BORRAR BOOKING ID </button>
-          </DIV>
-        </>
-      )}
+      <DIV>
+        <button onClick={handleUpdate}>Do you want Update Booking?</button>
+      </DIV>
+      <DIV>
+        {dataSlice && <h2>{dataSlice.fullName}</h2>}
+        <button onClick={handleDelete}> BORRAR BOOKING ID </button>
+      </DIV>
     </Main>
   );
 };

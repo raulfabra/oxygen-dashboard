@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { getRoomsListData, getRoomsListError, getRoomsListStatus } from "../../redux/rooms/RoomsSlice";
 import { getRoomsThunk } from "../../redux/rooms/RoomsThunk";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
 import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataRooms.json";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";
+import { useLoadingData } from "../../hook/useLoadingData";
 
 export const Rooms = () => {
-  const dispatch = useDispatch();
   const navigator = useNavigate();
 
-  const [roomsListData, setRoomsListData] = useState(null);
-
-  const roomsData = useSelector(getRoomsListData);
-  const roomsStatus = useSelector(getRoomsListStatus);
-  const roomsError = useSelector(getRoomsListError);
+  const { dataJson, refreshData } = useLoadingData(getRoomsListData, getRoomsListError, getRoomsListStatus, getRoomsThunk);
 
   //Create table: column and data
   const columns = [
@@ -62,23 +56,17 @@ export const Rooms = () => {
     const name = event.target.textContent;
 
     if (name === "All Rooms") {
-      setRoomsListData(db_json);
+      refreshData(db_json);
     }
     if (name === "Available Rooms") {
       const newData = db_json.filter((room) => room.statusRoom === "Available");
-      setRoomsListData(newData);
+      refreshData(newData);
     }
     if (name === "Booked Rooms") {
       const newData = db_json.filter((room) => room.statusRoom === "Booked");
-      setRoomsListData(newData);
+      refreshData(newData);
     }
   };
-
-  useEffect(() => {
-    if (roomsStatus === "idle") dispatch(getRoomsThunk());
-    else if (roomsStatus === "rejected") console.log(roomsError);
-    else if (roomsStatus === "fulfilled") setRoomsListData(roomsData);
-  }, [roomsStatus]);
 
   return (
     <Main $layout>
@@ -92,9 +80,9 @@ export const Rooms = () => {
           + New Room
         </CreateElement>
       </NavTable>
-      {roomsListData && (
+      {dataJson && (
         <PaginationProvider>
-          <Table data={roomsListData} columns={columns} />
+          <Table data={dataJson} columns={columns} />
         </PaginationProvider>
       )}
     </Main>

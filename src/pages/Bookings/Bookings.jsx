@@ -16,7 +16,7 @@ export const Bookings = () => {
   const navigator = useNavigate();
 
   const [viewNotes, setViewNotes] = useState(null);
-  const { dataJson, changedStatusSlice } = useLoadingData(getBookingsListData, getBookingsListError, getBookingsListStatus, getBookingsThunk);
+  const { dataJson, refreshData } = useLoadingData(getBookingsListData, getBookingsListError, getBookingsListStatus, getBookingsThunk);
 
   //Create dynamic table: (variable columns)
   const columns = [
@@ -89,23 +89,23 @@ export const Bookings = () => {
     const name = event.target.textContent;
 
     if (name === "All Bookings") {
-      changedStatusSlice(db_json);
+      refreshData(db_json);
     }
     if (name === "Pending") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Pending");
-      changedStatusSlice(newList);
+      refreshData(newList);
     }
     if (name === "Booked") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Booked");
-      changedStatusSlice(newList);
+      refreshData(newList);
     }
     if (name === "Canceled") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Canceled");
-      changedStatusSlice(newList);
+      refreshData(newList);
     }
     if (name === "Refund") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Refund");
-      changedStatusSlice(newList);
+      refreshData(newList);
     }
   };
 
@@ -118,7 +118,7 @@ export const Bookings = () => {
   };
 
   //Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada. useCallback para memorizar la función y no volver a lanzar indevidamente.
-  const bookingsByGuestsDebounce = useCallback(debounce((byName) => changedStatusSlice(byName), 700));
+  const bookingsByGuestsDebounce = useCallback(debounce((byName) => refreshData(byName), 700));
 
   //Display/Close Modal of Description Requests of each row in table: (variable handleModal and handleCloseModal)
   const handleModal = (id_booked_modal) => {

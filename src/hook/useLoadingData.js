@@ -9,7 +9,7 @@ export function useLoadingData(getData, getError, getStatus, getApiThunk) {
   const errorSlice = useSelector(getError);
   const statusSlice = useSelector(getStatus);
 
-  const changedStatusSlice = (newData) => {
+  const refreshData = (newData) => {
     if (statusSlice === "idle") dispatch(getApiThunk());
     else if (statusSlice === "rejected") throw Err(errorSlice);
     else if (statusSlice === "fulfilled") setDataJson(newData);
@@ -17,8 +17,8 @@ export function useLoadingData(getData, getError, getStatus, getApiThunk) {
 
   //Its call when status of BookingsData change.
   useEffect(() => {
-    changedStatusSlice(dataSlice);
+    refreshData(dataSlice);
   }, [statusSlice]);
 
-  return { dataJson, changedStatusSlice };
+  return { dataJson, refreshData };
 }
