@@ -16,7 +16,7 @@ export const TitleHotelDashboard = styled.h1`
   letter-spacing: 2px;
 `;
 
-export const ModalWrapper = styled.div<{ $top: string; $left: string; $width: string; $height: string }>`
+export const ModalWrapper = styled.div<{ $top?: string; $left?: string; $width?: string; $height?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -270,7 +270,7 @@ export const TitleNavBar = styled.h1`
 `;
 
 // PAGES
-export const Main = styled.main<{ $login: string; $layout: string }>`
+export const Main = styled.main<{ $login?: boolean; $layout?: boolean }>`
   ${(props) =>
     props.$login &&
     `display: flex;

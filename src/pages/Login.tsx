@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { SyntheticEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../app/Contexts/AuthContext";
 import { hardCodeUser } from "../utils/utils";
@@ -21,22 +21,21 @@ import {
 
 export const Login = () => {
   const [showCountAdmin, setCoutAdmin] = useState(false);
-  const [showMessageCredentialsError, setMessageCredentialsError] = useState(null);
+  const [showMessageCredentialsError, setMessageCredentialsError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const context = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = (event) => {
+  const handleLogin = (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log(email, password);
 
     if (email === hardCodeUser.email && password === hardCodeUser.password) {
-      context.authDispatch({ type: "login", payload: { email, password, name: "admin" } });
+      context?.authDispatch({ type: "login", payload: { authentication: true, email, password, fullName: "admin" } });
       setMessageCredentialsError(true);
       navigate("/dashboard");
     } else {
-      context.authDispatch({ type: "error" });
+      context?.authDispatch({ type: "error", payload: { authentication: false, email, password, fullName: "" } });
       setMessageCredentialsError(false);
     }
   };
@@ -72,7 +71,7 @@ export const Login = () => {
           <InputLogin type="password" name="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} />
         </InputContainer>
 
-        {showMessageCredentialsError || showMessageCredentialsError === null ? (
+        {!showMessageCredentialsError ? (
           ""
         ) : (
           <TitleContainer>

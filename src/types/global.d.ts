@@ -122,3 +122,36 @@ export interface DateClass {
   date: string;
   time: string;
 }
+
+// Auth
+export interface auth {
+  fullName: string;
+  email: string;
+  password: string;
+  authentication: boolean;
+}
+export interface AuthAction {
+  payload: auth;
+  type: string;
+}
+export interface AuthInterface {
+  authState: auth;
+  authDispatch: React.Dispatch<AuthAction>;
+}
+
+// Pagination
+export interface pagination {
+  currentPage: number;
+}
+export interface PageAction {
+  payload: pagination;
+  type: string;
+}
+export interface PageInterface {
+  currentPageState: number;
+  currentPageDispatch: React.Dispatch<PageAction>;
+}
+// Props
+interface Props {
+  children: React.ReactNode;
+}

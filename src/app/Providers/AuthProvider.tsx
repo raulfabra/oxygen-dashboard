@@ -1,20 +1,22 @@
 import { useEffect, useReducer } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
+import { auth, AuthAction, Props } from "../../types/global";
 
-const initialState = {
-  authentication: false,
-  email: "",
+const initialState: auth = {
   fullName: "",
+  email: "",
+  password: "",
+  authentication: false,
 };
 
-const authReducer = (state, action) => {
+const authReducer = (state: auth, action: AuthAction) => {
   switch (action.type) {
     case "login":
-      return { ...state, authentication: true, email: action.payload.email, fullName: action.payload.name };
+      return { ...state, authentication: true, email: action.payload.email, password: action.payload.password };
     case "logout":
-      return { ...state, authentication: false, email: "", fullName: "" };
+      return { ...state, authentication: false, email: "", password: "" };
     case "updateUser":
-      return { ...state, email: action.payload.email, fullName: action.payload.name };
+      return { ...state, email: action.payload.email, password: action.payload.password };
     default:
       return state;
   }
@@ -25,7 +27,7 @@ const savedStorage = () => {
   return storedData ? JSON.parse(storedData) : initialState;
 };
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState, savedStorage);
 
   useEffect(() => {

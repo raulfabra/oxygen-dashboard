@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AuthProtect } from "./app/Middlewares/AuthProtect";
-import { Login } from "./pages/Login";
-import { Layout } from "./pages/Layout";
-import { Dashboard } from "./pages/Dashboard";
-import { Bookings } from "./pages/Bookings/Bookings";
-import { BookingDetails } from "./pages/Bookings/BookingDetails";
-import { NewBooking } from "./pages/Bookings/NewBooking";
-import { Rooms } from "./pages/Rooms/Rooms";
-import { RoomDetails } from "./pages/Rooms/RoomDetails";
-import { NewRoom } from "./pages/Rooms/NewRoom";
-import { Users } from "./pages/Users/Users";
-import { UserDetails } from "./pages/Users/UserDetails";
-import { NewUser } from "./pages/Users/NewUser";
-import { Customers } from "./pages/Customers/Customers";
+import { AuthProtect } from "./app/Middlewares/AuthProtect.js";
+import { Login } from "./pages/Login.js";
+import { Layout } from "./pages/Layout.js";
+import { Dashboard } from "./pages/Dashboard.js";
+import { Bookings } from "./pages/Bookings/Bookings.js";
+import { BookingDetails } from "./pages/Bookings/BookingDetails.js";
+import { NewBooking } from "./pages/Bookings/NewBooking.js";
+import { Rooms } from "./pages/Rooms/Rooms.js";
+import { RoomDetails } from "./pages/Rooms/RoomDetails.js";
+import { NewRoom } from "./pages/Rooms/NewRoom.js";
+import { Users } from "./pages/Users/Users.js";
+import { UserDetails } from "./pages/Users/UserDetails.js";
+import { NewUser } from "./pages/Users/NewUser.js";
+import { Customers } from "./pages/Customers/Customers.js";
 
 function App() {
   return (
