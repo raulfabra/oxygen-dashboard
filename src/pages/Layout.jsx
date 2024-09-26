@@ -109,10 +109,10 @@ export const Layout = () => {
             <ItemName datatype="users"> Users </ItemName>
           </ItemWrapper>
 
-          <ItemWrapper datatype="reviews" onClick={() => navigate("/reviews")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <ItemSelect $isVisible={isHoverMenuItems.reviews} />
+          <ItemWrapper datatype="customers" onClick={() => navigate("/customers")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <ItemSelect $isVisible={isHoverMenuItems.customers} />
             <RiContactsBook3Fill />
-            <ItemName datatype="reviews"> Customer </ItemName>
+            <ItemName datatype="customers"> Customer </ItemName>
           </ItemWrapper>
 
           <UserWrapper>

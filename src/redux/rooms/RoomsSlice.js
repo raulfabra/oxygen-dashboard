@@ -32,7 +32,7 @@ export const RoomIdSlice = createSlice({
   name: "roomId",
   initialState: {
     status: "idle",
-    data: [],
+    data: null,
     error: null,
   },
   extraReducers: (builder) => {
@@ -52,5 +52,3 @@ export const RoomIdSlice = createSlice({
 });
 
 export const getRoomsId_Data = (state) => state.roomId.data;
-export const getRoomsId_Status = (state) => state.roomId.status;
-export const getRoomsId_Error = (state) => state.roomId.error;

@@ -32,7 +32,7 @@ export const BookingIdSlice = createSlice({
   name: "bookingId",
   initialState: {
     status: "idle",
-    data: [],
+    data: null,
     error: null,
   },
   extraReducers: (builder) => {
@@ -52,5 +52,3 @@ export const BookingIdSlice = createSlice({
 });
 
 export const getBookingId_Data = (state) => state.bookingId.data;
-export const getBookingId_Status = (state) => state.bookingId.status;
-export const getBookingId_Error = (state) => state.bookingId.error;

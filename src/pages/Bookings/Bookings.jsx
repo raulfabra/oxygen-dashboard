@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useLoadingData } from "../../hook/useLoadingData";
 import { getBookingsListData, getBookingsListError, getBookingsListStatus } from "../../redux/booking/BookingSlice";
 import { getBookingsThunk } from "../../redux/booking/BookingThunk";
 import { Table } from "../../components/Table/Table";
@@ -13,15 +13,10 @@ import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 // CAMBIAR DB_JSON POR bookingsData
 
 export const Bookings = () => {
-  const dispatch = useDispatch();
   const navigator = useNavigate();
 
   const [viewNotes, setViewNotes] = useState(null);
-  const [bookingsListData, setBookingsListData] = useState(null);
-
-  const bookingsData = useSelector(getBookingsListData);
-  const bookingsStatus = useSelector(getBookingsListStatus);
-  const bookingsError = useSelector(getBookingsListError);
+  const { dataJson, refreshData } = useLoadingData(getBookingsListData, getBookingsListError, getBookingsListStatus, getBookingsThunk);
 
   //Create dynamic table: (variable columns)
   const columns = [
@@ -94,23 +89,23 @@ export const Bookings = () => {
     const name = event.target.textContent;
 
     if (name === "All Bookings") {
-      setBookingsListData(db_json);
+      refreshData(db_json);
     }
     if (name === "Pending") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Pending");
-      setBookingsListData(newList);
+      refreshData(newList);
     }
     if (name === "Booked") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Booked");
-      setBookingsListData(newList);
+      refreshData(newList);
     }
     if (name === "Canceled") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Canceled");
-      setBookingsListData(newList);
+      refreshData(newList);
     }
     if (name === "Refund") {
       const newList = db_json.filter((booking) => booking.statusBooking === "Refund");
-      setBookingsListData(newList);
+      refreshData(newList);
     }
   };
 
@@ -123,7 +118,7 @@ export const Bookings = () => {
   };
 
   //Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada. useCallback para memorizar la función y no volver a lanzar indevidamente.
-  const bookingsByGuestsDebounce = useCallback(debounce((byName) => setBookingsListData(byName), 700));
+  const bookingsByGuestsDebounce = useCallback(debounce((byName) => refreshData(byName), 700));
 
   //Display/Close Modal of Description Requests of each row in table: (variable handleModal and handleCloseModal)
   const handleModal = (id_booked_modal) => {
@@ -131,13 +126,6 @@ export const Bookings = () => {
     setViewNotes(viewNote);
   };
   const handleCloseModal = () => setViewNotes(null);
-
-  //Its call when status of BookingsData change.
-  useEffect(() => {
-    if (bookingsStatus === "idle") dispatch(getBookingsThunk());
-    else if (bookingsStatus === "rejected") console.log(bookingsError);
-    else if (bookingsStatus === "fulfilled") setBookingsListData(bookingsData);
-  }, [bookingsStatus]);
 
   return (
     <Main $layout>
@@ -157,9 +145,9 @@ export const Bookings = () => {
           + New Booking
         </CreateElement>
       </NavTable>
-      {bookingsListData && (
+      {dataJson && (
         <PaginationProvider>
-          <Table data={bookingsListData} columns={columns} />
+          <Table data={dataJson} columns={columns} />
         </PaginationProvider>
       )}
     </Main>
