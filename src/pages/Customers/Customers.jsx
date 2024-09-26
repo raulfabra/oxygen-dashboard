@@ -9,7 +9,7 @@ import { getCustomersThunk } from "../../redux/customers/CustomersThunk";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 import { Table } from "../../components/Table/Table";
 
-export const Reviews = () => {
+export const Customers = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
 
