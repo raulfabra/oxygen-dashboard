@@ -12,7 +12,7 @@ import { NewRoom } from "./pages/Rooms/NewRoom";
 import { Users } from "./pages/Users/Users";
 import { UserDetails } from "./pages/Users/UserDetails";
 import { NewUser } from "./pages/Users/NewUser";
-import { Reviews } from "./pages/Reviews/Reviews";
+import { Customers } from "./pages/Customers/Customers";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
             <Route path="users" element={<Users />} />
             <Route path="users/:userId" element={<UserDetails />} />
             <Route path="createUser" element={<NewUser />} />
-            <Route path="reviews" element={<Reviews />} />
+            <Route path="customers" element={<Customers />} />
           </Route>
         </Route>
       </Routes>
