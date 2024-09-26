@@ -16,7 +16,7 @@ export const TitleHotelDashboard = styled.h1`
   letter-spacing: 2px;
 `;
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div<{ $top: string; $left: string; $width: string; $height: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,7 +115,7 @@ const slideOut = keyframes`
   }
 `;
 
-export const MenuWrapper = styled.section`
+export const MenuWrapper = styled.section<{ $isOpen: typeof slideIn | typeof slideOut }>`
   position: relative;
   display: inline-block;
   width: 15%;
@@ -148,7 +148,7 @@ export const Subtitle = styled.p`
   font-size: 0.6rem;
 `;
 
-export const ItemWrapper = styled.div`
+export const ItemWrapper = styled.div<{ $variant: string }>`
   display: flex;
   position: relative;
   ${(props) => (props.$variant === "m.top" ? "margin-top: 2em" : "")};
@@ -166,7 +166,7 @@ export const ItemWrapper = styled.div`
     color: #e23428;
   }
 `;
-export const ItemSelect = styled.div`
+export const ItemSelect = styled.div<{ $isVisible: string }>`
   display: ${(props) => (props.$isVisible ? "block" : "none")};
   position: absolute;
   top: 10%;
@@ -236,7 +236,7 @@ export const FooterTitle = styled.p`
   text-align: center;
   color: #212121;
 `;
-export const FooterSubtitle = styled.p`
+export const FooterSubtitle = styled.p<{ $variant: string }>`
   font-family: "poppinslight--offline";
   font-size: 0.7rem;
   color: #799283;
@@ -244,7 +244,7 @@ export const FooterSubtitle = styled.p`
 `;
 
 // menu superior
-export const Nav = styled.nav`
+export const Nav = styled.nav<{ $large: boolean; $isOpen: typeof slideIn }>`
   position: absolute;
   display: inline-block;
   width: ${(props) => (props.$large === true ? "85%" : "100%")};
@@ -270,7 +270,7 @@ export const TitleNavBar = styled.h1`
 `;
 
 // PAGES
-export const Main = styled.main`
+export const Main = styled.main<{ $login: string; $layout: string }>`
   ${(props) =>
     props.$login &&
     `display: flex;
@@ -325,7 +325,7 @@ export const ColumnHeader = styled.th`
   color: ${colors.tertiary};
 `;
 
-export const Row = styled.tr`
+export const Row = styled.tr<{ $header: string }>`
   height: ${(props) => (props.$header ? "65px" : "92px")};
   background: #ffffff 0% 0% no-repeat padding-box;
   cursor: default;
@@ -352,7 +352,7 @@ export const DataContent = styled.div`
   }
 `;
 
-export const IconWrapper = styled.div`
+export const IconWrapper = styled.div<{ $width: string }>`
   width: ${(props) => props.$width};
   transition: transform 0.3s;
 

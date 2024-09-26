@@ -11,7 +11,7 @@ export const getUsersThunk = createAsyncThunk("users/getUsersList", async () => 
   }
 });
 
-export const getUserIdThunk = createAsyncThunk("users/getUserId", (id) => {
+export const getUserIdThunk = createAsyncThunk("users/getUserId", (id: number) => {
   try {
     if (db_json.length > 0) return db_json.find((user) => user.id_user === id);
   } catch (error) {
@@ -19,10 +19,10 @@ export const getUserIdThunk = createAsyncThunk("users/getUserId", (id) => {
   }
 });
 
-export const deleteUserIdThunk = createAsyncThunk("users/deleteUserId", (id) => {
+export const deleteUserIdThunk = createAsyncThunk("users/deleteUserId", (id: number) => {
   try {
     if (db_json.length > 0) {
-      const deleteBooked = db_json.find((user) => user.id === id);
+      const deleteBooked = db_json.find((user) => user.id_user === id);
       console.log(deleteBooked);
     }
   } catch (error) {

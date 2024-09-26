@@ -11,7 +11,7 @@ export const getBookingsThunk = createAsyncThunk("booking/getBookingList", async
   }
 });
 
-export const getBookingIdThunk = createAsyncThunk("booking/getBookingId", (id) => {
+export const getBookingIdThunk = createAsyncThunk("booking/getBookingId", (id: number) => {
   try {
     if (db_json.length > 0) return db_json.find((booking) => booking.id_booking === id);
   } catch (error) {
@@ -19,10 +19,10 @@ export const getBookingIdThunk = createAsyncThunk("booking/getBookingId", (id) =
   }
 });
 
-export const deleteBookingIdThunk = createAsyncThunk("booking/deleteBookingId", (id) => {
+export const deleteBookingIdThunk = createAsyncThunk("booking/deleteBookingId", (id: number) => {
   try {
     if (db_json.length > 0) {
-      const deleteBooked = db_json.find((booking) => booking.id === id);
+      const deleteBooked = db_json.find((booking) => booking.id_booking === id);
       console.log(deleteBooked);
     }
   } catch (error) {
