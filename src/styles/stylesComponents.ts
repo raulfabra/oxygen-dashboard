@@ -115,7 +115,7 @@ const slideOut = keyframes`
   }
 `;
 
-export const MenuWrapper = styled.section<{ $isOpen: typeof slideIn | typeof slideOut }>`
+export const MenuWrapper = styled.section<{ $isOpen?: boolean }>`
   position: relative;
   display: inline-block;
   width: 15%;
@@ -148,7 +148,7 @@ export const Subtitle = styled.p`
   font-size: 0.6rem;
 `;
 
-export const ItemWrapper = styled.div<{ $variant: string }>`
+export const ItemWrapper = styled.div<{ $variant?: string }>`
   display: flex;
   position: relative;
   ${(props) => (props.$variant === "m.top" ? "margin-top: 2em" : "")};
@@ -166,7 +166,7 @@ export const ItemWrapper = styled.div<{ $variant: string }>`
     color: #e23428;
   }
 `;
-export const ItemSelect = styled.div<{ $isVisible: string }>`
+export const ItemSelect = styled.div<{ $isVisible?: boolean }>`
   display: ${(props) => (props.$isVisible ? "block" : "none")};
   position: absolute;
   top: 10%;
@@ -236,7 +236,7 @@ export const FooterTitle = styled.p`
   text-align: center;
   color: #212121;
 `;
-export const FooterSubtitle = styled.p<{ $variant: string }>`
+export const FooterSubtitle = styled.p<{ $variant?: string }>`
   font-family: "poppinslight--offline";
   font-size: 0.7rem;
   color: #799283;
@@ -244,7 +244,7 @@ export const FooterSubtitle = styled.p<{ $variant: string }>`
 `;
 
 // menu superior
-export const Nav = styled.nav<{ $large: boolean; $isOpen: typeof slideIn }>`
+export const Nav = styled.nav<{ $large: boolean; $isOpen: boolean }>`
   position: absolute;
   display: inline-block;
   width: ${(props) => (props.$large === true ? "85%" : "100%")};

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../app/Contexts/AuthContext";
 import { RiUserSharedFill, RiContactsBook3Fill } from "react-icons/ri";
@@ -32,26 +32,36 @@ import {
   UserWrapper,
 } from "../styles/stylesComponents";
 
+interface MenuMouseHover {
+  dashboard?: boolean;
+  rooms?: boolean;
+  bookings?: boolean;
+  users?: boolean;
+  customers?: boolean;
+}
+
 export const Layout = () => {
   // Lógica del Menú
   const [titleNavbar, setTitleNavbar] = useState("Dashboard");
   const [isVisible, setIsVisible] = useState(true);
-  const [isHoverMenuItems, setHoverMenuItems] = useState({});
+  const [isHoverMenuItems, setHoverMenuItems] = useState<MenuMouseHover>({});
   const context = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleMouseEnter = (event) => {
-    const item = event.target.getAttribute("datatype");
+  const handleMouseEnter = (event: SyntheticEvent) => {
+    const target = event.target as HTMLElement;
+    const item = target.getAttribute("datatype");
     setHoverMenuItems((prev) => ({ ...prev, [item]: true }));
   };
-  const handleMouseLeave = (event) => {
-    const item = event.target.getAttribute("datatype");
+  const handleMouseLeave = (event: SyntheticEvent) => {
+    const target = event.target as HTMLElement;
+    const item = target.getAttribute("datatype");
     setHoverMenuItems((prev) => ({ ...prev, [item]: false }));
   };
 
   const handleLogOut = () => {
-    context.authDispatch({ type: "logout" });
+    context?.authDispatch({ type: "logout", payload: { fullName: "", email: "", password: "", authentication: false } });
   };
 
   useEffect(() => {
@@ -137,7 +147,7 @@ export const Layout = () => {
         ""
       )}
       <Nav $large={isVisible} $isOpen={isVisible}>
-        <NavWrapper $spcbtw>
+        <NavWrapper>
           <Div>
             <VscArrowSwap size={25} style={{ cursor: "pointer" }} onClick={() => setIsVisible(!isVisible)} />
             <TitleNavBar>{titleNavbar}</TitleNavBar>

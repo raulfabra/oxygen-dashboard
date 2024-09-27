@@ -1,13 +1,14 @@
-import { useCallback } from "react";
+import { SyntheticEvent, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUsersListData, getUsersListError, getUsersListStatus } from "../../redux/users/UsersSlice";
-import { getUsersThunk } from "../../redux/users/UsersThunk";
+import { getUsersThunk } from "../../redux/users/UserThunk";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataContent, DataWrapper } from "../../styles/stylesComponents";
 import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataUsers.json";
 import debounce from "just-debounce-it";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 import { useLoadingData } from "../../hook/useLoadingData";
+import { User } from "../../types/global";
 
 export const Users = () => {
   const navigator = useNavigate();
@@ -18,7 +19,7 @@ export const Users = () => {
   const columns = [
     {
       label: "Name",
-      display: (user) => (
+      display: (user: User) => (
         <DataWrapper>
           <DataContent>
             <img src={user.picture} alt="picture person" width={"130px"} />
@@ -33,22 +34,22 @@ export const Users = () => {
     },
     {
       label: "Job Desk",
-      display: (user) => `${user.jobDesk}`,
+      display: (user: User) => `${user.jobDesk}`,
     },
     {
       label: "Email",
-      display: (user) => `📧 ${user.email}`,
+      display: (user: User) => `📧 ${user.email}`,
     },
     {
       label: "Contact",
-      display: (user) => `📲 ${user.phone}`,
+      display: (user: User) => `📲 ${user.phone}`,
     },
     {
       label: "Status",
-      display: (user) => `${user.statusEmployeer}`,
+      display: (user: User) => `${user.statusEmployeer}`,
     },
   ];
-  const handleOption = (event) => {
+  const handleOption = (event: SyntheticEvent) => {
     const name = event.target.textContent;
 
     if (name === "All Employee") {
@@ -67,14 +68,16 @@ export const Users = () => {
   };
 
   const debouncedGetEmployee = useCallback(
-    debounce((newList) => {
+    debounce((newList: User) => {
       refreshData(newList);
     }, 500)
   );
 
-  const handleSearchByName = (event) => {
-    const value = event.target.value.toLowerCase();
-    const newList = usersData.filter((user) => user.fullName.toLowerCase().includes(value));
+  const handleSearchByName = (event: SyntheticEvent) => {
+    const target = event.target as HTMLInputElement;
+    const value = target.value.toLowerCase();
+    if (!dataJson) throw new Error("The json data was null");
+    const newList = dataJson.filter((user) => user.fullName.toLowerCase().includes(value));
     if (value === "") return debouncedGetEmployee(db_json);
     else debouncedGetEmployee(newList);
   };
