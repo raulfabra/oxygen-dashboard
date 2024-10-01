@@ -1,26 +1,33 @@
-import { getCustomersListData, getCustomersListStatus, getCustomersListError } from "../../redux/customers/CustomersSlice";
-import { getCustomersThunk } from "../../redux/customers/CustomersThunk";
+import { getCustomersThunk } from "../../redux/customers/CustomerThunk";
+import { getCustomersListData, getCustomersListStatus, getCustomersListError } from "../../redux/customers/CustomerSlice";
 import { useLoadingData } from "../../hook/useLoadingData";
-import { CardReview } from "../../components/CardOfReviews/CardReview";
+import { rateStarsAssessment } from "../../utils/utils";
 import { Table } from "../../components/Table/Table";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";
-import { FilterTable, Main, NavTable, OptionsFiltered } from "../../styles/StylesComponts";
+import { CardReview } from "../../components/CardOfReviews/CardReview";
+import { Main, FilterTable, NavTable, OptionsFiltered } from "../../styles/StylesComponts";
+import { Customer } from "../../types/global";
 
 export const Customers = () => {
-  const { dataJson, refreshData } = useLoadingData(getCustomersListData, getCustomersListError, getCustomersListStatus, getCustomersThunk);
+  const { dataJson, refreshData } = useLoadingData({
+    getData: getCustomersListData,
+    getError: getCustomersListError,
+    getStatus: getCustomersListStatus,
+    getApiThunk: getCustomersThunk,
+  });
 
   const columns = [
     {
       label: "Order ID",
-      display: (customer) => `${customer.orderID}`,
+      display: (customer: Customer) => `${customer.orderID}`,
     },
     {
       label: "Date",
-      display: (customer) => `${customer.date.date} ${customer.date.time}`,
+      display: (customer: Customer) => `${customer.date.date} ${customer.date.time}`,
     },
     {
       label: "Customer",
-      display: (customer) => (
+      display: (customer: Customer) => (
         <div>
           <p>{customer.customer.fullName}</p>
           <p>{customer.customer.email}</p>
@@ -30,7 +37,7 @@ export const Customers = () => {
     },
     {
       label: "Comment",
-      display: (customer) => (
+      display: (customer: Customer) => (
         <div>
           <p>{rateStarsAssessment(customer.score)}</p>
           <p>{customer.comment.issue}</p>
@@ -40,19 +47,9 @@ export const Customers = () => {
     },
     {
       label: "Action",
-      display: (customer) => <button>Archive</button>,
+      display: (customer: Customer) => <button>Archive</button>,
     },
   ];
-
-  function rateStarsAssessment(rate) {
-    let stars = "";
-    let count = 1;
-    while (count <= rate) {
-      stars += "⭐";
-      count++;
-    }
-    return stars;
-  }
 
   return (
     <Main $layout>
