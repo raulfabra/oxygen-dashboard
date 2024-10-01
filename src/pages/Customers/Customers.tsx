@@ -4,7 +4,7 @@ import { useLoadingData } from "../../hook/useLoadingData";
 import { CardReview } from "../../components/CardOfReviews/CardReview";
 import { Table } from "../../components/Table/Table";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";
-import { FilterTable, Main, NavTable, OptionsFiltered } from "../../styles/stylesComponents";
+import { FilterTable, Main, NavTable, OptionsFiltered } from "../../styles/StylesComponts";
 
 export const Customers = () => {
   const { dataJson, refreshData } = useLoadingData(getCustomersListData, getCustomersListError, getCustomersListStatus, getCustomersThunk);

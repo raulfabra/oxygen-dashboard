@@ -5,7 +5,7 @@ import { getBookingsListData, getBookingsListError, getBookingsListStatus } from
 import { getBookingsThunk } from "../../redux/booking/BookingThunk.js";
 import { Table } from "../../components/Table/Table.tsx";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider.tsx";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents.js";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/StylesComponts.js";
 import debounce from "just-debounce-it";
 import db_json from "../../json/dataBookings.json";
 import iconPerson from "../../assets/noun-person.svg";

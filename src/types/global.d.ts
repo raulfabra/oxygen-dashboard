@@ -1,3 +1,5 @@
+import { RootState } from "../app/store";
+
 // ROOMS
 export interface Room {
   id_room: number;
@@ -33,7 +35,8 @@ export enum Bed {
   Suite = "Suite",
 }
 
-/* -------------------------------------------------------------------------------------------------------------------------- */
+// <---------------------------------
+
 // BOOKING
 export interface Booking {
   id: string;
@@ -75,6 +78,8 @@ export enum StatusBooking {
   Refund = "Refund",
 }
 
+// <---------------------------------
+
 // Users
 export interface User {
   id: string;
@@ -92,6 +97,8 @@ export enum StatusEmployeer {
   Active = "Active",
   Inactive = "Inactive",
 }
+
+// <---------------------------------
 
 // Customer
 export interface Customer {
@@ -123,6 +130,8 @@ export interface DateClass {
   time: string;
 }
 
+// <---------------------------------
+
 // Auth
 export interface auth {
   fullName: string;
@@ -139,6 +148,8 @@ export interface AuthInterface {
   authDispatch: React.Dispatch<AuthAction>;
 }
 
+// <---------------------------------
+
 // Pagination
 export interface pagination {
   currentPage: number;
@@ -151,7 +162,19 @@ export interface PageInterface {
   currentPageState: number;
   currentPageDispatch: React.Dispatch<PageAction>;
 }
-// Props
+
+// <---------------------------------
+
+// PROVIDERS
 interface Props {
   children: React.ReactNode;
+}
+
+// <---------------------------------
+
+// CUSTOM-HOOKS
+export interface DataIdInterface {
+  id: number;
+  getData: (state: RootState) => Booking[] | Room[] | User[] | Customer[] | null;
+  getApiThunk: (id: number) => any;
 }

@@ -30,7 +30,7 @@ import {
   UserEmail,
   UserName,
   UserWrapper,
-} from "../styles/stylesComponents";
+} from "../styles/StylesComponts";
 
 interface MenuMouseHover {
   dashboard?: boolean;

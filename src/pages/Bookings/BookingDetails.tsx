@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { getBookingId_Data } from "../../redux/booking/BookingSlice";
 import { getBookingIdThunk } from "../../redux/booking/BookingThunk";
-import { Main } from "../../styles/stylesComponents";
+import { Main } from "../../styles/StylesComponts";
 import db_json from "../../json/dataBookings.json";
 import styled from "styled-components";
 import { useDataDetails } from "../../hook/useDataDetails";
+import { Booking } from "../../types/global";
 
 const DIV = styled.div`
   display: flex;
@@ -13,12 +14,17 @@ const DIV = styled.div`
 `;
 
 export const BookingDetails = () => {
-  const { bookingId } = useParams();
+  const { Id } = useParams();
+  const bookingId = Number(Id);
 
-  const { dataSlice } = useDataDetails(bookingId, getBookingId_Data, getBookingIdThunk);
+  const { dataSlice } = useDataDetails({
+    id: bookingId,
+    getData: getBookingId_Data,
+    getApiThunk: getBookingIdThunk,
+  });
 
   const handleDelete = () => {
-    const newDataBase = db_json.filter((booking) => booking.id_booking !== Number(bookingId));
+    const newDataBase = db_json.filter((booking) => booking.id_booking !== bookingId);
     console.log(newDataBase);
     alert(`Has eliminado la reserva con id: ${bookingId}`);
   };
@@ -34,7 +40,7 @@ export const BookingDetails = () => {
         <button onClick={handleUpdate}>Do you want Update Booking?</button>
       </DIV>
       <DIV>
-        {dataSlice && <h2>{dataSlice.fullName}</h2>}
+        {dataSlice && <h2>{(dataSlice as Booking[])[0].fullName}</h2>}
         <button onClick={handleDelete}> BORRAR BOOKING ID </button>
       </DIV>
     </Main>

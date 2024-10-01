@@ -1,5 +1,5 @@
 import { Pagination } from "./Pagination";
-import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../../styles/stylesComponents";
+import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../../styles/StylesComponts";
 import { useContext } from "react";
 import { PaginationContext } from "../../app/Contexts/PaginationContext";
 

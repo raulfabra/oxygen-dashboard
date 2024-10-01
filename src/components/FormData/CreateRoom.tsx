@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Main } from "../../styles/stylesComponents";
+import { Main } from "../../styles/StylesComponts";
 
 export const CreateRoom = () => {
   const [formData, setFormData] = useState({

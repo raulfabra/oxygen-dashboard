@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { getRoomsListData, getRoomsListError, getRoomsListStatus } from "../../redux/rooms/RoomsSlice";
 import { getRoomsThunk } from "../../redux/rooms/RoomsThunk";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/StylesComponts";
 import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataRooms.json";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";

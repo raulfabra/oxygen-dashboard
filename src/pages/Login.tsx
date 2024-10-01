@@ -1,7 +1,7 @@
 import { SyntheticEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../app/Contexts/AuthContext.tsx";
-import { hardCodeUser } from "../utils/utils.ts";
+import { AuthContext } from "../app/Contexts/AuthContext";
+import { hardCodeUser } from "../utils/utils";
 import { MdLightbulb } from "react-icons/md";
 import {
   ButtonLogin,
@@ -17,7 +17,7 @@ import {
   SpanError,
   TitleContainer,
   TitleHotelDashboard,
-} from "../styles/stylesComponents.ts";
+} from "../styles/StylesComponts";
 
 export const Login = () => {
   const [showCountAdmin, setCoutAdmin] = useState(false);
