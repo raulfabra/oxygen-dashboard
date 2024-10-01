@@ -1,6 +1,7 @@
 import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../app/Contexts/AuthContext";
+import { MenuMouseHover } from "../types/global";
 import { RiUserSharedFill, RiContactsBook3Fill } from "react-icons/ri";
 import { IoMdNotificationsOutline, IoMdSettings } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
@@ -32,14 +33,6 @@ import {
   UserWrapper,
 } from "../styles/StylesComponts";
 
-interface MenuMouseHover {
-  dashboard?: boolean;
-  rooms?: boolean;
-  bookings?: boolean;
-  users?: boolean;
-  customers?: boolean;
-}
-
 export const Layout = () => {
   // Lógica del Menú
   const [titleNavbar, setTitleNavbar] = useState("Dashboard");
@@ -51,13 +44,13 @@ export const Layout = () => {
 
   const handleMouseEnter = (event: SyntheticEvent) => {
     const target = event.target as HTMLElement;
-    const item = target.getAttribute("datatype");
-    setHoverMenuItems((prev) => ({ ...prev, [item]: true }));
+    const item: string | null = target.getAttribute("datatype");
+    setHoverMenuItems((prev) => ({ ...prev, item: true })); // Change [item]:true -> item:true ??
   };
   const handleMouseLeave = (event: SyntheticEvent) => {
     const target = event.target as HTMLElement;
     const item = target.getAttribute("datatype");
-    setHoverMenuItems((prev) => ({ ...prev, [item]: false }));
+    setHoverMenuItems((prev) => ({ ...prev, item: false })); // Change [item]:true -> item:true ??
   };
 
   const handleLogOut = () => {
