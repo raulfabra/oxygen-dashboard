@@ -1,7 +1,7 @@
 import { SyntheticEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../app/Contexts/AuthContext";
-import { hardCodeUser } from "../utils/utils";
+import { AuthContext } from "../app/Contexts/AuthContext.tsx";
+import { hardCodeUser } from "../utils/utils.ts";
 import { MdLightbulb } from "react-icons/md";
 import {
   ButtonLogin,
@@ -17,7 +17,7 @@ import {
   SpanError,
   TitleContainer,
   TitleHotelDashboard,
-} from "../styles/stylesComponents";
+} from "../styles/stylesComponents.ts";
 
 export const Login = () => {
   const [showCountAdmin, setCoutAdmin] = useState(false);
@@ -64,11 +64,23 @@ export const Login = () => {
       <FormLogin onSubmit={handleLogin}>
         <InputContainer>
           <LabelLogin htmlFor="email">Email</LabelLogin>
-          <InputLogin type="email" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <InputLogin
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
+          />
         </InputContainer>
         <InputContainer>
           <LabelLogin htmlFor="password">Password</LabelLogin>
-          <InputLogin type="password" name="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+          <InputLogin
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
+          />
         </InputContainer>
 
         {!showMessageCredentialsError ? (

@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoadingData } from "../../hook/useLoadingData";
-import { getBookingsListData, getBookingsListError, getBookingsListStatus } from "../../redux/booking/BookingSlice";
-import { getBookingsThunk } from "../../redux/booking/BookingThunk";
-import { Table } from "../../components/Table/Table";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents";
+import { useLoadingData } from "../../hook/useLoadingData.js";
+import { getBookingsListData, getBookingsListError, getBookingsListStatus } from "../../redux/booking/BookingSlice.js";
+import { getBookingsThunk } from "../../redux/booking/BookingThunk.js";
+import { Table } from "../../components/Table/Table.tsx";
+import { PaginationProvider } from "../../app/Providers/PaginationProvider.tsx";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/stylesComponents.js";
 import debounce from "just-debounce-it";
 import db_json from "../../json/dataBookings.json";
 import iconPerson from "../../assets/noun-person.svg";
-import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 
 // CAMBIAR DB_JSON POR bookingsData
 
