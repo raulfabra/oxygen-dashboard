@@ -1,28 +1,43 @@
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLoadingData } from "../../hook/useLoadingData.js";
-import { getBookingsListData, getBookingsListError, getBookingsListStatus } from "../../redux/booking/BookingSlice.js";
-import { getBookingsThunk } from "../../redux/booking/BookingThunk.js";
-import { Table } from "../../components/Table/Table.tsx";
-import { PaginationProvider } from "../../app/Providers/PaginationProvider.tsx";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/StylesComponts.js";
-import debounce from "just-debounce-it";
 import db_json from "../../json/dataBookings.json";
 import iconPerson from "../../assets/noun-person.svg";
-
-// CAMBIAR DB_JSON POR bookingsData
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoadingData } from "../../hook/useLoadingData.js";
+import { getBookingsThunk } from "../../redux/booking/BookingThunk.js";
+import { getBookingsListData, getBookingsListError, getBookingsListStatus } from "../../redux/booking/BookingSlice.js";
+import { Table } from "../../components/Table/Table.tsx";
+import { PaginationProvider } from "../../app/Providers/PaginationProvider.tsx";
+import { Booking } from "../../types/global";
+import {
+  Main,
+  NavTable,
+  FilterTable,
+  CreateElement,
+  OptionsFiltered,
+  DataWrapper,
+  DataContent,
+  ModalWrapper,
+  ModalContent,
+  ModalText,
+  ModalExit,
+} from "../../styles/StylesComponts.js";
 
 export const Bookings = () => {
   const navigator = useNavigate();
 
-  const [viewNotes, setViewNotes] = useState(null);
-  const { dataJson, refreshData } = useLoadingData(getBookingsListData, getBookingsListError, getBookingsListStatus, getBookingsThunk);
+  const [viewNotes, setViewNotes] = useState<Booking | null>(null);
+  const { dataJson, refreshData } = useLoadingData({
+    getData: getBookingsListData,
+    getError: getBookingsListError,
+    getStatus: getBookingsListStatus,
+    getApiThunk: getBookingsThunk,
+  });
 
   //Create dynamic table: (variable columns)
   const columns = [
     {
       label: "Guest",
-      display: (booked) => (
+      display: (booked: Booking) => (
         <DataWrapper>
           <DataContent onClick={() => navigator(`/bookings/${booked.id_booking}`)}>
             <img src={iconPerson} alt="picture person" width={"50px"} />
@@ -36,11 +51,11 @@ export const Bookings = () => {
     },
     {
       label: "Order Date",
-      display: (booked) => `${booked.booking.orderDate}`,
+      display: (booked: Booking) => `${booked.booking.orderDate}`,
     },
     {
       label: "Check In",
-      display: (booked) => (
+      display: (booked: Booking) => (
         <div>
           <p>{booked.booking.checkIn.date}</p>
           <span>{booked.booking.checkIn.time}</span>
@@ -49,7 +64,7 @@ export const Bookings = () => {
     },
     {
       label: "Check Out",
-      display: (booked) => (
+      display: (booked: Booking) => (
         <div>
           <p>{booked.booking.checkOut.date}</p>
           <span>{booked.booking.checkOut.time}</span>
@@ -58,7 +73,7 @@ export const Bookings = () => {
     },
     {
       label: "Special Request",
-      display: (booked) => (
+      display: (booked: Booking) => (
         <div>
           <p onClick={() => handleModal(booked.id)}>View Notes</p>
           {viewNotes && (
@@ -76,53 +91,53 @@ export const Bookings = () => {
     },
     {
       label: "Room Type",
-      display: (booked) => `${booked.room.type} - ${booked.room.number}`,
+      display: (booked: Booking) => `${booked.room.type} - ${booked.room.number}`,
     },
     {
       label: "Status",
-      display: (booked) => `${booked.statusBooking}`,
+      display: (booked: Booking) => `${booked.statusBooking}`,
     },
   ];
 
   //Order Filters for table: (variable handleOptions)
-  const handleOptions = (event) => {
-    const name = event.target.textContent;
+  const handleOptions = (event: React.MouseEvent<HTMLLIElement>) => {
+    const name = event.currentTarget.textContent;
 
     if (name === "All Bookings") {
-      refreshData(db_json);
+      refreshData(dataJson as Booking[]);
     }
     if (name === "Pending") {
-      const newList = db_json.filter((booking) => booking.statusBooking === "Pending");
+      const newList = (dataJson as Booking[]).filter((booking) => booking.statusBooking === "Pending");
       refreshData(newList);
     }
     if (name === "Booked") {
-      const newList = db_json.filter((booking) => booking.statusBooking === "Booked");
+      const newList = (dataJson as Booking[]).filter((booking) => booking.statusBooking === "Booked");
       refreshData(newList);
     }
     if (name === "Canceled") {
-      const newList = db_json.filter((booking) => booking.statusBooking === "Canceled");
+      const newList = (dataJson as Booking[]).filter((booking) => booking.statusBooking === "Canceled");
       refreshData(newList);
     }
     if (name === "Refund") {
-      const newList = db_json.filter((booking) => booking.statusBooking === "Refund");
+      const newList = (dataJson as Booking[]).filter((booking) => booking.statusBooking === "Refund");
       refreshData(newList);
     }
   };
 
   //Order Filters by searchKeyboard auto
-  const handleSearchByName = (event) => {
+  const handleSearchByName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toLowerCase();
-    const newList = db_json.filter((booking) => booking.fullName.toLowerCase().includes(value));
-    if (value === "") return bookingsByGuestsDebounce(db_json);
-    else bookingsByGuestsDebounce(newList);
+    const newList = (dataJson as Booking[]).filter((booking) => booking.fullName.toLowerCase().includes(value));
+    /*     if (value === "") return bookingsByGuestsDebounce(db_json);
+    else bookingsByGuestsDebounce(newList); */
   };
 
   //Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada. useCallback para memorizar la función y no volver a lanzar indevidamente.
-  const bookingsByGuestsDebounce = useCallback(debounce((byName) => refreshData(byName), 700));
+  // const bookingsByGuestsDebounce = useCallback(debounce((byName) => refreshData(byName), 700));
 
   //Display/Close Modal of Description Requests of each row in table: (variable handleModal and handleCloseModal)
-  const handleModal = (id_booked_modal) => {
-    const viewNote = bookingsListData.filter((booked) => booked.id.includes(id_booked_modal))[0];
+  const handleModal = (id_booked_modal: string) => {
+    const viewNote = (dataJson as Booking[]).filter((booked) => booked.id.includes(id_booked_modal))[0];
     setViewNotes(viewNote);
   };
   const handleCloseModal = () => setViewNotes(null);

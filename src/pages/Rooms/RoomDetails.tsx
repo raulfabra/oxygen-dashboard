@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
-import { getRoomsId_Data } from "../../redux/rooms/RoomSlice";
-import { getRoomIdThunk } from "../../redux/rooms/RoomThunk";
-import { Main } from "../../styles/StylesComponts";
 import db_json from "../../json/dataRooms.json";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { useDataDetails } from "../../hook/useDataDetails";
+import { getRoomIdThunk } from "../../redux/rooms/RoomThunk";
+import { getRoomsId_Data } from "../../redux/rooms/RoomSlice";
+import { Main } from "../../styles/StylesComponts";
 import { Room } from "../../types/global";
 
 const DIV = styled.div<{ $col?: boolean }>`

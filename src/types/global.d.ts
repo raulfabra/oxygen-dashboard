@@ -169,12 +169,24 @@ export interface PageInterface {
 interface Props {
   children: React.ReactNode;
 }
-
+// MENÚ-LATERAL-HOVER
+export interface MenuMouseHover {
+  [key: string]: boolean;
+}
 // <---------------------------------
 
 // CUSTOM-HOOKS
+export type Models = Booking[] | Room[] | User[] | Customer[];
+
 export interface DataIdInterface {
   id: number;
-  getData: (state: RootState) => Booking[] | Room[] | User[] | Customer[] | null;
+  getData: (state: RootState) => Models | null;
   getApiThunk: (id: number) => any;
+}
+
+export interface DataInterface {
+  getData: (state: RootState) => Models | null;
+  getStatus: (state: RootState) => "idle" | "rejected" | "fulfilled" | "pending";
+  getError: (state: RootState) => string | undefined;
+  getApiThunk: () => any;
 }

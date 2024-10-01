@@ -1,6 +1,6 @@
 import { useState } from "react";
-import bcrypt from "bcryptjs";
 import { Main } from "../../styles/StylesComponts";
+import bcrypt from "bcryptjs";
 
 export const CreateEmployee = () => {
   const [formData, setFormData] = useState({
@@ -15,17 +15,17 @@ export const CreateEmployee = () => {
     password: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = event.target;
 
     setFormData({
       ...formData,
-      [name]: type === "file" ? URL.createObjectURL(files[0]) : value,
+      [name]: value,
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     // Hashing the password
     const hashedPassword = await bcrypt.hash(formData.password, 10);
