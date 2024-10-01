@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
-import { getBookingId_Data } from "../../redux/booking/BookingSlice";
-import { getBookingIdThunk } from "../../redux/booking/BookingThunk";
-import { Main } from "../../styles/StylesComponts";
 import db_json from "../../json/dataBookings.json";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { useDataDetails } from "../../hook/useDataDetails";
+import { getBookingIdThunk } from "../../redux/booking/BookingThunk";
+import { getBookingId_Data } from "../../redux/booking/BookingSlice";
+import { Main } from "../../styles/StylesComponts";
 import { Booking } from "../../types/global";
 
 const DIV = styled.div`

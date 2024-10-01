@@ -1,22 +1,28 @@
-import { useNavigate } from "react-router-dom";
-import { getRoomsListData, getRoomsListError, getRoomsListStatus } from "../../redux/rooms/RoomsSlice";
-import { getRoomsThunk } from "../../redux/rooms/RoomsThunk";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/StylesComponts";
-import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataRooms.json";
-import { PaginationProvider } from "../../app/Providers/PaginationProvider";
+import { useNavigate } from "react-router-dom";
 import { useLoadingData } from "../../hook/useLoadingData";
+import { getRoomsThunk } from "../../redux/rooms/RoomThunk";
+import { getRoomsListData, getRoomsListError, getRoomsListStatus } from "../../redux/rooms/RoomSlice";
+import { Table } from "../../components/Table/Table";
+import { PaginationProvider } from "../../app/Providers/PaginationProvider";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/StylesComponts";
+import { Room } from "../../types/global";
 
 export const Rooms = () => {
   const navigator = useNavigate();
 
-  const { dataJson, refreshData } = useLoadingData(getRoomsListData, getRoomsListError, getRoomsListStatus, getRoomsThunk);
+  const { dataJson, refreshData } = useLoadingData({
+    getData: getRoomsListData,
+    getError: getRoomsListError,
+    getStatus: getRoomsListStatus,
+    getApiThunk: getRoomsThunk,
+  });
 
   //Create table: column and data
   const columns = [
     {
       label: "Room Name",
-      display: (room) => (
+      display: (room: Room) => (
         <DataWrapper>
           <DataContent onClick={() => navigator(`/rooms/${room.id_room}`)}>
             <img src={room.typeRoom.pictures} alt="picture-Room" width={"150px"} />
@@ -32,38 +38,38 @@ export const Rooms = () => {
     },
     {
       label: "Room Type",
-      display: (room) => `${room.typeRoom.bed}`,
+      display: (room: Room) => `${room.typeRoom.bed}`,
     },
     {
       label: "Room Floor",
-      display: (room) => `Floor ${room.numberRoom}`,
+      display: (room: Room) => `Floor ${room.numberRoom}`,
     },
     {
       label: "Amenities",
-      display: (room) => `${room.typeRoom.amenities}`,
+      display: (room: Room) => `${room.typeRoom.amenities}`,
     },
     {
       label: "Price per Night",
-      display: (room) => `${room.priceNight}`,
+      display: (room: Room) => `${room.priceNight}`,
     },
     {
       label: "Status",
-      display: (room) => `${room.statusRoom}`,
+      display: (room: Room) => `${room.statusRoom}`,
     },
   ];
 
-  const handleOption = (event) => {
-    const name = event.target.textContent;
+  const handleOption = (event: React.MouseEvent<HTMLLIElement>) => {
+    const name = event.currentTarget.textContent;
 
     if (name === "All Rooms") {
-      refreshData(db_json);
+      refreshData(dataJson as Room[]);
     }
     if (name === "Available Rooms") {
-      const newData = db_json.filter((room) => room.statusRoom === "Available");
+      const newData = (dataJson as Room[]).filter((room) => room.statusRoom === "Available");
       refreshData(newData);
     }
     if (name === "Booked Rooms") {
-      const newData = db_json.filter((room) => room.statusRoom === "Booked");
+      const newData = (dataJson as Room[]).filter((room) => room.statusRoom === "Booked");
       refreshData(newData);
     }
   };

@@ -1,6 +1,4 @@
 import db_json from "../../json/dataUsers.json";
-import debounce from "just-debounce-it";
-import { SyntheticEvent, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoadingData } from "../../hook/useLoadingData";
 import { getUsersThunk } from "../../redux/users/UserThunk";
