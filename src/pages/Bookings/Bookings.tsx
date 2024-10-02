@@ -37,45 +37,45 @@ export const Bookings = () => {
   const columns = [
     {
       label: "Guest",
-      display: (booked: Booking) => (
+      display: (item: Booking) => (
         <DataWrapper>
-          <DataContent onClick={() => navigator(`/bookings/${booked.id_booking}`)}>
+          <DataContent onClick={() => navigator(`/bookings/${item.id_booking}`)}>
             <img src={iconPerson} alt="picture person" width={"50px"} />
           </DataContent>
-          <DataContent onClick={() => navigator(`/bookings/${booked.id_booking}`)}>
-            <h3>{booked.fullName}</h3>
-            <h4>#{booked.id_booking}</h4>
+          <DataContent onClick={() => navigator(`/bookings/${item.id_booking}`)}>
+            <h3>{item.fullName}</h3>
+            <h4>#{item.id_booking}</h4>
           </DataContent>
         </DataWrapper>
       ),
     },
     {
       label: "Order Date",
-      display: (booked: Booking) => `${booked.booking.orderDate}`,
+      display: (item: Booking) => `${item.booking.orderDate}`,
     },
     {
       label: "Check In",
-      display: (booked: Booking) => (
+      display: (item: Booking) => (
         <div>
-          <p>{booked.booking.checkIn.date}</p>
-          <span>{booked.booking.checkIn.time}</span>
+          <p>{item.booking.checkIn.date}</p>
+          <span>{item.booking.checkIn.time}</span>
         </div>
       ),
     },
     {
       label: "Check Out",
-      display: (booked: Booking) => (
+      display: (item: Booking) => (
         <div>
-          <p>{booked.booking.checkOut.date}</p>
-          <span>{booked.booking.checkOut.time}</span>
+          <p>{item.booking.checkOut.date}</p>
+          <span>{item.booking.checkOut.time}</span>
         </div>
       ),
     },
     {
       label: "Special Request",
-      display: (booked: Booking) => (
+      display: (item: Booking) => (
         <div>
-          <p onClick={() => handleModal(booked.id)}>View Notes</p>
+          <p onClick={() => handleModal(item.id)}>View Notes</p>
           {viewNotes && (
             <ModalWrapper>
               <ModalContent>
@@ -91,11 +91,11 @@ export const Bookings = () => {
     },
     {
       label: "Room Type",
-      display: (booked: Booking) => `${booked.room.type} - ${booked.room.number}`,
+      display: (item: Booking) => `${item.room.type} - ${item.room.number}`,
     },
     {
       label: "Status",
-      display: (booked: Booking) => `${booked.statusBooking}`,
+      display: (item: Booking) => `${item.statusBooking}`,
     },
   ];
 

@@ -10,13 +10,13 @@ const initialState = {
 const paginationReducer = (state: pagination, action: PageAction) => {
   switch (action.type) {
     case "increment":
-      if (state.currentPage < action.payload.currentPage) return { ...state, currentPage: state.currentPage + 1 };
+      if (state.currentPage < action.payload) return { ...state, currentPage: state.currentPage + 1 };
       else return state;
     case "decrement":
-      if (state.currentPage > action.payload.currentPage) return { ...state, currentPage: state.currentPage - 1 };
+      if (state.currentPage > action.payload) return { ...state, currentPage: state.currentPage - 1 };
       else return state;
     case "direct":
-      return { ...state, currentPage: (state.currentPage = action.payload.currentPage) };
+      return { ...state, currentPage: (state.currentPage = action.payload) };
     default:
       return state;
   }
