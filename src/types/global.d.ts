@@ -155,7 +155,7 @@ export interface pagination {
   currentPage: number;
 }
 export interface PageAction {
-  payload: pagination;
+  payload: number;
   type: string;
 }
 export interface PageInterface {
@@ -166,13 +166,20 @@ export interface PageInterface {
 // <---------------------------------
 
 // PROVIDERS
+export interface DataStateInterface {
+  status: "idle" | "rooms" | "bookings" | "users" | "customers";
+  data: Models | [];
+}
+
 interface Props {
   children: React.ReactNode;
 }
+
 // MENÚ-LATERAL-HOVER
 export interface MenuMouseHover {
   [key: string]: boolean;
 }
+
 // <---------------------------------
 
 // CUSTOM-HOOKS

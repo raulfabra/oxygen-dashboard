@@ -6,7 +6,7 @@ import { getRoomsListData, getRoomsListError, getRoomsListStatus } from "../../r
 import { Table } from "../../components/Table/Table";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";
 import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataWrapper, DataContent } from "../../styles/StylesComponts";
-import { Room } from "../../types/global";
+import { Models, Room } from "../../types/global";
 
 export const Rooms = () => {
   const navigator = useNavigate();
@@ -22,15 +22,15 @@ export const Rooms = () => {
   const columns = [
     {
       label: "Room Name",
-      display: (room: Room) => (
+      display: (item: Room) => (
         <DataWrapper>
-          <DataContent onClick={() => navigator(`/rooms/${room.id_room}`)}>
-            <img src={room.typeRoom.pictures} alt="picture-Room" width={"150px"} />
+          <DataContent onClick={() => navigator(`/rooms/${item.id_room}`)}>
+            <img src={item.typeRoom.pictures} alt="picture-Room" width={"150px"} />
           </DataContent>
-          <DataContent onClick={() => navigator(`/rooms/${room.id_room}`)}>
-            <h4>#{room.id_room}</h4>
+          <DataContent onClick={() => navigator(`/rooms/${item.id_room}`)}>
+            <h4>#{item.id_room}</h4>
             <h3>
-              {room.typeRoom.bed} - {room.numberRoom}
+              {item.typeRoom.bed} - {item.numberRoom}
             </h3>
           </DataContent>
         </DataWrapper>
@@ -38,23 +38,23 @@ export const Rooms = () => {
     },
     {
       label: "Room Type",
-      display: (room: Room) => `${room.typeRoom.bed}`,
+      display: (item: Room) => `${item.typeRoom.bed}`,
     },
     {
       label: "Room Floor",
-      display: (room: Room) => `Floor ${room.numberRoom}`,
+      display: (item: Room) => `Floor ${item.numberRoom}`,
     },
     {
       label: "Amenities",
-      display: (room: Room) => `${room.typeRoom.amenities}`,
+      display: (item: Room) => `${item.typeRoom.amenities}`,
     },
     {
       label: "Price per Night",
-      display: (room: Room) => `${room.priceNight}`,
+      display: (item: Room) => `${item.priceNight}`,
     },
     {
       label: "Status",
-      display: (room: Room) => `${room.statusRoom}`,
+      display: (item: Room) => `${item.statusRoom}`,
     },
   ];
 

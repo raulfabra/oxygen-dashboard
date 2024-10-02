@@ -1,18 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
-import { AuthProvider } from "./app/Providers/AuthProvider";
-import { store } from "./app/store";
 import App from "./App";
-import { GlobalStyle } from "./styles/GlobalStyle";
 import "./index.css";
+import { GlobalStyle } from "./styles/GlobalStyle";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+import { AuthProvider } from "./app/Providers/AuthProvider";
+import { DataProvider } from "./app/Providers/DataProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthProvider>
-        <GlobalStyle />
-        <App />
+        <DataProvider>
+          <GlobalStyle />
+          <App />
+        </DataProvider>
       </AuthProvider>
     </Provider>
   </React.StrictMode>
