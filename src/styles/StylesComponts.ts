@@ -325,7 +325,7 @@ export const ColumnHeader = styled.th`
   color: ${colors.tertiary};
 `;
 
-export const Row = styled.tr<{ $header: string }>`
+export const Row = styled.tr<{ $header?: boolean; $key?: any }>`
   height: ${(props) => (props.$header ? "65px" : "92px")};
   background: #ffffff 0% 0% no-repeat padding-box;
   cursor: default;
@@ -364,3 +364,31 @@ export const IconWrapper = styled.div<{ $width: string }>`
 export const RoomNameColumn = styled.td`
   display: flex;
 `;
+
+//pagination
+export const PaginationWrapper = styled.nav`
+  margin: 3em;
+  display: flex;
+  justify-content: space-around;
+`;
+export const PaginationText = styled.div``;
+
+export const PaginationTable = styled.ul`
+  padding: 1em;
+  display: flex;
+  text-decoration: none;
+  list-style-type: none;
+  justify-content: center;
+  gap: 2em;
+  font-size: 1.5rem;
+  border: 2px solid black;
+`;
+export const Numbers = styled.li`
+  background-color: ${colors.quaternary};
+  border: 2px solid ${colors.primary};
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const ShowingPage = styled.p``;

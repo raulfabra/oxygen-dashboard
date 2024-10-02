@@ -2,28 +2,34 @@ import { Pagination } from "./Pagination";
 import { ColumnHeader, Row, RowData, TableBody, TableHead, Tables, TableWrapper } from "../../styles/StylesComponts";
 import { useContext } from "react";
 import { PaginationContext } from "../../app/Contexts/PaginationContext";
+import { Booking, Customer, Models, PageInterface, Room, User } from "../../types/global";
 
-export const Table = ({ data, columns }) => {
+interface ColumnsTableInterface {
+  label: string;
+  display: (item: Booking | User | Room | Customer) => JSX.Element | string;
+}
+
+export const Table = (data: any, columns: ColumnsTableInterface[]) => {
   const context = useContext(PaginationContext);
   const rowsPerPage = 10;
-  const lastIndex = context.currentPageState * rowsPerPage; // The last index is a the last element of our DataBase.
+  const lastIndex = (context as PageInterface).currentPageState * rowsPerPage;
   const firstIndex = lastIndex - rowsPerPage;
-  const rows = data.slice(firstIndex, lastIndex); // Content of each row per page */
+  const rows = data.data.slice(firstIndex, lastIndex);
 
   return (
     <TableWrapper>
       <Tables>
         <TableHead>
           <Row $header>
-            {columns.map((column, index) => (
-              <ColumnHeader key={index}>{column.label}</ColumnHeader>
+            {data.columns.map((header: any, index: any) => (
+              <ColumnHeader key={index}>{header.label}</ColumnHeader>
             ))}
           </Row>
         </TableHead>
         <TableBody>
-          {rows.map((dat, index) => (
+          {rows.map((dat: Models[0], index: number) => (
             <Row key={index + 100}>
-              {columns.map((column, index) => (
+              {data.columns.map((column: any, index: any) => (
                 <RowData key={index + 1000}>{column.display(dat)}</RowData>
               ))}
             </Row>

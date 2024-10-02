@@ -1,19 +1,22 @@
-import { SyntheticEvent, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { getUsersListData, getUsersListError, getUsersListStatus } from "../../redux/users/UsersSlice";
-import { getUsersThunk } from "../../redux/users/UserThunk";
-import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataContent, DataWrapper } from "../../styles/StylesComponts";
-import { Table } from "../../components/Table/Table";
 import db_json from "../../json/dataUsers.json";
-import debounce from "just-debounce-it";
-import { PaginationProvider } from "../../app/Providers/PaginationProvider";
+import { useNavigate } from "react-router-dom";
 import { useLoadingData } from "../../hook/useLoadingData";
+import { getUsersThunk } from "../../redux/users/UserThunk";
+import { getUsersListData, getUsersListError, getUsersListStatus } from "../../redux/users/UsersSlice";
+import { PaginationProvider } from "../../app/Providers/PaginationProvider";
+import { Table } from "../../components/Table/Table";
+import { Main, NavTable, FilterTable, CreateElement, OptionsFiltered, DataContent, DataWrapper } from "../../styles/StylesComponts";
 import { User } from "../../types/global";
 
 export const Users = () => {
   const navigator = useNavigate();
 
-  const { dataJson, refreshData } = useLoadingData(getUsersListData, getUsersListError, getUsersListStatus, getUsersThunk);
+  const { dataJson, refreshData } = useLoadingData({
+    getData: getUsersListData,
+    getError: getUsersListError,
+    getStatus: getUsersListStatus,
+    getApiThunk: getUsersThunk,
+  });
 
   //Create table: column and data
   const columns = [
@@ -49,37 +52,37 @@ export const Users = () => {
       display: (user: User) => `${user.statusEmployeer}`,
     },
   ];
-  const handleOption = (event: SyntheticEvent) => {
-    const name = event.target.textContent;
+  const handleOption = (event: React.MouseEvent<HTMLLIElement>) => {
+    const name = event.currentTarget.textContent;
 
     if (name === "All Employee") {
-      refreshData(db_json);
+      refreshData(dataJson as User[]);
     }
     if (name === "Active Employee") {
-      const newData = db_json.filter((user) => user.statusEmployeer === "Active");
-
+      const newData = (dataJson as User[]).filter((user) => user.statusEmployeer === "Active");
       refreshData(newData);
     }
     if (name === "Inactive Employee") {
-      const newData = db_json.filter((user) => user.statusEmployeer === "Inactive");
+      const newData = (dataJson as User[]).filter((user) => user.statusEmployeer === "Inactive");
 
       refreshData(newData);
     }
   };
 
-  const debouncedGetEmployee = useCallback(
+  /*   const debouncedGetEmployee = useCallback(
     debounce((newList: User) => {
       refreshData(newList);
     }, 500)
-  );
+  ); */
 
-  const handleSearchByName = (event: SyntheticEvent) => {
-    const target = event.target as HTMLInputElement;
-    const value = target.value.toLowerCase();
-    if (!dataJson) throw new Error("The json data was null");
-    const newList = dataJson.filter((user) => user.fullName.toLowerCase().includes(value));
-    if (value === "") return debouncedGetEmployee(db_json);
-    else debouncedGetEmployee(newList);
+  const handleSearchByName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!dataJson) throw Error("The json data was null");
+    else {
+      const value = event.target.value.toLowerCase();
+      const newList = (dataJson as User[]).filter((user) => user.fullName.toLowerCase().includes(value));
+    }
+    /* if (value === "") return debouncedGetEmployee(db_json);
+    else debouncedGetEmployee(newList); */
   };
 
   return (

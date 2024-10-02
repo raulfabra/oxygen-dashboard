@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Main } from "../../styles/StylesComponts";
+import { Room } from "../../types/global";
 
 export const CreateRoom = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Room>({
     photo: "",
     roomType: "",
     roomNumber: "",
@@ -14,17 +15,17 @@ export const CreateRoom = () => {
     amenities: [],
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
 
     setFormData({
       ...formData,
-      [name]: type === "file" ? URL.createObjectURL(files[0]) : value,
+      [name]: value,
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     console.log("Room Data:", formData);
 

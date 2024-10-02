@@ -155,7 +155,7 @@ export interface pagination {
   currentPage: number;
 }
 export interface PageAction {
-  payload: pagination;
+  payload: number;
   type: string;
 }
 export interface PageInterface {
@@ -166,15 +166,34 @@ export interface PageInterface {
 // <---------------------------------
 
 // PROVIDERS
+export interface DataStateInterface {
+  status: "idle" | "rooms" | "bookings" | "users" | "customers";
+  data: Models | [];
+}
+
 interface Props {
   children: React.ReactNode;
+}
+
+// MENÚ-LATERAL-HOVER
+export interface MenuMouseHover {
+  [key: string]: boolean;
 }
 
 // <---------------------------------
 
 // CUSTOM-HOOKS
+export type Models = Booking[] | Room[] | User[] | Customer[];
+
 export interface DataIdInterface {
   id: number;
-  getData: (state: RootState) => Booking[] | Room[] | User[] | Customer[] | null;
+  getData: (state: RootState) => Models | null;
   getApiThunk: (id: number) => any;
+}
+
+export interface DataInterface {
+  getData: (state: RootState) => Models | null;
+  getStatus: (state: RootState) => "idle" | "rejected" | "fulfilled" | "pending";
+  getError: (state: RootState) => string | undefined;
+  getApiThunk: () => any;
 }
