@@ -32,11 +32,11 @@ export const Login = () => {
 
     if (email === hardCodeUser.email && password === hardCodeUser.password) {
       context?.authDispatch({ type: "login", payload: { authentication: true, email, password, fullName: "admin" } });
-      setMessageCredentialsError(true);
+      setMessageCredentialsError(false);
       navigate("/dashboard");
     } else {
       context?.authDispatch({ type: "error", payload: { authentication: false, email, password, fullName: "" } });
-      setMessageCredentialsError(false);
+      setMessageCredentialsError(true);
     }
   };
 

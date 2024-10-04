@@ -4,33 +4,38 @@ import { useContext } from "react";
 import { PaginationContext } from "../../app/Contexts/PaginationContext";
 import { Booking, Customer, Models, PageInterface, Room, User } from "../../types/global";
 
-interface ColumnsTableInterface {
+interface Columns {
   label: string;
   display: (item: Booking | User | Room | Customer) => JSX.Element | string;
 }
 
-export const Table = (data: any, columns: ColumnsTableInterface[]) => {
+interface TableProps {
+  data: Models;
+  columns: Columns[];
+}
+
+export const Table = ({ data, columns }: TableProps) => {
   const context = useContext(PaginationContext);
   const rowsPerPage = 10;
   const lastIndex = (context as PageInterface).currentPageState * rowsPerPage;
   const firstIndex = lastIndex - rowsPerPage;
-  const rows = data.data.slice(firstIndex, lastIndex);
+  const rows = data.slice(firstIndex, lastIndex);
 
   return (
     <TableWrapper>
       <Tables>
         <TableHead>
           <Row $header>
-            {data.columns.map((header: any, index: any) => (
+            {columns.map((header: any, index: any) => (
               <ColumnHeader key={index}>{header.label}</ColumnHeader>
             ))}
           </Row>
         </TableHead>
         <TableBody>
-          {rows.map((dat: Models[0], index: number) => (
+          {rows.map((dato: Models[0], index: number) => (
             <Row key={index + 100}>
-              {data.columns.map((column: any, index: any) => (
-                <RowData key={index + 1000}>{column.display(dat)}</RowData>
+              {columns.map((column: Columns, index: number) => (
+                <RowData key={index + 1000}>{column.display(dato)}</RowData>
               ))}
             </Row>
           ))}

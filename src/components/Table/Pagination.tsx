@@ -3,16 +3,21 @@ import { PaginationContext } from "../../app/Contexts/PaginationContext";
 import { Numbers, PaginationTable, PaginationText, PaginationWrapper, ShowingPage } from "../../styles/StylesComponts";
 import { Models, PageInterface } from "../../types/global";
 
-export const Pagination = (dataBase: any, rowsPerPage: number) => {
+interface PaginationProps {
+  dataBase: Models;
+  rowsPerPage: number;
+}
+
+export const Pagination = ({ dataBase, rowsPerPage }: PaginationProps) => {
   const context = useContext(PaginationContext);
-  const npage = Math.ceil(dataBase.dataBase.data.length / dataBase.rowsPerPage); // Number of pages have our table
+  const npage = Math.ceil(dataBase.length / rowsPerPage); // Number of pages have our table
   const numbers = [...Array(npage + 1).keys()].slice(1); // All numbers of our table saved in Array
 
   return (
     <PaginationWrapper>
       <PaginationText>
         <ShowingPage>
-          Showing {dataBase.rowsPerPage} of {dataBase.dataBase.data.length} Data
+          Showing {rowsPerPage} of {dataBase.length} Data
         </ShowingPage>
       </PaginationText>
       <PaginationTable>
