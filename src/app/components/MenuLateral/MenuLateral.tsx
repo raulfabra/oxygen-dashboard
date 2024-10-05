@@ -55,26 +55,26 @@ export function MenuLateral() {
           <ItemName datatype="dashboard"> Dashboard </ItemName>
         </ItemWrapper>
 
-        <ItemWrapper datatype="rooms" onClick={() => navigate("/rooms")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemWrapper datatype="rooms" onClick={() => navigate("/room")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <ItemSelect $isVisible={isHoverMenuItems.rooms} />
           <TfiKey />
           <ItemName datatype="rooms"> Room </ItemName>
           <MdOutlineKeyboardArrowDown style={{ position: "absolute", left: "80%" }} />
         </ItemWrapper>
 
-        <ItemWrapper datatype="bookings" onClick={() => navigate("/bookings")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemWrapper datatype="bookings" onClick={() => navigate("/booking")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <ItemSelect $isVisible={isHoverMenuItems.bookings} />
           <LuCalendarCheck />
           <ItemName datatype="bookings"> Bookings </ItemName>
         </ItemWrapper>
 
-        <ItemWrapper datatype="users" onClick={() => navigate("/users")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemWrapper datatype="users" onClick={() => navigate("/user")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <ItemSelect $isVisible={isHoverMenuItems.users} />
           <RiUserSharedFill />
           <ItemName datatype="users"> Users </ItemName>
         </ItemWrapper>
 
-        <ItemWrapper datatype="customers" onClick={() => navigate("/customers")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <ItemWrapper datatype="customers" onClick={() => navigate("/customer")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <ItemSelect $isVisible={isHoverMenuItems.customers} />
           <RiContactsBook3Fill />
           <ItemName datatype="customers"> Customer </ItemName>

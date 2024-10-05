@@ -4,10 +4,12 @@ import { useContext } from "react";
 import { PaginationContext } from "../../Contexts/PaginationContext";
 import { Booking, TypeBookingColumns } from "../../../Bookings/types/type";
 import { Room, TypeRoomsColumns } from "../../../Rooms/types/type";
+import { Customer, TypeCustomerColumns } from "../../../Customers/types/type";
+import { TypeUserColumns, User } from "../../../Users/types/type";
 
 interface TableProps {
-  data: Booking[] | Room[];
-  columns: TypeBookingColumns[] | TypeRoomsColumns[];
+  data: Booking[] | Room[] | User[] | Customer[];
+  columns: TypeBookingColumns[] | TypeRoomsColumns[] | TypeUserColumns[] | TypeCustomerColumns[];
 }
 
 export const Table = ({ data, columns }: TableProps) => {
