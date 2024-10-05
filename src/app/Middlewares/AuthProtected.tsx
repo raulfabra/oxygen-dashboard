@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../Contexts/AuthContext";
 
-export const AuthProtect = () => {
+export const AuthProtected = () => {
   const context = useContext(AuthContext);
 
   if (!context) {
