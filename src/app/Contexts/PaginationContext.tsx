@@ -1,4 +1,4 @@
 import { createContext } from "react";
-import { PageInterface } from "../../types/global";
+import { TypePaginationContext } from "./type";
 
-export const PaginationContext = createContext<null | PageInterface>(null);
+export const PaginationContext = createContext<TypePaginationContext | null>(null);

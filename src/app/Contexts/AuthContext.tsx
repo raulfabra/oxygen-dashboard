@@ -1,4 +1,4 @@
 import { createContext } from "react";
-import { AuthInterface } from "../../types/global";
+import { TypeAuthContext } from "./type";
 
-export const AuthContext = createContext<null | AuthInterface>(null);
+export const AuthContext = createContext<TypeAuthContext | null>(null);
