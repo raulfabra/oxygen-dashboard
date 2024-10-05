@@ -4,9 +4,11 @@ import { Numbers, PaginationTable, PaginationText, PaginationWrapper, ShowingPag
 import { Booking } from "../../../Bookings/types/type";
 import { TypePaginationContext } from "../../Contexts/type";
 import { Room } from "../../../Rooms/types/type";
+import { Customer } from "../../../Customers/types/type";
+import { User } from "../../../Users/types/type";
 
 interface PaginationProps {
-  dataBase: Booking[] | Room[];
+  dataBase: Booking[] | Room[] | User[] | Customer[];
   rowsPerPage: number;
 }
 

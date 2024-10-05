@@ -18,13 +18,13 @@ export const MenuHeader = () => {
   useEffect(() => {
     const newTitle = location.pathname.substring(1).charAt(0).toUpperCase() + location.pathname.substring(1).slice(1);
     switch (true) {
-      case newTitle.includes("Bookings/"):
+      case newTitle.includes("Booking/"):
         setTitleNavbar("Booking Details");
         break;
-      case newTitle.includes("Rooms/"):
+      case newTitle.includes("Room/"):
         setTitleNavbar("Room Name");
         break;
-      case newTitle.includes("Users/"):
+      case newTitle.includes("User/"):
         setTitleNavbar("User");
         break;
       default:
