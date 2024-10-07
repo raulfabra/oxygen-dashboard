@@ -24,7 +24,9 @@ export const DataContent = styled.div`
   }
 `;
 
-export const ModalWrapper = styled.div<{ $top?: string; $left?: string; $width?: string; $height?: string }>`
+export const Notes = styled.button``;
+
+export const ModalWrapper = styled.div<{ $top?: boolean; $left?: boolean; $width?: boolean; $height?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +72,4 @@ export const IconWrapper = styled.div<{ $width: string }>`
     transform: scale(1.1);
     cursor: pointer;
   }
-`;
-export const RoomNameColumn = styled.td`
-  display: flex;
 `;
