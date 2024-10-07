@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Table } from "../../app/components/Table/Table";
 import { PaginationProvider } from "../../app/Providers/PaginationProvider";
-import { DataWrapper, DataContent, ModalWrapper, ModalContent, ModalText, ModalExit } from "../styles/booking-styles";
+import { DataWrapper, DataContent, ModalWrapper, ModalContent, ModalText, ModalExit, Notes } from "../styles/booking-styles";
 import { TypeBookingColumns } from "../types/type";
 import iconPerson from "../../app/assets/noun-person.svg";
 import { useBookingActions } from "../hooks/useBookingActions";
@@ -31,25 +31,25 @@ function fillColumns(): TypeBookingColumns[] {
     },
     {
       label: "Order Date",
-      display: (item) => `${item.orderDate}`,
+      display: (item) => <p>{item.orderDate.toString()}</p>,
     },
     {
       label: "Check In",
-      display: (item) => `${item.checkin}`,
+      display: (item) => <p>{item.checkin.toString()}</p>,
     },
     {
       label: "Check Out",
-      display: (item) => `${item.checkout}`,
+      display: (item) => <p>{item.checkout.toString()}</p>,
     },
     {
       label: "Special Request",
       display: (item) => (
         <div>
-          <p onClick={() => handleShowModal(item.id)}>View Notes</p>
+          <Notes onClick={() => handleShowModal(item.id)}>View Notes</Notes>
           {viewNote && (
-            <ModalWrapper>
+            <ModalWrapper $top $left $width $height>
               <ModalContent>
-                <ModalText> SPECIAL REQUEST #{viewNote.id_booking} </ModalText>
+                <ModalText> SPECIAL REQUEST #{viewNote.id} </ModalText>
                 <hr />
                 <ModalText> {viewNote.request} </ModalText>
                 <ModalExit onClick={handleCloseModal}> ✖ </ModalExit>
