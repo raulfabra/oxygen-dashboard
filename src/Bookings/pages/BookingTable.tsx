@@ -31,15 +31,15 @@ function fillColumns(): TypeBookingColumns[] {
     },
     {
       label: "Order Date",
-      display: (item) => `${item.orderDate}`,
+      display: (item) => <p>{item.orderDate.toString()}</p>,
     },
     {
       label: "Check In",
-      display: (item) => `${item.checkin}`,
+      display: (item) => <p>{item.checkin.toString()}</p>,
     },
     {
       label: "Check Out",
-      display: (item) => `${item.checkout}`,
+      display: (item) => <p>{item.checkout.toString()}</p>,
     },
     {
       label: "Special Request",

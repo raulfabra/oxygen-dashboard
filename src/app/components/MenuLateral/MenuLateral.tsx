@@ -82,13 +82,12 @@ export function MenuLateral() {
 
         <UserWrapper>
           <SquarePhoto>
-            <img src="" alt="" style={{ objectFit: "contain", width: "100%", height: "100%" }} />
+            <img src="/public/chaval.jpg" alt="Person" style={{ objectFit: "contain", width: "100%", height: "100%" }} />
           </SquarePhoto>
           <UserName> Williams Johnsoon</UserName>
           <UserEmail> williams@gmail.com</UserEmail>
-          <SettingButton>
-            {" "}
-            <IoMdSettings onClick={() => navigate("/")} />{" "}
+          <SettingButton onClick={() => navigate("/user/details")}>
+            <IoMdSettings />
           </SettingButton>
         </UserWrapper>
 
