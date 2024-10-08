@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/utils/storetsc";
-import { deleteBookingById, orderBookings } from "../redux/bookingSlice";
-import { getBooking_ID_Thunk } from "../redux/bookingThunk";
+import { deleteBookingById, filterBookingsByStatus, orderBookings } from "../redux/bookingSlice";
+import { getBookingsThunk, getBooking_ID_Thunk } from "../redux/bookingThunk";
 import { Booking } from "../types/type";
 
 export const useBookingActions = () => {
@@ -33,5 +33,11 @@ export const useBookingActions = () => {
     }
   };
 
-  return { handleOrderBy, handleDisplayBookingID, handleRemoveBooking };
+  // Filtrar por Status
+  const handleFilteredBy = async (status?: string) => {
+    await dispatch(getBookingsThunk());
+    if (status) dispatch(filterBookingsByStatus(status));
+  };
+
+  return { handleFilteredBy, handleOrderBy, handleDisplayBookingID, handleRemoveBooking };
 };

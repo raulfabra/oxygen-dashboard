@@ -45,6 +45,28 @@ export const bookingSlice = createSlice({
             ? (state.dataList = state.dataList.sort((a, b) => a.checkout.toString().localeCompare(b.checkout.toString())))
             : (state.dataList = state.dataList.sort((a, b) => b.checkout.toString().localeCompare(a.checkout.toString())));
           break;
+        default:
+          state.dataList;
+          break;
+      }
+    },
+    filterBookingsByStatus: (state, action) => {
+      switch (action.payload) {
+        case "pending":
+          state.dataList = state.dataList.filter((data) => data.status === "Pending");
+          break;
+        case "booked":
+          state.dataList = state.dataList.filter((data) => data.status === "Booked");
+          break;
+        case "canceled":
+          state.dataList = state.dataList.filter((data) => data.status === "Canceled");
+          break;
+        case "refund":
+          state.dataList = state.dataList.filter((data) => data.status === "Refund");
+          break;
+        default:
+          state.dataList;
+          break;
       }
     },
   },
@@ -77,4 +99,4 @@ export const bookingSlice = createSlice({
   },
 });
 
-export const { deleteBookingById, orderBookings } = bookingSlice.actions;
+export const { deleteBookingById, orderBookings, filterBookingsByStatus } = bookingSlice.actions;

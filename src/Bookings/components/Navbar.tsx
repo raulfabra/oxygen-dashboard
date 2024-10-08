@@ -1,25 +1,8 @@
 import { NavTable, FilterTable, CreateElement, OptionsFiltered } from "../../app/components/Table/styleNavbar";
+import { useBookingActions } from "../hooks/useBookingActions";
 
 export const Navbar = () => {
-  // Order Filters for table: (variable handleOptions)
-  const handleOptions = (event: React.MouseEvent<HTMLLIElement>) => {
-    const option = event.currentTarget.textContent;
-
-    switch (option) {
-      case "All Bookings":
-        break;
-      case "Pending":
-        break;
-      case "Canceled":
-
-      case "Booked":
-
-      case "Refund":
-
-      default:
-    }
-  };
-
+  const { handleFilteredBy } = useBookingActions();
   // Order Filters by searchKeyboard auto
   const handleSearchByName = () => {};
   // Técnica debounce. Retrasar las llamadas y que se lanzen una vez finalizada.
@@ -31,11 +14,11 @@ export const Navbar = () => {
   return (
     <NavTable>
       <FilterTable>
-        <OptionsFiltered onClick={handleOptions}>All Bookings</OptionsFiltered>
-        <OptionsFiltered onClick={handleOptions}>Pending</OptionsFiltered>
-        <OptionsFiltered onClick={handleOptions}>Booked</OptionsFiltered>
-        <OptionsFiltered onClick={handleOptions}>Canceled</OptionsFiltered>
-        <OptionsFiltered onClick={handleOptions}>Refund</OptionsFiltered>
+        <OptionsFiltered onClick={() => handleFilteredBy()}>All Bookings</OptionsFiltered>
+        <OptionsFiltered onClick={() => handleFilteredBy("pending")}>Pending</OptionsFiltered>
+        <OptionsFiltered onClick={() => handleFilteredBy("booked")}>Booked</OptionsFiltered>
+        <OptionsFiltered onClick={() => handleFilteredBy("canceled")}>Canceled</OptionsFiltered>
+        <OptionsFiltered onClick={() => handleFilteredBy("refund")}>Refund</OptionsFiltered>
       </FilterTable>
       <form>
         <label htmlFor="nameCustomer">Name of client</label>
