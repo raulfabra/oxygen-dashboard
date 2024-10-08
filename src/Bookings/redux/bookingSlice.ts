@@ -23,6 +23,30 @@ export const bookingSlice = createSlice({
       const id = action.payload;
       state.dataList = state.dataList.filter((user) => user.id !== id);
     },
+    orderBookings: (state, action) => {
+      switch (action.payload.option) {
+        case "guest":
+          action.payload.status
+            ? (state.dataList = state.dataList.sort((a, b) => a.fullName.toLowerCase().localeCompare(b.fullName.toLowerCase())))
+            : (state.dataList = state.dataList.sort((a, b) => b.fullName.toLowerCase().localeCompare(a.fullName.toLowerCase())));
+          break;
+        case "orderdate":
+          action.payload.status
+            ? (state.dataList = state.dataList.sort((a, b) => a.orderDate.toString().localeCompare(b.orderDate.toString())))
+            : (state.dataList = state.dataList.sort((a, b) => b.orderDate.toString().localeCompare(a.orderDate.toString())));
+          break;
+        case "checkin":
+          action.payload.status
+            ? (state.dataList = state.dataList.sort((a, b) => a.checkin.toString().localeCompare(b.checkin.toString())))
+            : (state.dataList = state.dataList.sort((a, b) => b.checkin.toString().localeCompare(a.checkin.toString())));
+          break;
+        case "checkout":
+          action.payload.status
+            ? (state.dataList = state.dataList.sort((a, b) => a.checkout.toString().localeCompare(b.checkout.toString())))
+            : (state.dataList = state.dataList.sort((a, b) => b.checkout.toString().localeCompare(a.checkout.toString())));
+          break;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -53,4 +77,4 @@ export const bookingSlice = createSlice({
   },
 });
 
-export const { deleteBookingById } = bookingSlice.actions;
+export const { deleteBookingById, orderBookings } = bookingSlice.actions;
