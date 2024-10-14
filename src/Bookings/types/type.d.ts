@@ -25,6 +25,6 @@ export enum Status {
 }
 
 export interface TypeBookingColumns {
-  label: string;
+  label: JSX.Element | string;
   display: (item: Booking) => JSX.Element | string;
 }

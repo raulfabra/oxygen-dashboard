@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useBookingDatos } from "./useBookingDatos";
 
-export const useBookingNotes = () => {
+export const useBookingFunctions = () => {
   const [viewNote, setViewNote] = useState<any>(null);
   const { showData, setShowData } = useBookingDatos();
 

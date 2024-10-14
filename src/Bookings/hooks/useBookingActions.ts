@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/utils/storetsc";
-import { deleteBookingById } from "../redux/bookingSlice";
-import { getBooking_ID_Thunk } from "../redux/bookingThunk";
+import { deleteBookingById, filterBookingsByStatus, orderBookings } from "../redux/bookingSlice";
+import { getBookingsThunk, getBooking_ID_Thunk } from "../redux/bookingThunk";
 import { Booking } from "../types/type";
 
 export const useBookingActions = () => {
   const navigator = useNavigate();
   const dispatch = useAppDispatch();
+  const [typeOrder, setTypeOrder] = useState(true);
 
   // Detalles Reserva
   const handleDisplayBookingID = (id: Booking["id"]) => {
@@ -19,5 +21,23 @@ export const useBookingActions = () => {
     dispatch(deleteBookingById(id));
   };
 
-  return { handleDisplayBookingID, handleRemoveBooking };
+  // Ordenar por Date
+  const handleOrderBy = (status: boolean, option: string) => {
+    if (status === typeOrder) {
+      dispatch(orderBookings({ status, option }));
+      setTypeOrder(false);
+    }
+    if (status !== typeOrder) {
+      dispatch(orderBookings({ status: false, option }));
+      setTypeOrder(true);
+    }
+  };
+
+  // Filtrar por Status
+  const handleFilteredBy = async (status?: string) => {
+    await dispatch(getBookingsThunk());
+    if (status) dispatch(filterBookingsByStatus(status));
+  };
+
+  return { handleFilteredBy, handleOrderBy, handleDisplayBookingID, handleRemoveBooking };
 };

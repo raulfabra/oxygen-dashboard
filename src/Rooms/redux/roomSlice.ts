@@ -23,6 +23,19 @@ export const roomSlice = createSlice({
       const id = action.payload;
       state.dataList = state.dataList.filter((room) => room.id !== id);
     },
+    filterRoomsByStatus: (state, action) => {
+      switch (action.payload) {
+        case "available":
+          state.dataList = state.dataList.filter((data) => data.status === "Available");
+          break;
+        case "booked":
+          state.dataList = state.dataList.filter((data) => data.status === "Booked");
+          break;
+        default:
+          state.dataList;
+          break;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,4 +64,4 @@ export const roomSlice = createSlice({
   },
 });
 
-export const { deleteRoomById } = roomSlice.actions;
+export const { deleteRoomById, filterRoomsByStatus } = roomSlice.actions;

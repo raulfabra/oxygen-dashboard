@@ -1,7 +1,8 @@
 import { useAppDispatch } from "../../app/utils/storetsc";
 import { Room } from "../types/type";
-import { getRoom_ID_Thunk } from "../redux/roomThunk";
+import { getRoom_ID_Thunk, getRoomsThunk } from "../redux/roomThunk";
 import { useNavigate } from "react-router-dom";
+import { filterRoomsByStatus } from "../redux/roomSlice";
 
 export const useRoomsActions = () => {
   const navigator = useNavigate();
@@ -16,5 +17,10 @@ export const useRoomsActions = () => {
   // Eliminar Reserva
   const handleRemoveBooking = (id: Room["id"]) => {};
 
-  return { handleDisplayRoomID, handleRemoveBooking };
+  const handleFilteredBy = async (status?: string) => {
+    await dispatch(getRoomsThunk());
+    if (status) dispatch(filterRoomsByStatus(status));
+  };
+
+  return { handleFilteredBy, handleDisplayRoomID, handleRemoveBooking };
 };

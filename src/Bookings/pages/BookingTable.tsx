@@ -6,17 +6,17 @@ import { DataWrapper, DataContent, ModalWrapper, ModalContent, ModalText, ModalE
 import { TypeBookingColumns } from "../types/type";
 import iconPerson from "../../app/assets/noun-person.svg";
 import { useBookingActions } from "../hooks/useBookingActions";
-import { useBookingNotes } from "../hooks/useBookingNotes";
+import { useBookingFunctions } from "../hooks/useBookingFunctions";
 import { useBookingDatos } from "../hooks/useBookingDatos";
 
 function fillColumns(): TypeBookingColumns[] {
   const navigator = useNavigate();
-  const { handleDisplayBookingID, handleRemoveBooking } = useBookingActions();
-  const { handleShowModal, handleCloseModal, viewNote } = useBookingNotes();
+  const { handleOrderBy, handleDisplayBookingID, handleRemoveBooking } = useBookingActions();
+  const { handleShowModal, handleCloseModal, viewNote } = useBookingFunctions();
 
   return [
     {
-      label: "Guest",
+      label: <p onClick={() => handleOrderBy(true, "guest")}>Guest</p>,
       display: (item) => (
         <DataWrapper>
           <DataContent onClick={() => handleDisplayBookingID(item.id)}>
@@ -30,15 +30,15 @@ function fillColumns(): TypeBookingColumns[] {
       ),
     },
     {
-      label: "Order Date",
+      label: <p onClick={() => handleOrderBy(true, "orderdate")}>Order Date</p>,
       display: (item) => <p>{item.orderDate.toString()}</p>,
     },
     {
-      label: "Check In",
+      label: <p onClick={() => handleOrderBy(true, "checkin")}>Check In</p>,
       display: (item) => <p>{item.checkin.toString()}</p>,
     },
     {
-      label: "Check Out",
+      label: <p onClick={() => handleOrderBy(true, "checkout")}>Check Out</p>,
       display: (item) => <p>{item.checkout.toString()}</p>,
     },
     {
