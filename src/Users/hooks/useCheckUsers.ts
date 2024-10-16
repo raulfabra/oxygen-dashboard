@@ -24,5 +24,9 @@ export const useCheckUsers = () => {
     }
   };
 
-  return { handleLogin, showMessageCredentialsError };
+  const handleLogout = () => {
+    context?.authDispatch({ type: "logout", payload: { email: "", password: "", token: "" } });
+  };
+
+  return { handleLogin, handleLogout, showMessageCredentialsError };
 };

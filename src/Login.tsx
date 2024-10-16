@@ -1,6 +1,4 @@
-import { SyntheticEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./app/Contexts/AuthContext";
+import { useState } from "react";
 import { MdLightbulb } from "react-icons/md";
 import {
   ButtonLogin,
@@ -18,12 +16,6 @@ import {
   TitleHotelDashboard,
 } from "./styleLogin";
 import { useCheckUsers } from "./Users/hooks/useCheckUsers";
-
-export const mockUser = {
-  id: 100,
-  email: "employer33@gmail.com",
-  password: "1234",
-};
 
 export const Login = () => {
   const [email, setEmail] = useState("");
