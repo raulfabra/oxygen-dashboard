@@ -1,6 +1,4 @@
-import { SyntheticEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./app/Contexts/AuthContext";
+import { useState } from "react";
 import { MdLightbulb } from "react-icons/md";
 import {
   ButtonLogin,
@@ -17,34 +15,13 @@ import {
   TitleContainer,
   TitleHotelDashboard,
 } from "./styleLogin";
-
-export const mockUser = {
-  id: 100,
-  email: "employer33@gmail.com",
-  password: "1234",
-};
+import { useCheckUsers } from "./Users/hooks/useCheckUsers";
 
 export const Login = () => {
-  const [showMessageCredentialsError, setMessageCredentialsError] = useState(false);
-  const [showTrackCount, setTrackCount] = useState(false);
-  const context = useContext(AuthContext);
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = (event: SyntheticEvent) => {
-    event.preventDefault();
-
-    if (email === mockUser.email && password === mockUser.password) {
-      context?.authDispatch({ type: "login", payload: { authentication: true, email, password, fullName: "admin" } });
-      setMessageCredentialsError(false);
-      navigate("/dashboard");
-    } else {
-      context?.authDispatch({ type: "error", payload: { authentication: false, email, password, fullName: "" } });
-      setMessageCredentialsError(true);
-    }
-  };
+  const [showTrackCount, setTrackCount] = useState(false);
+  const { handleLogin, showMessageCredentialsError } = useCheckUsers();
 
   return (
     <Main $login>
@@ -59,15 +36,15 @@ export const Login = () => {
         <ModalWrapper>
           <ModalContent>
             <ModalExit onClick={() => setTrackCount(!showTrackCount)}> ✖ </ModalExit>
-            <ModalText>Email ----&gt; employer33@gmail.com</ModalText>
-            <ModalText>Password -&gt; 1234</ModalText>
+            <ModalText>Email ----&gt; Cathy21@hotmail.com</ModalText>
+            <ModalText>Password -&gt; employer1234</ModalText>
           </ModalContent>
         </ModalWrapper>
       ) : (
         ""
       )}
 
-      <FormLogin onSubmit={handleLogin}>
+      <FormLogin onSubmit={(event) => handleLogin(event, email, password)}>
         <InputContainer>
           <LabelLogin htmlFor="email">Email</LabelLogin>
           <InputLogin

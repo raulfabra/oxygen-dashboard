@@ -17,6 +17,7 @@ export const useRoomsActions = () => {
   // Eliminar Reserva
   const handleRemoveBooking = (id: Room["id"]) => {};
 
+  // Filtrar por status
   const handleFilteredBy = async (status?: string) => {
     await dispatch(getRoomsThunk());
     if (status) dispatch(filterRoomsByStatus(status));

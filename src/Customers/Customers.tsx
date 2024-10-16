@@ -5,6 +5,7 @@ import { Navbar } from "./components/Navbar";
 import { TypeCustomerColumns } from "./types/type";
 import { useCustomerDatos } from "./hooks/useCustomerDatos";
 import { rateStarsAssessment } from "./utils/utils";
+import { getFormatDate } from "../app/utils/utils";
 
 function fillColumns(): TypeCustomerColumns[] {
   const navigator = useNavigate();
@@ -16,7 +17,7 @@ function fillColumns(): TypeCustomerColumns[] {
     },
     {
       label: "Date",
-      display: (customer) => `${customer.date}`,
+      display: (customer) => `${getFormatDate(customer.date)}`,
     },
     {
       label: "Customer",

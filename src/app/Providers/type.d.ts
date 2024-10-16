@@ -1,8 +1,7 @@
 export interface TypeAuthState {
-  fullName: string;
   email: string;
   password: string;
-  authentication: boolean;
+  token: string;
 }
 export interface TypeAuthAction {
   payload: TypeAuthState;

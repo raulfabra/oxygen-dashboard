@@ -20,7 +20,7 @@ function fillColumns(): TypeUserColumns[] {
           <DataContent>
             <h3>{user.fullName}</h3>
             <h4>#{user.id}</h4>
-            <h4>Joined on {user.StartDate.toString()}</h4>
+            <h4>Joined on {user.startDate.toString()}</h4>
           </DataContent>
         </DataWrapper>
       ),

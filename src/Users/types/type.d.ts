@@ -4,7 +4,7 @@ export interface User {
   email: string;
   phone: string;
   jobDesk: string;
-  StartDate: Date;
+  startDate: Date;
   picture: string;
   status: Status;
 }
