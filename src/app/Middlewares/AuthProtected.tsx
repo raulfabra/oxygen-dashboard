@@ -9,5 +9,5 @@ export const AuthProtected = () => {
     throw new Error("AuthMiddleware debe estar envuelto dentro de AuthProvider");
   }
 
-  return <>{context.authState.authentication ? <Outlet /> : <Navigate to="/login" replace />}</>;
+  return <>{context.authState.token !== "" ? <Outlet /> : <Navigate to="/login" replace />}</>;
 };

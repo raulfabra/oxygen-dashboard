@@ -1,19 +1,15 @@
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useCheckUsers } from "../../../Users/hooks/useCheckUsers";
 import { Div, Nav, NavWrapper, TitleNavBar } from "./styleMenuHeader";
-import { useContext, useEffect, useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
-import { AuthContext } from "../../Contexts/AuthContext";
 
 export const MenuHeader = () => {
   const [titleNavbar, setTitleNavbar] = useState("Dashboard");
   const location = useLocation();
-  const context = useContext(AuthContext);
-
-  const handleLogOut = () => {
-    context?.authDispatch({ type: "logout", payload: { fullName: "", email: "", password: "", authentication: false } });
-  };
+  const { handleLogout } = useCheckUsers();
 
   useEffect(() => {
     const newTitle = location.pathname.substring(1).charAt(0).toUpperCase() + location.pathname.substring(1).slice(1);
@@ -41,7 +37,7 @@ export const MenuHeader = () => {
         <Div>
           <MdOutlineEmail size={25} color="#135846" />
           <IoMdNotificationsOutline size={25} color="#135846" />
-          <IoLogOut size={25} color="#135846" style={{ cursor: "pointer" }} onClick={handleLogOut} />
+          <IoLogOut size={25} color="#135846" style={{ cursor: "pointer" }} onClick={handleLogout} />
         </Div>
       </NavWrapper>
     </Nav>
