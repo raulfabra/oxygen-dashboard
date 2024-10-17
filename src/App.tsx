@@ -10,12 +10,14 @@ import { RoomTable } from "./Rooms/pages/RoomTable";
 import { RoomDetails } from "./Rooms/pages/RoomDetails";
 import { UserTable } from "./Users/pages/UserTable";
 import { UserDetails } from "./Users/pages/UserDetails";
+import { Sign } from "./Users/pages/Sign";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="login" element={<Login />} />
+        <Route path="sign" element={<Sign />} />
         <Route element={<AuthProtected />}>
           <Route path="/" element={<Layout />}>
             <Route path="dashboard" element={<Dashboard />} />
