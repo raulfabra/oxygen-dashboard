@@ -16,3 +16,12 @@ export const getFormatDate = (date: Date) => {
   const dateFormat = `${day}/${month}/${year}`;
   return dateFormat;
 };
+
+export const inicialStateEmail = () => {
+  const accountFromStorage = localStorage.getItem("account");
+  return accountFromStorage ? JSON.parse(accountFromStorage).email : "";
+};
+export const inicialStatePassword = () => {
+  const accountFromStorage = localStorage.getItem("account");
+  return accountFromStorage ? JSON.parse(accountFromStorage).password : "";
+};

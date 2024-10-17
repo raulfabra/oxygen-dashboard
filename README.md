@@ -30,5 +30,3 @@ Dashboard for Hotel Miranda. Software for employers to administer Hotel Miranda.
 - 1.5rem ======> 24px.
 - 1.25rem ======> 20px.
 - 1rem ======> 16px.
-
-primary secondary tertiary quaternary quinary senary septenary octonary nonary denary
