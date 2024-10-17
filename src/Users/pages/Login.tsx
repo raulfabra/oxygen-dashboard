@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoginActions } from "../hooks/useLoginActions";
 import {
   Anchor,
   CheckBox,
@@ -14,10 +16,10 @@ import {
   SpanError,
   Subheading,
 } from "../styles/login-styles";
-import { useLoginActions } from "../hooks/useLoginActions";
 import { inicialStateEmail, inicialStatePassword } from "../../app/utils/utils";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState(inicialStateEmail);
   const [password, setPassword] = useState(inicialStatePassword);
 
@@ -57,7 +59,7 @@ export const Login = () => {
           <LoginButton type="submit">Login</LoginButton>
         </LoginForm>
         <Paragraph>
-          Don't have an account? <Anchor>Register Here</Anchor>
+          Don't have an account? <Anchor onClick={() => navigate("/sign")}>Register Here</Anchor>
         </Paragraph>
       </FormContainer>
     </Main>

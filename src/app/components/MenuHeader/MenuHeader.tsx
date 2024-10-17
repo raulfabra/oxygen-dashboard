@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useCheckUsers } from "../../../Users/hooks/useLoginActions";
+import { useLoginActions } from "../../../Users/hooks/useLoginActions";
 import { Div, Nav, NavWrapper, TitleNavBar } from "./styleMenuHeader";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
@@ -9,7 +9,7 @@ import { MdOutlineEmail } from "react-icons/md";
 export const MenuHeader = () => {
   const [titleNavbar, setTitleNavbar] = useState("Dashboard");
   const location = useLocation();
-  const { handleLogout } = useCheckUsers();
+  const { handleLogout } = useLoginActions();
 
   useEffect(() => {
     const newTitle = location.pathname.substring(1).charAt(0).toUpperCase() + location.pathname.substring(1).slice(1);
