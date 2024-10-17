@@ -4,11 +4,22 @@ import { AuthContext } from "../../app/Contexts/AuthContext";
 import { useAppDispatch } from "../../app/utils/storetsc";
 import { loginThunk } from "../redux/userThunk";
 
-export const useCheckUsers = () => {
+export const useLoginActions = () => {
   const [showMessageCredentialsError, setMessageCredentialsError] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
   const context = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const handleCheckBoxRemember = (event: React.ChangeEvent<HTMLInputElement>, email: string, password: string) => {
+    setIsChecked(event.target.checked);
+    if (event.target.checked) {
+      localStorage.setItem("account", JSON.stringify({ email, password }));
+    } else {
+      localStorage.removeItem("account");
+    }
+  };
 
   const handleLogin = async (event: SyntheticEvent, email: string, password: string) => {
     event.preventDefault();
@@ -28,5 +39,5 @@ export const useCheckUsers = () => {
     context?.authDispatch({ type: "logout", payload: { email: "", password: "", token: "" } });
   };
 
-  return { handleLogin, handleLogout, showMessageCredentialsError };
+  return { handleCheckBoxRemember, handleLogin, handleLogout, showMessageCredentialsError, isChecked };
 };
